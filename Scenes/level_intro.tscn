@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://coxunvt2id6yf"]
+
+[ext_resource type="Script" path="res://Scenes/level_intro.gd" id="1_rxh1t"]
+[ext_resource type="PackedScene" uid="uid://bvq8jboctuy" path="res://Scenes/bot/bot.tscn" id="1_yojdi"]
+[ext_resource type="PackedScene" uid="uid://dkocn8i1v20ai" path="res://Scenes/bg.tscn" id="2_eb8dm"]
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_rxh1t")
+
+[node name="Bot" parent="." instance=ExtResource("1_yojdi")]
+position = Vector2(654, 365)
+
+[node name="bg" type="Node" parent="."]
+
+[node name="ParallaxBackground" parent="bg" instance=ExtResource("2_eb8dm")]
+
+[node name="markers" type="Node" parent="."]
+
+[node name="output" type="Marker2D" parent="markers"]
+position = Vector2(1188, 275)
+
+[node name="input" type="Marker2D" parent="markers"]
+position = Vector2(75, 621)

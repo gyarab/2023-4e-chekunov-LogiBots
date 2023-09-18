@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvq8jboctuy"]
+
+[ext_resource type="Script" path="res://Scenes/bot/bot.gd" id="1_2ni1o"]
+[ext_resource type="Texture2D" uid="uid://t5ygd7gmptln" path="res://assets/bot.png" id="1_25cr2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tcuf"]
+size = Vector2(50, 50)
+
+[node name="Bot" type="CharacterBody2D"]
+script = ExtResource("1_2ni1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7tcuf")
+
+[node name="Bot" type="Sprite2D" parent="."]
+texture = ExtResource("1_25cr2")
+
+[node name="value" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -48.0
+offset_right = 20.0
+offset_bottom = -25.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="add" from="." to="." method="_on_add"]
+[connection signal="get_new" from="." to="." method="_on_get_new"]
+[connection signal="send_out" from="." to="." method="_on_send_out"]
+[connection signal="sub" from="." to="." method="_on_sub"]
