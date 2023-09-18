@@ -25,7 +25,7 @@ func _process(delta):
 	if is_moving and Variables.tick:
 		print("jsme tu?")
 		if direction == "left":
-			velocity = Vector2.LEFT * delta * 64 *60/ Variables.tick_time
+			velocity = Vector2.LEFT * delta * 64 * 60 / Variables.tick_time
 			move_and_slide()
 	
 	
