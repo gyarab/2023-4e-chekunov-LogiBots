@@ -15,10 +15,14 @@ run/main_scene="res://Scenes/level_intro.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Variables="*res://global/variables.gd"
+
 [display]
 
 window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_height=704
 
 [rendering]
 

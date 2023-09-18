@@ -1,23 +1,96 @@
 [gd_scene load_steps=4 format=3 uid="uid://coxunvt2id6yf"]
 
 [ext_resource type="Script" path="res://Scenes/level_intro.gd" id="1_rxh1t"]
-[ext_resource type="PackedScene" uid="uid://bvq8jboctuy" path="res://Scenes/bot/bot.tscn" id="1_yojdi"]
+[ext_resource type="PackedScene" uid="uid://kpldt8f0wv2g" path="res://Scenes/bot/bot.tscn" id="1_yojdi"]
 [ext_resource type="PackedScene" uid="uid://dkocn8i1v20ai" path="res://Scenes/bg.tscn" id="2_eb8dm"]
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_rxh1t")
 
-[node name="Bot" parent="." instance=ExtResource("1_yojdi")]
-position = Vector2(654, 365)
+[node name="bg" parent="." instance=ExtResource("2_eb8dm")]
 
-[node name="bg" type="Node" parent="."]
+[node name="interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="ParallaxBackground" parent="bg" instance=ExtResource("2_eb8dm")]
+[node name="Panel" type="Panel" parent="interface"]
+layout_mode = 0
+offset_left = 989.0
+offset_top = 100.0
+offset_right = 1276.0
+offset_bottom = 583.0
 
-[node name="markers" type="Node" parent="."]
+[node name="CodeEdit" type="CodeEdit" parent="interface"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 137.0
+offset_right = 1280.0
+offset_bottom = 521.0
+placeholder_text = "#program"
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
 
-[node name="output" type="Marker2D" parent="markers"]
-position = Vector2(1188, 275)
+[node name="botsSelect" type="OptionButton" parent="interface"]
+layout_mode = 0
+offset_left = 996.0
+offset_top = 105.0
+offset_right = 1125.0
+offset_bottom = 133.0
 
-[node name="input" type="Marker2D" parent="markers"]
-position = Vector2(75, 621)
+[node name="RunButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 528.0
+offset_right = 1074.0
+offset_bottom = 578.0
+text = "Run"
+
+[node name="SaveButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 1083.0
+offset_top = 528.0
+offset_right = 1168.0
+offset_bottom = 578.0
+text = "Save code"
+
+[node name="bots" type="Node" parent="."]
+
+[node name="bot" parent="bots" instance=ExtResource("1_yojdi")]
+position = Vector2(382, 507)
+
+[node name="bot2" parent="bots" instance=ExtResource("1_yojdi")]
+position = Vector2(573, 314)
+
+[node name="bot3" parent="bots" instance=ExtResource("1_yojdi")]
+position = Vector2(504, 141)
+
+[node name="TickTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="ErrorWindow" type="Window" parent="."]
+title = "Error"
+initial_position = 1
+size = Vector2i(400, 200)
+visible = false
+content_scale_size = Vector2i(400, 200)
+
+[node name="Label" type="Label" parent="ErrorWindow"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Error at line "
+
+[node name="ErrorButton" type="Button" parent="ErrorWindow"]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 68.0
+offset_bottom = 111.0
+text = "close"
+
+[connection signal="text_changed" from="interface/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="item_selected" from="interface/botsSelect" to="." method="_on_bots_select_item_selected"]
+[connection signal="pressed" from="interface/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="interface/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
+[connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
