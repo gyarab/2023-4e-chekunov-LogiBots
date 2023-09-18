@@ -30,3 +30,7 @@ offset_right = 22.0
 offset_bottom = 26.0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="listen" from="." to="." method="_on_listen"]
+[connection signal="move" from="." to="." method="_on_move"]
+[connection signal="say" from="." to="." method="_on_say"]

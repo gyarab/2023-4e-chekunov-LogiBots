@@ -2,12 +2,10 @@ extends Node2D
 
 
 var running:bool = false
-var tick:bool = false
+
 
 #bots
 var bots:Array
-var code_lines:Array
-var iterators:Array
 var bot_count:int
 func _ready():
 	
@@ -38,28 +36,26 @@ func _on_bots_select_item_selected(index):
 	$interface/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
-	tick = true
+	
+	Variables.tick = !Variables.tick
 	print("tick!")
 
 func set_running_mode():
 	Variables.code_save()
 	running = true
-	tick = true
+	Variables.tick = true
 	bots = $bots.get_children()
-	code_lines = []
 	for i in range(0,bot_count):
 		if len(Variables.codes[i].rsplit("\n", false)) == 0:
 			bots[i].available = false
-		code_lines.append(Variables.codes[i].rsplit("\n", false))
-		iterators.append(0)
-	$TickTimer.start(2)
+		bots[i].code_lines =(Variables.codes[i].rsplit("\n", false))
 	$interface/RunButton.text = "Stop"
 	$interface/CodeEdit.editable = false
 	$interface/botsSelect.disabled = true
 	$interface/SaveButton.disabled = true
 func set_normal_mode():
 	running = false
-	tick = false
+	Variables.tick = false
 	$TickTimer.stop()
 	$interface/RunButton.text = "Run"
 	$interface/CodeEdit.editable = true
@@ -67,13 +63,15 @@ func set_normal_mode():
 	$interface/SaveButton.disabled = false
 	
 func _process(delta):
-	if running and tick:
+	if running and Variables.tick:
 		for i in range(0,Variables.current_bot_count):
 			
 			# check if bot is available
 			if not bots[i].available:
 				continue
-			var line:String = code_lines[i][iterators[i]]		
+			
+			print(bots[i].code_lines[bots[i].iterator])
+			var line:String = bots[i].code_lines[bots[i].iterator]
 			if len(line.rsplit(" ")) <=2:
 				# move
 				var first:String = line.rsplit(" ")[0]
@@ -83,24 +81,24 @@ func _process(delta):
 				
 				if first == "move" or first == "say" or first == "listen":
 					if second == "left" or second == "right" or second == "up" or second == "down":
-						# z bota iterator_update(i)
-						# todo! emit signal
+						bots[i].emit_signal("move",second)
 						pass
 					else:
-						show_error(iterators[i],i,"wrong argument",second)
+						show_error(bots[i].iterator,i,"wrong argument",second)
 				elif first == "add" or first == "sub":
 					if second.to_int() != null:
 						# z bota iterator_update(i)
 						# todo! emit signal
 						pass
 					else:
-						show_error(iterators[i],i,"wrong number",second)
+						show_error(bots[i].iterator,i,"wrong number",second)
 				else:
-					show_error(iterators[i],i,"wrong command",line)
+					show_error(bots[i].iterator,i,"wrong command",line)
 				
 			else:
-				show_error(iterators[i],i,"too many arguments",line)
-		tick = false
+				show_error(bots[i].iterator,i,"too many arguments",line)
+		$TickTimer.start(Variables.tick_time)
+		
 		
 func show_error(line_number:int,bot_number:int,error_name:String,text:String):
 	set_normal_mode()
@@ -110,8 +108,3 @@ func show_error(line_number:int,bot_number:int,error_name:String,text:String):
 func _on_error_button_pressed():
 	$ErrorWindow.visible = false
 
-func iterator_update(index:int):
-	if iterators[index] < len(code_lines[index])-1:
-		iterators[index] += 1
-	else:
-		bots[index].available = false
