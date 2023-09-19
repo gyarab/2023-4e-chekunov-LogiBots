@@ -9,8 +9,9 @@ var current_code = 0
 var codes:Array = []
 
 # time 
+var sleep:bool = false
 var tick:bool = false
-var tick_time:float = 2;
+var tick_time:float = 2
 func _ready():
 	for i in range(0,20):
 		map.append([])

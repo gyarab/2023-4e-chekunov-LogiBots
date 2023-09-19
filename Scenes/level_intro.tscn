@@ -22,30 +22,22 @@ offset_top = 100.0
 offset_right = 1276.0
 offset_bottom = 583.0
 
-[node name="CodeEdit" type="CodeEdit" parent="interface"]
+[node name="botsSelect" type="OptionButton" parent="interface/Panel"]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 137.0
-offset_right = 1280.0
-offset_bottom = 521.0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 136.0
+offset_bottom = 33.0
+
+[node name="CodeEdit" type="CodeEdit" parent="interface/Panel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 36.0
+offset_right = 290.0
+offset_bottom = 420.0
 placeholder_text = "#program"
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
-
-[node name="botsSelect" type="OptionButton" parent="interface"]
-layout_mode = 0
-offset_left = 996.0
-offset_top = 105.0
-offset_right = 1125.0
-offset_bottom = 133.0
-
-[node name="RunButton" type="Button" parent="interface"]
-layout_mode = 0
-offset_left = 994.0
-offset_top = 528.0
-offset_right = 1074.0
-offset_bottom = 578.0
-text = "Run"
 
 [node name="SaveButton" type="Button" parent="interface"]
 layout_mode = 0
@@ -55,16 +47,21 @@ offset_right = 1168.0
 offset_bottom = 578.0
 text = "Save code"
 
+[node name="RunButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 528.0
+offset_right = 1074.0
+offset_bottom = 578.0
+text = "Run"
+
 [node name="bots" type="Node" parent="."]
 
 [node name="bot" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(382, 507)
+position = Vector2(545, 413)
 
 [node name="bot2" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(573, 314)
-
-[node name="bot3" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(504, 141)
+position = Vector2(478, 413)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -88,9 +85,19 @@ offset_right = 68.0
 offset_bottom = 111.0
 text = "close"
 
-[connection signal="text_changed" from="interface/CodeEdit" to="." method="_on_code_edit_text_changed"]
-[connection signal="item_selected" from="interface/botsSelect" to="." method="_on_bots_select_item_selected"]
-[connection signal="pressed" from="interface/RunButton" to="." method="_on_run_button_pressed"]
+[node name="DebugWindow" type="Window" parent="."]
+position = Vector2i(0, 36)
+size = Vector2i(500, 300)
+
+[node name="Text" type="Label" parent="DebugWindow"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+justification_flags = 99
+
+[connection signal="item_selected" from="interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
+[connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
 [connection signal="pressed" from="interface/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="interface/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
