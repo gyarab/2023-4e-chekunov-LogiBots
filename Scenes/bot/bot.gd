@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var available:bool = true
 @export var iterator:int = 0
 @export var code_lines:Array
-
+@export var id:int
 signal move(direction:String)
 signal listen(direction:String)
 signal say(direction:String)
@@ -20,9 +20,8 @@ func _ready():
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
 
 func _process(delta):
-	print(position)
 	$Active.text = str(iterator)
-	$Memory.text = str(memory)
+	$Memory.text = str(id)
 	if is_doing:
 		if direction == "left":
 			velocity = Vector2.LEFT * delta * 64 * 60 / Variables.tick_time
@@ -51,6 +50,9 @@ func _on_listen(direction):
 func _on_move(direction):
 	var map = Variables.map
 	if direction == "up":
+		if Variables.map[pos.x][pos.y-1] == 1:
+			print("nud blin")
+			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x][pos.y-1] == 0:
 			map[pos.x][pos.y-1] = 1
 			map[pos.x][pos.y] = 0
@@ -58,6 +60,9 @@ func _on_move(direction):
 			update_iterator_bool = true
 			self_move("up")
 	if direction == "down":
+		if Variables.map[pos.x][pos.y+1] == 1:
+			print("nud blin")
+			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x][pos.y+1] == 0:
 			map[pos.x][pos.y+1] = 1
 			map[pos.x][pos.y] = 0
@@ -65,6 +70,9 @@ func _on_move(direction):
 			update_iterator_bool = true
 			self_move("down")
 	if direction == "left":
+		if Variables.map[pos.x-1][pos.y] == 1:
+			print("nud blin")
+			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x-1][pos.y] == 0:
 			map[pos.x-1][pos.y] = 1
 			map[pos.x][pos.y] = 0
@@ -72,6 +80,9 @@ func _on_move(direction):
 			update_iterator_bool = true
 			self_move("left")
 	if direction == "right":
+		if Variables.map[pos.x+1][pos.y] == 1:
+			print("nud blin")
+			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x+1][pos.y] == 0:
 			map[pos.x+1][pos.y] = 1
 			map[pos.x][pos.y] = 0
@@ -81,6 +92,7 @@ func _on_move(direction):
 	Variables.map = map
 	
 func self_move(dir:String):
+	await get_parent().get_parent().all_bots_ready
 	print("pohnul")
 	print(iterator)
 	is_doing = true

@@ -3,9 +3,8 @@ extends Node2D
 
 var running:bool = false
 
-
+signal all_bots_ready
 #bots
-var bots:Array
 var bot_count:int
 func _ready():
 	
@@ -44,14 +43,15 @@ func set_running_mode():
 	Variables.code_save()
 	running = true
 	Variables.tick = true
-	bots = $bots.get_children()
+	Variables.bots = $bots.get_children()
 	for i in range(0,bot_count):
+		Variables.bots[i].id = i
 		if len(Variables.codes[i].rsplit("\n", false)) == 0:
-			bots[i].available = false
+			Variables.bots[i].available = false
 		else:
-			bots[i].available = true
-		bots[i].code_lines =(Variables.codes[i].rsplit("\n", false))
-		bots[i].iterator = 0
+			Variables.bots[i].available = true
+		Variables.bots[i].code_lines =(Variables.codes[i].rsplit("\n", false))
+		Variables.bots[i].iterator = 0
 	$interface/RunButton.text = "Stop"
 	$interface/Panel/CodeEdit.editable = false
 	$interface/Panel/botsSelect.disabled = true
@@ -69,18 +69,39 @@ func set_normal_mode():
 	
 func _process(delta):
 	#debug
-	$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
-	
+	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
+	$DebugWindow/Text.text = str(Variables.hoping_bots)
 	if running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		for i in range(0,Variables.current_bot_count):
 			
-			# check if bot is available
-			if not bots[i].available:
+			if not Variables.bots[i].available:
 				continue
+			bot_porcess(Variables.bots[i],i)
+		
+		
+		for bot in Variables.hoping_bots:
+			bot_porcess(bot,bot.id)
+			Variables.hoping_bots.erase(bot)
+		Variables.hoping_bots = []
+		emit_signal("all_bots_ready")
+		Variables.tick = false
+		Variables.sleep = true
+		
+	var all_finished = true
+	for bot in Variables.bots:
+		if bot.is_doing:
+			all_finished = false
+	if all_finished:
+		Variables.sleep = false
+		
+	
+func bot_porcess(bot,i):
+	
+			# check if bot is available
 			
-			var line:String = bots[i].code_lines[bots[i].iterator]
-			print("bot "+str(i)+line)
+			
+			var line:String = bot.code_lines[bot.iterator]
 			if len(line.rsplit(" ")) <=2:
 				# move
 				var first:String = line.rsplit(" ")[0]
@@ -90,34 +111,23 @@ func _process(delta):
 				
 				if first == "move" or first == "say" or first == "listen":
 					if second == "left" or second == "right" or second == "up" or second == "down":
-						bots[i].emit_signal("move",second)
+						bot.emit_signal("move",second)
 						pass
 					else:
-						show_error(bots[i].iterator,i,"wrong argument",second)
+						show_error(bot.iterator,i,"wrong argument",second)
 				elif first == "add" or first == "sub":
 					if second.to_int() != null:
 						# z bota iterator_update(i)
 						# todo! emit signal
 						pass
 					else:
-						show_error(bots[i].iterator,i,"wrong number",second)
+						show_error(bot.iterator,i,"wrong number",second)
 				else:
-					show_error(bots[i].iterator,i,"wrong command",line)
+					show_error(bot.iterator,i,"wrong command",line)
 				
 			else:
-				show_error(bots[i].iterator,i,"too many arguments",line)
-		Variables.tick = false
-		Variables.sleep = true
-		
-	var all_finished = true
-	for bot in bots:
-		if bot.is_doing:
-			all_finished = false
-	if all_finished:
-		Variables.sleep = false
-		
-	
-	
+				show_error(bot.iterator,i,"too many arguments",line)
+				
 func show_error(line_number:int,bot_number:int,error_name:String,text:String):
 	set_normal_mode()
 	$ErrorWindow/Label.text ="'"+error_name+"'\n at line "+str(line_number+1)+"\n in bot "+str(bot_number+1)+", caused by '"+text+"'"

@@ -58,10 +58,16 @@ text = "Run"
 [node name="bots" type="Node" parent="."]
 
 [node name="bot" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(545, 413)
+position = Vector2(542, 414)
 
 [node name="bot2" parent="bots" instance=ExtResource("1_yojdi")]
 position = Vector2(478, 413)
+
+[node name="bot3" parent="bots" instance=ExtResource("1_yojdi")]
+position = Vector2(478, 349)
+
+[node name="bot4" parent="bots" instance=ExtResource("1_yojdi")]
+position = Vector2(543, 352)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -88,6 +94,7 @@ text = "close"
 [node name="DebugWindow" type="Window" parent="."]
 position = Vector2i(0, 36)
 size = Vector2i(500, 300)
+visible = false
 
 [node name="Text" type="Label" parent="DebugWindow"]
 offset_right = 40.0
