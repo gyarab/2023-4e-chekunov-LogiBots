@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dkocn8i1v20ai" path="res://Scenes/bg.tscn" id="2_eb8dm"]
 
 [node name="level" type="Node2D"]
+editor_description = "Todo:
+1 1
+1 1 
+bot position problem"
 script = ExtResource("1_rxh1t")
 
 [node name="bg" parent="." instance=ExtResource("2_eb8dm")]
@@ -58,16 +62,10 @@ text = "Run"
 [node name="bots" type="Node" parent="."]
 
 [node name="bot" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(542, 414)
+position = Vector2(675, 415)
 
 [node name="bot2" parent="bots" instance=ExtResource("1_yojdi")]
 position = Vector2(478, 413)
-
-[node name="bot3" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(478, 349)
-
-[node name="bot4" parent="bots" instance=ExtResource("1_yojdi")]
-position = Vector2(543, 352)
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
