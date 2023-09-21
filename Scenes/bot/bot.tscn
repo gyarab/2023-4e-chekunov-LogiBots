@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://kpldt8f0wv2g"]
 
 [ext_resource type="Script" path="res://Scenes/bot/bot.gd" id="1_2ni1o"]
-[ext_resource type="Texture2D" uid="uid://t5ygd7gmptln" path="res://assets/bot.png" id="1_25cr2"]
+[ext_resource type="Texture2D" uid="uid://n2hiiaeeb2pb" path="res://assets/Bot/bot front.png" id="2_dq3c5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3na3"]
 size = Vector2(50, 50)
@@ -13,9 +13,6 @@ script = ExtResource("1_2ni1o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_r3na3")
-
-[node name="Bot" type="Sprite2D" parent="."]
-texture = ExtResource("1_25cr2")
 
 [node name="Active" type="Label" parent="."]
 offset_left = -20.0
@@ -35,6 +32,10 @@ vertical_alignment = 1
 
 [node name="WorkTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BotFront" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dq3c5")
 
 [connection signal="listen" from="." to="." method="_on_listen"]
 [connection signal="move" from="." to="." method="_on_move"]

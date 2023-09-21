@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
-@export var active: int = 0
-@export var memory: int = 0
-@export var pos:Vector2
-@export var available:bool = true
-@export var iterator:int = 0
-@export var code_lines:Array
-@export var id:int
+var active: int = 0
+var memory: int = 0
+var pos:Vector2
+var available:bool = true
+var iterator:int = 0
+var code_lines:Array
+var id:int
 signal move(direction:String)
 signal listen(direction:String)
 signal say(direction:String)
@@ -15,9 +15,8 @@ var update_iterator_bool:bool = false
 var is_doing:bool = false
 var direction:String
 func _ready():
-	pos = Vector2(floor(self.position.x/64),floor(self.position.y/64))
-	Variables.map[pos.x][pos.y] = 1
-	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
+	#pos = Vector2(floor(self.position.x/64),floor(self.position.y/64))
+	update_position()
 
 func _process(delta):
 	$Active.text = str(iterator)
@@ -51,7 +50,7 @@ func _on_move(direction):
 	var map = Variables.map
 	if direction == "up":
 		if Variables.map[pos.x][pos.y-1] == 1:
-			print("nud blin")
+			print("nu up")
 			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x][pos.y-1] == 0:
 			map[pos.x][pos.y-1] = 1
@@ -61,7 +60,7 @@ func _on_move(direction):
 			self_move("up")
 	if direction == "down":
 		if Variables.map[pos.x][pos.y+1] == 1:
-			print("nud blin")
+			print("nu down")
 			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x][pos.y+1] == 0:
 			map[pos.x][pos.y+1] = 1
@@ -71,7 +70,7 @@ func _on_move(direction):
 			self_move("down")
 	if direction == "left":
 		if Variables.map[pos.x-1][pos.y] == 1:
-			print("nud blin")
+			print("nud left")
 			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x-1][pos.y] == 0:
 			map[pos.x-1][pos.y] = 1
@@ -81,7 +80,7 @@ func _on_move(direction):
 			self_move("left")
 	if direction == "right":
 		if Variables.map[pos.x+1][pos.y] == 1:
-			print("nud blin")
+			print("nud right")
 			Variables.hoping_bots.append(self)
 		if Variables.map[pos.x+1][pos.y] == 0:
 			map[pos.x+1][pos.y] = 1
@@ -112,3 +111,10 @@ func _on_work_timer_timeout():
 	if update_iterator_bool:
 		iterator_update()
 		update_iterator_bool = false
+
+func update_position():
+	Variables.map[pos.x][pos.y] = 1
+	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
+
+func self_destroy():
+	self.queue_free()

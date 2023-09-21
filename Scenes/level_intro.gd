@@ -2,23 +2,15 @@ extends Node2D
 
 
 var running:bool = false
-
 signal all_bots_ready
 #bots
 var bot_count:int
-func _ready():
-	
-	bot_count = len($bots.get_children())
-	Variables.current_bot_count = bot_count
-	
-	# code files
-	for i in range(0,bot_count):
-		$interface/Panel/botsSelect.add_item("Bot "+str(i+1))
-		Variables.codes.append("")
-	# Saves
-	Variables.code_load()
-	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
+var bot_scene = preload("res://Scenes/bot/bot.tscn")
 
+func _ready():
+	lvl_load()
+	
+	
 func _on_save_button_pressed():
 	Variables.code_save()
 
@@ -59,6 +51,7 @@ func set_running_mode():
 	$TickTimer.start(Variables.tick_time)
 	
 func set_normal_mode():
+	lvl_load()
 	running = false
 	Variables.tick = false
 	$TickTimer.stop()
@@ -97,9 +90,7 @@ func _process(delta):
 		
 	
 func bot_porcess(bot,i):
-	
 			# check if bot is available
-			
 			
 			var line:String = bot.code_lines[bot.iterator]
 			if len(line.rsplit(" ")) <=2:
@@ -129,6 +120,7 @@ func bot_porcess(bot,i):
 				show_error(bot.iterator,i,"too many arguments",line)
 				
 func show_error(line_number:int,bot_number:int,error_name:String,text:String):
+	
 	set_normal_mode()
 	$ErrorWindow/Label.text ="'"+error_name+"'\n at line "+str(line_number+1)+"\n in bot "+str(bot_number+1)+", caused by '"+text+"'"
 	$ErrorWindow.visible = true
@@ -136,3 +128,41 @@ func show_error(line_number:int,bot_number:int,error_name:String,text:String):
 func _on_error_button_pressed():
 	$ErrorWindow.visible = false
 
+func lvl_load():
+	# removing all previous bots
+	if len($bots.get_children()) >= 1:
+		for bot in $bots.get_children():
+			$bots.remove_child(bot)
+			bot.self_destroy()
+		#$bots.get_children() = null
+		pass
+		
+	Variables.hoping_bots = []
+	# clear all buttons	
+	$interface/Panel/botsSelect.clear()
+	
+	
+	var lvl:int = Variables.level
+	for i in range(0,20):
+		for j in range(0,11):
+			# adding player
+			if Variables.lvl_maps[i][j] == 1:
+				var bot = bot_scene.instantiate()
+				bot.pos = Vector2(i,j)
+				bot.update_position()
+				$bots.add_child(bot)
+	
+	# bots update
+	bot_count = len($bots.get_children())
+	Variables.current_bot_count = bot_count
+	Variables.bots = $bots.get_children()
+	# code files
+	for i in range(0,bot_count):
+		$interface/Panel/botsSelect.add_item("Bot "+str(i+1))
+		Variables.codes.append("")
+	# Saves
+	Variables.code_load()
+	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
+				
+				
+				
