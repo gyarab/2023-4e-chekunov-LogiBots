@@ -1,4 +1,5 @@
+move up
 move down
-move down
-move down
+:zloba
+move up
 move down

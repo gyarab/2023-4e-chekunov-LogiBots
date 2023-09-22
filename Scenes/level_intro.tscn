@@ -60,6 +60,8 @@ text = "Run"
 
 [node name="bots" type="Node" parent="."]
 
+[node name="boxes" type="Node" parent="."]
+
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
 

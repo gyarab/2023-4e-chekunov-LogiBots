@@ -6,14 +6,18 @@ var lvl_maps:Array = []
 # lvl
 var level:int = 0
 var map:Array = []
+var running:bool = false
 # code
-var current_bot_count: int = 0
 var current_code:int = 0
 var codes:Array = []
+
+
 
 # bots
 # current bots
 var bots:Array
+var current_bot_count: int = 0
+var bot_ids:int = 0
 # bots waiting for other to move (for bot sync)
 var hoping_bots:Array
 
@@ -32,10 +36,13 @@ func _ready():
 		map[i].fill(0)
 	# lvls config
 	print(lvl_maps)
-	lvl_maps[0][0] = 1
-	lvl_maps[5][8] = 1
+	lvl_maps[5][5] = 1
+	lvl_maps[10][0] = 2
+	lvl_maps[10][1] = 2
+	lvl_maps[10][3] = 2
+	lvl_maps[10][4] = 2
 	
-		
+	
 
 func code_save():
 	if !FileAccess.file_exists("res://codeSaves/"+"level "+str(level)):

@@ -10,17 +10,40 @@ var id:int
 signal move(direction:String)
 signal listen(direction:String)
 signal say(direction:String)
+signal jump(type,anchor)
+# jumps
+# 1 if positive
+# 0 if zero
+#-1 if negative
+#42 while true
+var code_jumps:Dictionary # Vector2(1 or 0 or -1 or 42,anchor)
+var code_anchors:Dictionary # Vector2(self.name,self.radek)
 
 var update_iterator_bool:bool = false
 var is_doing:bool = false
 var direction:String
 func _ready():
+	#id on create
+	id = Variables.bot_ids
+	Variables.bot_ids+=1
 	#pos = Vector2(floor(self.position.x/64),floor(self.position.y/64))
 	update_position()
 
 func _process(delta):
+	# cosmetics
+	if id == Variables.current_code and not Variables.running:
+		$light.energy = 9
+		$light.color = Color(0, 255, 1)
+		$light.enabled = true
+	else:
+		$light.enabled = false
+	if Variables.running and self.available == false:
+		$light.energy = 3
+		$light.color = Color(255, 0, 0, 0.5)
+		$light.enabled = true
+	
 	$Active.text = str(iterator)
-	$Memory.text = str(id)
+	$Memory.text = str(id+1)
 	if is_doing:
 		if direction == "left":
 			velocity = Vector2.LEFT * delta * 64 * 60 / Variables.tick_time
@@ -48,56 +71,34 @@ func _on_listen(direction):
 
 func _on_move(direction):
 	var map = Variables.map
+	var destination:Vector2
 	if direction == "up":
-		if Variables.map[pos.x][pos.y-1] == 1:
-			print("nu up")
-			Variables.hoping_bots.append(self)
-		if Variables.map[pos.x][pos.y-1] == 0:
-			map[pos.x][pos.y-1] = 1
-			map[pos.x][pos.y] = 0
-			pos.y-=1
-			update_iterator_bool = true
-			self_move("up")
+		destination = Vector2(pos.x,pos.y-1)
 	if direction == "down":
-		if Variables.map[pos.x][pos.y+1] == 1:
-			print("nu down")
-			Variables.hoping_bots.append(self)
-		if Variables.map[pos.x][pos.y+1] == 0:
-			map[pos.x][pos.y+1] = 1
-			map[pos.x][pos.y] = 0
-			pos.y+=1
-			update_iterator_bool = true
-			self_move("down")
+		destination = Vector2(pos.x,pos.y+1)
 	if direction == "left":
-		if Variables.map[pos.x-1][pos.y] == 1:
-			print("nud left")
-			Variables.hoping_bots.append(self)
-		if Variables.map[pos.x-1][pos.y] == 0:
-			map[pos.x-1][pos.y] = 1
-			map[pos.x][pos.y] = 0
-			pos.x-=1
-			update_iterator_bool = true
-			self_move("left")
+		destination = Vector2(pos.x-1,pos.y)
 	if direction == "right":
-		if Variables.map[pos.x+1][pos.y] == 1:
-			print("nud right")
-			Variables.hoping_bots.append(self)
-		if Variables.map[pos.x+1][pos.y] == 0:
-			map[pos.x+1][pos.y] = 1
-			map[pos.x][pos.y] = 0
-			pos.x+=1
-			update_iterator_bool = true
-			self_move("right")
+		destination = Vector2(pos.x+1,pos.y)
+	
+	if Variables.map[destination.x][destination.y] == 2:
+		self.available = false
+	if Variables.map[destination.x][destination.y] == 1:
+		Variables.hoping_bots.append(self)
+	if Variables.map[destination.x][destination.y] == 0:
+		map[destination.x][destination.y] = 1
+		map[pos.x][pos.y] = 0
+		pos = destination
+		update_iterator_bool = true
+		self_move(direction)
 	Variables.map = map
 	
 func self_move(dir:String):
 	await get_parent().get_parent().all_bots_ready
-	print("pohnul")
-	print(iterator)
 	is_doing = true
 	direction = dir
 	$WorkTimer.start(Variables.tick_time)
-func _on_say(direction):
+func _on_say(dir):
 	pass # Replace with function body.
 
 
@@ -113,8 +114,11 @@ func _on_work_timer_timeout():
 		update_iterator_bool = false
 
 func update_position():
-	Variables.map[pos.x][pos.y] = 1
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
 
 func self_destroy():
 	self.queue_free()
+
+
+func _on_jump(type, anchor):
+	pass
