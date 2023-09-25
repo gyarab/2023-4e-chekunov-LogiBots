@@ -6,10 +6,14 @@ var pos:Vector2
 var available:bool = true
 var iterator:int = 0
 var code_lines:Array
+var saying:bool = false
+var listening:bool = false
+
 var id:int
 signal move(direction:String)
 signal listen(direction:String)
 signal say(direction:String)
+signal was_listened()
 signal jump(type:String,anchor:String)
 # jumps
 # 1 if positive
@@ -26,6 +30,7 @@ func _ready():
 	#id on create
 	id = Variables.bot_ids
 	Variables.bot_ids+=1
+	active = id
 	#pos = Vector2(floor(self.position.x/64),floor(self.position.y/64))
 	update_position()
 
@@ -42,7 +47,7 @@ func _process(delta):
 		$light.color = Color(255, 0, 0, 0.5)
 		$light.enabled = true
 	
-	$Active.text = str(iterator)
+	$Active.text = str(active)
 	$Memory.text = str(id+1)
 	if is_doing:
 		if direction == "left":
@@ -66,8 +71,47 @@ func iterator_update():
 
 
 func _on_listen(direction):
-	pass # Replace with function body.
-
+	
+	var destination:Vector2
+	var saying_bot = -1
+	if direction == "up":
+		destination = Vector2(pos.x,pos.y-1)
+		saying_bot = 13
+	if direction == "down":
+		destination = Vector2(pos.x,pos.y+1)
+		saying_bot = 12
+	if direction == "left":
+		destination = Vector2(pos.x-1,pos.y)
+		saying_bot = 11
+	if direction == "right":
+		destination = Vector2(pos.x+1,pos.y)
+		saying_bot = 10
+	
+	# borders
+	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
+		self.available = false
+		return
+	# listen to box, huh?
+	if Variables.map[destination.x][destination.y] == 2:
+		self.available = false
+		return
+	print(Variables.map[destination.x][destination.y])
+	print("neni?")
+	print(saying_bot)
+	if Variables.map[destination.x][destination.y] == 1:
+		Variables.hoping_bots.append(self)
+	if Variables.map[destination.x][destination.y] == saying_bot:
+		print("pridavam")
+		#search right bot
+		var right_bot
+		for bot in Variables.bots:
+			if bot.pos == destination:
+				right_bot = bot
+				#chybi
+				bot.emit_signal("was_listened")
+				await get_parent().get_parent().all_bots_ready
+				self.active = right_bot.active
+				iterator_update()
 
 func _on_move(direction):
 	var map = Variables.map
@@ -80,7 +124,7 @@ func _on_move(direction):
 		destination = Vector2(pos.x-1,pos.y)
 	if direction == "right":
 		destination = Vector2(pos.x+1,pos.y)
-	# borders
+	
 	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
 		self.available = false
 		return
@@ -103,28 +147,52 @@ func self_move(dir:String):
 	is_doing = true
 	direction = dir
 	$WorkTimer.start(Variables.tick_time)
-func _on_say(dir):
-	pass # Replace with function body.
-
+	
+func _on_say(direction):
+	var destination:Vector2
+	var say = -1
+	if direction == "up":
+		destination = Vector2(pos.x,pos.y-1)
+		say = 12
+	if direction == "down":
+		destination = Vector2(pos.x,pos.y+1)
+		say = 13
+	if direction == "left":
+		destination = Vector2(pos.x-1,pos.y)
+		say = 10
+	if direction == "right":
+		destination = Vector2(pos.x+1,pos.y)
+		say = 11
+	Variables.map[pos.x][pos.y] = say
+	
+	# borders
+	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
+		self.available = false
+		return
+	# saying to box, huh?
+	if Variables.map[destination.x][destination.y] == 2:
+		self.available = false
+		return
+	print("rikam")
+	await was_listened
+	print("uz rekl")
+	Variables.map[pos.x][pos.y] = 1
+	await get_parent().get_parent().all_bots_ready
+	iterator_update()
+	return
 
 func _on_work_timer_timeout():
-	
 	# position sync
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
-	
 	is_doing = false
 	direction = " "
 	if update_iterator_bool:
 		iterator_update()
 		update_iterator_bool = false
-
 func update_position():
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
-
 func self_destroy():
 	self.queue_free()
-
-
 func _on_jump(type, anchor):
 	var jump:bool = false
 	if type == "jump":
@@ -146,3 +214,7 @@ func code_jump(anchor:String):
 	await get_parent().get_parent().all_bots_ready
 	self.iterator = code_anchors[anchor] + 1
 	$WorkTimer.start(Variables.tick_time)
+
+
+func _on_was_listened():
+	pass # Replace with function body.

@@ -42,20 +42,12 @@ placeholder_text = "#program"
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
 
-[node name="SaveButton" type="Button" parent="interface"]
-layout_mode = 0
-offset_left = 1083.0
-offset_top = 528.0
-offset_right = 1168.0
-offset_bottom = 578.0
-text = "Save code"
-
 [node name="RunButton" type="Button" parent="interface"]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 528.0
-offset_right = 1074.0
-offset_bottom = 578.0
+offset_left = 932.0
+offset_top = 632.0
+offset_right = 1012.0
+offset_bottom = 682.0
 text = "Run"
 
 [node name="HSlider" type="HSlider" parent="interface"]
@@ -108,7 +100,6 @@ justification_flags = 99
 
 [connection signal="item_selected" from="interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
-[connection signal="pressed" from="interface/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="interface/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="drag_ended" from="interface/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

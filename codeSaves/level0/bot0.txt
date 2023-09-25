@@ -1,3 +1,10 @@
-start:
+jump a
+s:
+listen right
+a:
 move up
-jump start
+move left
+move down
+move right
+say down
+jump s

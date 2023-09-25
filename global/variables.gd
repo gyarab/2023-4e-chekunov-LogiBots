@@ -35,10 +35,9 @@ func _ready():
 		map[i].resize(11)
 		map[i].fill(0)
 	# lvls config
-	print(lvl_maps)
 	lvl_maps[5][5] = 1
-	lvl_maps[6][5] = 1
 	lvl_maps[5][6] = 1
+	lvl_maps[6][5] = 1
 	lvl_maps[6][6] = 1
 	lvl_maps[10][0] = 2
 	lvl_maps[10][1] = 2

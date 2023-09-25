@@ -11,10 +11,6 @@ var box_scene = preload("res://Scenes/objects/box.tscn")
 
 func _ready():
 	lvl_load()
-	
-	
-func _on_save_button_pressed():
-	Variables.code_save()
 
 func _on_run_button_pressed():
 	if Variables.running:
@@ -45,6 +41,21 @@ func set_running_mode():
 		else:
 			Variables.bots[i].available = true
 		Variables.bots[i].code_lines =(Variables.codes[i].rsplit("\n", false))
+		# white space editor
+		for j in range(0,len(Variables.bots[i].code_lines)):
+			var g = 0
+			while(g<len(Variables.bots[i].code_lines[j])):
+				if Variables.bots[i].code_lines[j][g] == " ":
+					if g == 0 or g ==len(Variables.bots[i].code_lines[j])-1:
+						print(Variables.bots[i].code_lines[j][g])
+						Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].erase(g)
+						g-=1
+					elif g > 0:
+						if Variables.bots[i].code_lines[j][g-1] == " ":
+							Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].erase(g)
+							g-=2
+				g+=1
+				Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].rstrip(" ")
 		Variables.bots[i].iterator = 0
 		# adding anchors
 		for j  in range(0,len(Variables.bots[i].code_lines)):
@@ -52,25 +63,22 @@ func set_running_mode():
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					Variables.bots[i].code_anchors[line.get_slice(":",0)] = j
-					print(Variables.bots[i].code_anchors)
 					
 	$interface/RunButton.text = "Stop"
 	$interface/Panel/CodeEdit.editable = false
 	$interface/Panel/botsSelect.disabled = true
-	$interface/SaveButton.disabled = true
 	$interface/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
 func set_normal_mode():
-	lvl_load()
 	Variables.running = false
 	Variables.tick = false
+	lvl_load()
 	$TickTimer.stop()
 	$interface/HSlider.editable = true
 	$interface/RunButton.text = "Run"
 	$interface/Panel/CodeEdit.editable = true
 	$interface/Panel/botsSelect.disabled = false
-	$interface/SaveButton.disabled = false
 	
 func _process(delta):
 	# selected bot light
@@ -82,10 +90,11 @@ func _process(delta):
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		for i in range(0,Variables.current_bot_count):
 			
+			if not Variables.running:
+				break
 			if not Variables.bots[i].available:
 				continue
 			bot_porcess(Variables.bots[i],i)
-		
 		
 		for bot in Variables.hoping_bots:
 			bot_porcess(bot,bot.id)
@@ -105,6 +114,8 @@ func _process(delta):
 	
 func bot_porcess(bot,i):
 			# line
+			var lns = bot.code_lines
+			var ite = bot.iterator
 			var line:String = bot.code_lines[bot.iterator]
 			
 			# one word commands
@@ -121,9 +132,7 @@ func bot_porcess(bot,i):
 					second = line.rsplit(" ")[1]
 				# jumps
 				if first == "jump" or first == "jumpz" or first == "jumpn" or first == "jumpg":
-					print("jump!")
 					if bot.code_anchors.has(second):
-						print("zloba dokonce!")
 						bot.emit_signal("jump",first,second)
 						return
 					else:
@@ -132,8 +141,8 @@ func bot_porcess(bot,i):
 				# move
 				if first == "move" or first == "say" or first == "listen":
 					if second == "left" or second == "right" or second == "up" or second == "down":
-						bot.emit_signal("move",second)
-						pass
+						bot.emit_signal(first,second)
+						return
 					else:
 						show_error(bot.iterator,i,"wrong argument",second)
 						return

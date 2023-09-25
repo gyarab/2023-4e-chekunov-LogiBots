@@ -56,4 +56,5 @@ one_shot = true
 [connection signal="listen" from="." to="." method="_on_listen"]
 [connection signal="move" from="." to="." method="_on_move"]
 [connection signal="say" from="." to="." method="_on_say"]
+[connection signal="was_listened" from="." to="." method="_on_was_listened"]
 [connection signal="timeout" from="WorkTimer" to="." method="_on_work_timer_timeout"]
