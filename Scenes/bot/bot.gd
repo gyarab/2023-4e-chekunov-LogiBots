@@ -10,7 +10,7 @@ var id:int
 signal move(direction:String)
 signal listen(direction:String)
 signal say(direction:String)
-signal jump(type,anchor)
+signal jump(type:String,anchor:String)
 # jumps
 # 1 if positive
 # 0 if zero
@@ -80,9 +80,14 @@ func _on_move(direction):
 		destination = Vector2(pos.x-1,pos.y)
 	if direction == "right":
 		destination = Vector2(pos.x+1,pos.y)
+	# borders
+	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
+		self.available = false
+		return
 	
 	if Variables.map[destination.x][destination.y] == 2:
 		self.available = false
+		return
 	if Variables.map[destination.x][destination.y] == 1:
 		Variables.hoping_bots.append(self)
 	if Variables.map[destination.x][destination.y] == 0:
@@ -121,4 +126,23 @@ func self_destroy():
 
 
 func _on_jump(type, anchor):
-	pass
+	var jump:bool = false
+	if type == "jump":
+		jump = true
+	elif type == "jumpn":
+			jump = active < 0
+	elif type == "jumpz":
+		jump = active == 0
+	elif type == "jumpg":
+		jump = active > 0 
+		
+	if jump:
+		code_jump(anchor)
+	else:
+		await get_parent().get_parent().all_bots_ready
+		update_iterator_bool = true
+		$WorkTimer.start(Variables.tick_time)
+func code_jump(anchor:String):
+	await get_parent().get_parent().all_bots_ready
+	self.iterator = code_anchors[anchor] + 1
+	$WorkTimer.start(Variables.tick_time)

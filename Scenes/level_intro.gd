@@ -46,10 +46,19 @@ func set_running_mode():
 			Variables.bots[i].available = true
 		Variables.bots[i].code_lines =(Variables.codes[i].rsplit("\n", false))
 		Variables.bots[i].iterator = 0
+		# adding anchors
+		for j  in range(0,len(Variables.bots[i].code_lines)):
+			var line = Variables.bots[i].code_lines[j]
+			if len(line.rsplit(" ")) == 1:
+				if line[len(line)-1] == ":":
+					Variables.bots[i].code_anchors[line.get_slice(":",0)] = j
+					print(Variables.bots[i].code_anchors)
+					
 	$interface/RunButton.text = "Stop"
 	$interface/Panel/CodeEdit.editable = false
 	$interface/Panel/botsSelect.disabled = true
 	$interface/SaveButton.disabled = true
+	$interface/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
 func set_normal_mode():
@@ -57,6 +66,7 @@ func set_normal_mode():
 	Variables.running = false
 	Variables.tick = false
 	$TickTimer.stop()
+	$interface/HSlider.editable = true
 	$interface/RunButton.text = "Run"
 	$interface/Panel/CodeEdit.editable = true
 	$interface/Panel/botsSelect.disabled = false
@@ -66,8 +76,8 @@ func _process(delta):
 	# selected bot light
 	
 	#debug
-	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
-	$DebugWindow/Text.text = str(Variables.current_code)
+	$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
+	#$DebugWindow/Text.text = str(Variables.current_code)
 	if Variables.running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		for i in range(0,Variables.current_bot_count):
@@ -94,25 +104,31 @@ func _process(delta):
 		
 	
 func bot_porcess(bot,i):
-			# check if bot is available
-			
 			# line
 			var line:String = bot.code_lines[bot.iterator]
 			
 			# one word commands
 			# anchor
-			if len(line.rsplit(" ")) ==1:
-				if line[0] == ":":
-					bot.code_anchors[line.get_slice(":",1)] = bot.iterator
+			if len(line.rsplit(" ")) == 1:
+				if line[len(line)-1] == ":":
 					bot.iterator_update()
 			# two word commands
 			if len(line.rsplit(" ")) == 2:
 				
 				var first:String = line.rsplit(" ")[0]
-				var second:String = "no"
+				var second:String = "no argument"
 				if len(line.rsplit(" ")) > 1:
 					second = line.rsplit(" ")[1]
 				# jumps
+				if first == "jump" or first == "jumpz" or first == "jumpn" or first == "jumpg":
+					print("jump!")
+					if bot.code_anchors.has(second):
+						print("zloba dokonce!")
+						bot.emit_signal("jump",first,second)
+						return
+					else:
+						show_error(bot.iterator,i,"wrong anchor",second)
+						return
 				# move
 				if first == "move" or first == "say" or first == "listen":
 					if second == "left" or second == "right" or second == "up" or second == "down":
@@ -120,6 +136,7 @@ func bot_porcess(bot,i):
 						pass
 					else:
 						show_error(bot.iterator,i,"wrong argument",second)
+						return
 				# add sub
 				elif first == "add" or first == "sub":
 					if second.to_int() != null:
@@ -128,12 +145,14 @@ func bot_porcess(bot,i):
 						pass
 					else:
 						show_error(bot.iterator,i,"wrong number",second)
+						return
 				else:
 					show_error(bot.iterator,i,"wrong command",line)
+					return
 				
 			elif  len(line.rsplit(" ")) > 2:
 				show_error(bot.iterator,i,"too many arguments",line)
-				
+				return
 func show_error(line_number:int,bot_number:int,error_name:String,text:String):
 	
 	set_normal_mode()
@@ -193,6 +212,7 @@ func lvl_load():
 	Variables.code_load()
 	$interface/Panel/botsSelect.select(Variables.current_code)
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
-				
-				
-				
+
+
+func _on_h_slider_drag_ended(value_changed):
+	Variables.tick_time = 10/$interface/HSlider.value

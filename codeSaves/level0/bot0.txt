@@ -1,5 +1,3 @@
+start:
 move up
-move down
-:zloba
-move up
-move down
+jump start

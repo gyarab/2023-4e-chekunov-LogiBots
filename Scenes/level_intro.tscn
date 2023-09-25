@@ -58,6 +58,17 @@ offset_right = 1074.0
 offset_bottom = 578.0
 text = "Run"
 
+[node name="HSlider" type="HSlider" parent="interface"]
+layout_mode = 0
+offset_left = 1032.0
+offset_top = 623.0
+offset_right = 1242.0
+offset_bottom = 685.0
+min_value = 10.0
+step = 10.0
+value = 10.0
+tick_count = 10
+
 [node name="bots" type="Node" parent="."]
 
 [node name="boxes" type="Node" parent="."]
@@ -99,5 +110,6 @@ justification_flags = 99
 [connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
 [connection signal="pressed" from="interface/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="interface/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="drag_ended" from="interface/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]

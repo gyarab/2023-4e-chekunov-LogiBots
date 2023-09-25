@@ -24,7 +24,7 @@ var hoping_bots:Array
 # time 
 var sleep:bool = false
 var tick:bool = false
-var tick_time:float = 1
+var tick_time:float = 0.5
 
 func _ready():
 	for i in range(0,20):
@@ -37,6 +37,9 @@ func _ready():
 	# lvls config
 	print(lvl_maps)
 	lvl_maps[5][5] = 1
+	lvl_maps[6][5] = 1
+	lvl_maps[5][6] = 1
+	lvl_maps[6][6] = 1
 	lvl_maps[10][0] = 2
 	lvl_maps[10][1] = 2
 	lvl_maps[10][3] = 2
