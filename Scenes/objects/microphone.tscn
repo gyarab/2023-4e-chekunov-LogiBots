@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://co7pq8bixjiq8"]
+
+[ext_resource type="Script" path="res://Scenes/objects/microphone.gd" id="1_ig16j"]
+[ext_resource type="Texture2D" uid="uid://d3q4kfmy4ckkt" path="res://assets/objects/microphone.png" id="2_r58j5"]
+[ext_resource type="Texture2D" uid="uid://dlr280seljsls" path="res://assets/light/circle.png" id="3_dt0ot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpaxr"]
+size = Vector2(58, 57)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vtjup"]
+polygon = PackedVector2Array(26, -10, 26, 26, -26, 26, -26, -10, -26, -10, -26, -13, -29, -13, -29, 29, 29, 29, 29, -13, -26, -13, -26, -11, -26, -10)
+
+[node name="Microphone" type="StaticBody2D"]
+script = ExtResource("1_ig16j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_bpaxr")
+
+[node name="Microphone" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_r58j5")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 1, 0.0156863, 1)
+energy = 3.63
+shadow_enabled = true
+texture = ExtResource("3_dt0ot")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_vtjup")
+
+[node name="number" type="Label" parent="."]
+offset_left = -26.0
+offset_top = -10.0
+offset_right = 26.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1

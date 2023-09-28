@@ -42,7 +42,7 @@ func _ready():
 	lvl_maps[10][0] = 2
 	lvl_maps[10][1] = 2
 	lvl_maps[10][3] = 2
-	lvl_maps[10][4] = 2
+	lvl_maps[8][7] = 3
 	
 	
 

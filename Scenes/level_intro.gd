@@ -6,6 +6,7 @@ signal all_bots_ready
 var bot_count:int
 var bot_scene = preload("res://Scenes/bot/bot.tscn")
 var box_scene = preload("res://Scenes/objects/box.tscn")
+var microphone_scene = preload("res://Scenes/objects/microphone.tscn")
 
 var step:int = 0
 
@@ -125,8 +126,8 @@ func bot_porcess(bot,i):
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					bot.iterator_update()
-				if line == "swap":
-					# TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if line == "swap" or line == "save":
+					bot.emit_signal(line)
 					print("zloba!")
 			# two word commands
 			if len(line.rsplit(" ")) == 2:
@@ -219,6 +220,12 @@ func lvl_load():
 				var box = box_scene.instantiate()
 				box.pos = Vector2(i,j)
 				$boxes.add_child(box)
+			# microphones
+			if Variables.lvl_maps[i][j] == 3:
+				var microphone = microphone_scene.instantiate()
+				microphone.pos = Vector2(i,j)
+				microphone.number = 24
+				$Microphones.add_child(microphone)
 	
 	#Variables.map = Variables.lvl_maps
 	# bots update

@@ -16,6 +16,8 @@ signal say(direction:String)
 signal was_listened()
 signal jump(type:String,anchor:String)
 signal add(number:int)
+signal swap()
+signal save()
 # jumps
 # 1 if positive
 # 0 if zero
@@ -229,5 +231,19 @@ func _on_was_listened():
 
 func _on_add(number):
 	active += number
+	await get_parent().get_parent().all_bots_ready
+	iterator_update()
+
+
+func _on_swap():
+	var c:int = active
+	active = memory
+	memory = c
+	await get_parent().get_parent().all_bots_ready
+	iterator_update()
+
+
+func _on_save():
+	memory = active
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()
