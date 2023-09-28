@@ -34,12 +34,12 @@ var tick:bool = false
 var tick_time:float = 0.5
 
 func _ready():
-	for i in range(0,20):
+	for i in range(0,16):
 		lvl_maps.append([])
 		map.append([])
-		lvl_maps[i].resize(11)
+		lvl_maps[i].resize(10)
 		lvl_maps[i].fill(0)
-		map[i].resize(11)
+		map[i].resize(10)
 		map[i].fill(0)
 	# lvls config
 	lvl_maps[5][5] = 1

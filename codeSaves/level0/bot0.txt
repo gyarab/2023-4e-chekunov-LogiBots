@@ -1,6 +1,0 @@
-say down
-move up
-move left
-move left
-move down
-listen down

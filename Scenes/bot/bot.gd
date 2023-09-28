@@ -100,7 +100,7 @@ func _on_listen(direction):
 		saying_bot = 10
 	
 	# borders
-	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
+	if  destination.x > 15 or destination.y > 9 or destination.x < 0 or destination.y < 0:
 		self.available = false
 		return
 	# listen to box, huh?
@@ -226,14 +226,14 @@ func _on_say(direction):
 
 func _on_work_timer_timeout():
 	# position sync
-	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
+	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32 +64)
 	is_doing = false
 	direction = " "
 	if update_iterator_bool:
 		iterator_update()
 		update_iterator_bool = false
 func update_position():
-	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32)
+	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32 + 64)
 func self_destroy():
 	self.queue_free()
 func _on_jump(type, anchor):

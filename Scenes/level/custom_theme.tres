@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://cvhrwgxh48p4h"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cvhrwgxh48p4h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hbin"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -16,10 +16,22 @@ shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iq0o1"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.992157, 1, 0.988235, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_216y6"]
+color = Color(0, 0.956863, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_th2dy"]
+color = Color(1, 0.623529, 0.109804, 1)
+thickness = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4am6"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -45,13 +57,21 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0aeo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.992157, 1, 0.988235, 1)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jyqv"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -107,6 +127,8 @@ Button/styles/focus = null
 Button/styles/normal = SubResource("StyleBoxFlat_7hbin")
 CodeEdit/colors/bookmark_color = Color(0.501961, 0.639216, 1, 0.8)
 CodeEdit/styles/normal = SubResource("StyleBoxFlat_iq0o1")
+HSlider/styles/grabber_area = SubResource("StyleBoxLine_216y6")
+HSlider/styles/slider = SubResource("StyleBoxLine_th2dy")
 MenuBar/styles/normal = SubResource("StyleBoxFlat_q4am6")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_traqd")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_466e1")

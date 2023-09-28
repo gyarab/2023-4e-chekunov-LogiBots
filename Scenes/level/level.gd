@@ -10,6 +10,8 @@ var microphone_scene = preload("res://Scenes/objects/microphone.tscn")
 var speaker_scene = preload("res://Scenes/objects/speaker.tscn")
 var step:int = 0
 
+var is_code_hide:bool = false
+
 
 func _ready():
 	lvl_load()
@@ -60,17 +62,21 @@ func set_running_mode():
 				g+=1
 				Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].rstrip(" ")
 		Variables.bots[i].iterator = 0
+		print(Variables.bots[i].code_lines)
 		# adding anchors
 		for j  in range(0,len(Variables.bots[i].code_lines)):
 			var line = Variables.bots[i].code_lines[j]
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					Variables.bots[i].code_anchors[line.get_slice(":",0)] = j
+				else:
+					show_error(j,i,"wrong anchor",line)
+					return
 					
-	$interface/RunButton.text = "Stop"
+	$interface/Panel/RunButton.text = "Stop"
 	$interface/Panel/CodeEdit.editable = false
 	$interface/Panel/botsSelect.disabled = true
-	$interface/HSlider.editable = false
+	$interface/Panel/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
 func set_normal_mode():
@@ -78,8 +84,8 @@ func set_normal_mode():
 	Variables.tick = false
 	lvl_load()
 	$TickTimer.stop()
-	$interface/HSlider.editable = true
-	$interface/RunButton.text = "Run"
+	$interface/Panel/HSlider.editable = true
+	$interface/Panel/RunButton.text = "Run"
 	$interface/Panel/CodeEdit.editable = true
 	$interface/Panel/botsSelect.disabled = false
 	
@@ -215,8 +221,8 @@ func lvl_load():
 	step = 0
 	
 	var lvl:int = Variables.level
-	for i in range(0,20):
-		for j in range(0,11):
+	for i in range(0,16):
+		for j in range(0,10):
 			# updating map
 			Variables.map[i][j] = Variables.lvl_maps[i][j]
 			# adding player
@@ -264,8 +270,5 @@ func lvl_load():
 
 
 func _on_h_slider_drag_ended(value_changed):
-	Variables.tick_time = 10/$interface/HSlider.value
+	Variables.tick_time = 10/$interface/Panel/HSlider.value
 
-func _on_hide_button_pressed():
-	#hide code
-	pass # Replace with function body.
