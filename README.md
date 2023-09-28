@@ -9,7 +9,7 @@ TODO:
 - [x] add, sub
 - [x] swap, save 
 - [x] microphone block
-- [ ] reproductor
+- [x] speaker
 - [ ] paddle
 - [ ] golden micro
 - [ ] main menu
