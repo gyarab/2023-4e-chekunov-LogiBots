@@ -43,6 +43,7 @@ func _ready():
 		map[i].fill(0)
 	# lvls config
 	lvl_maps[5][5] = 1
+	lvl_maps[5][6] = 1
 	lvl_maps[10][0] = 2
 	lvl_maps[10][1] = 2
 	lvl_maps[10][3] = 2

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Logibots"
-run/main_scene="res://Scenes/level_intro.tscn"
+run/main_scene="res://Scenes/level/level.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 

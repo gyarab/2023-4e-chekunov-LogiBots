@@ -200,7 +200,7 @@ func lvl_load():
 			$Microphones.remove_child(mic)
 			mic.queue_free()
 	if len($Speakers.get_children()) >= 1:
-		for spk in $Microphones.get_children():
+		for spk in $Speakers.get_children():
 			$Speakers.remove_child(spk)
 			spk.queue_free()
 			
@@ -265,3 +265,7 @@ func lvl_load():
 
 func _on_h_slider_drag_ended(value_changed):
 	Variables.tick_time = 10/$interface/HSlider.value
+
+func _on_hide_button_pressed():
+	#hide code
+	pass # Replace with function body.

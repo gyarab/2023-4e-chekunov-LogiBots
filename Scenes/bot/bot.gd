@@ -30,6 +30,7 @@ var update_iterator_bool:bool = false
 var is_doing:bool = false
 var direction:String
 func _ready():
+	$AnimationPlayer.play("down")
 	#id on create
 	id = Variables.bot_ids
 	Variables.bot_ids+=1
@@ -38,33 +39,35 @@ func _ready():
 	update_position()
 
 func _process(delta):
+	
+	#debug
+	#print($bodyLight.enabled)
+	
 	# cosmetics
 	if id == Variables.current_code and not Variables.running:
-		$light.energy = 9
-		$light.color = Color(0, 255, 1)
-		$light.enabled = true
-	else:
-		$light.enabled = false
+		$bodyLight.energy = 9
+		$bodyLight.color = Color("ff6600")
+		$bodyLight.enabled = true
+		
+	
 	if Variables.running and self.available == false:
-		$light.energy = 3
-		$light.color = Color(255, 0, 0, 0.5)
-		$light.enabled = true
+		$bodyLight.energy = 10
+		$bodyLight.color = Color("red", 5)
+		$bodyLight.enabled = true
 	
 	$Active.text = str(active)
 	$Memory.text = str(id+1)
 	if is_doing:
+		$AnimationPlayer.play(direction)
 		if direction == "left":
 			velocity = Vector2.LEFT * delta * 64 * 60 / Variables.tick_time
-			move_and_slide()
 		if direction == "right":
 			velocity = Vector2.RIGHT * delta * 64 * 60 / Variables.tick_time
-			move_and_slide()
 		if direction == "up":
 			velocity = Vector2.UP * delta * 64 * 60 / Variables.tick_time
-			move_and_slide()
 		if direction == "down":
 			velocity = Vector2.DOWN * delta * 64 * 60 / Variables.tick_time
-			move_and_slide()
+		move_and_slide()
 
 func iterator_update():
 	if iterator < len(code_lines)-1:
@@ -73,9 +76,10 @@ func iterator_update():
 			if not code_anchors.has(code_lines[i].split(":",0)[0]):
 				iterator = i
 				return
-		
+		$AnimationPlayer.play("down")
 		self.available = false
 	else:
+		$AnimationPlayer.play("down")
 		self.available = false
 
 func _on_listen(direction):
@@ -261,6 +265,7 @@ func _on_was_listened():
 
 
 func _on_add(number):
+	$AnimationPlayer.play("number")
 	active += number
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()
@@ -270,11 +275,13 @@ func _on_swap():
 	var c:int = active
 	active = memory
 	memory = c
+	$AnimationPlayer.play("number")
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()
 
 
 func _on_save():
+	$AnimationPlayer.play("number")
 	memory = active
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()
