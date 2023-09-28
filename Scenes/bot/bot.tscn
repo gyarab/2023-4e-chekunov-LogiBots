@@ -52,6 +52,7 @@ vertical_alignment = 1
 [node name="WorkTimer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="add" from="." to="." method="_on_add"]
 [connection signal="jump" from="." to="." method="_on_jump"]
 [connection signal="listen" from="." to="." method="_on_listen"]
 [connection signal="move" from="." to="." method="_on_move"]

@@ -1,8 +1,0 @@
-s:
-listen up
-move left
-move down
-move right
-move up
-say right
-jump s

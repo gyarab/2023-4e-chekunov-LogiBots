@@ -1,0 +1,10 @@
+jump a
+start:
+listen left
+a:
+move down
+move right
+move up
+move left
+say up
+jump start

@@ -24,6 +24,10 @@ Variables="*res://global/variables.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=704
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_style/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="mobile"

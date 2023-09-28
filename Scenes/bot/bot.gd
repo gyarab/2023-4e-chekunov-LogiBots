@@ -15,6 +15,7 @@ signal listen(direction:String)
 signal say(direction:String)
 signal was_listened()
 signal jump(type:String,anchor:String)
+signal add(number:int)
 # jumps
 # 1 if positive
 # 0 if zero
@@ -66,9 +67,14 @@ func _process(delta):
 func iterator_update():
 	if iterator < len(code_lines)-1:
 		iterator += 1
+		for i in range(iterator,len(code_lines)):
+			if not code_anchors.has(code_lines[i].split(":",0)[0]):
+				iterator = i
+				return
+		
+		self.available = false
 	else:
 		self.available = false
-
 
 func _on_listen(direction):
 	
@@ -207,14 +213,21 @@ func _on_jump(type, anchor):
 	if jump:
 		code_jump(anchor)
 	else:
+		#print("halo!")
 		await get_parent().get_parent().all_bots_ready
-		update_iterator_bool = true
-		$WorkTimer.start(Variables.tick_time)
+		iterator_update()
 func code_jump(anchor:String):
 	await get_parent().get_parent().all_bots_ready
-	self.iterator = code_anchors[anchor] + 1
-	$WorkTimer.start(Variables.tick_time)
-
+	# seek for the first line that is not anchor
+	self.iterator = code_anchors[anchor] - 1
+	iterator_update()
+	
 
 func _on_was_listened():
 	pass # Replace with function body.
+
+
+func _on_add(number):
+	active += number
+	await get_parent().get_parent().all_bots_ready
+	iterator_update()

@@ -7,6 +7,7 @@ var bot_count:int
 var bot_scene = preload("res://Scenes/bot/bot.tscn")
 var box_scene = preload("res://Scenes/objects/box.tscn")
 
+var step:int = 0
 
 
 func _ready():
@@ -26,8 +27,10 @@ func _on_bots_select_item_selected(index):
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
+	step+=1
+	print("tick! "+ str(step))
+	
 	Variables.tick = true
-	print("tick!")
 
 func set_running_mode():
 	Variables.code_save()
@@ -148,10 +151,16 @@ func bot_porcess(bot,i):
 						return
 				# add sub
 				elif first == "add" or first == "sub":
-					if second.to_int() != null:
-						# z bota iterator_update(i)
-						# todo! emit signal
-						pass
+					if second.to_int() != null or second == "active":
+						var num:int
+						if second == "active":
+							num = bot.active
+						else:
+							num = second.to_int()
+						if first == "sub":
+							num *= -1
+						bot.emit_signal("add",num)
+						return
 					else:
 						show_error(bot.iterator,i,"wrong number",second)
 						return
@@ -188,6 +197,8 @@ func lvl_load():
 	# clear all buttons
 	$interface/Panel/botsSelect.clear()
 	
+	# step
+	step = 0
 	
 	var lvl:int = Variables.level
 	for i in range(0,20):

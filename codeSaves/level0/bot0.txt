@@ -1,10 +1,5 @@
-jump a
-s:
-listen right
+loop:
 a:
 move up
-move left
-move down
-move right
-say down
-jump s
+ab:
+jump loop
