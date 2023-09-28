@@ -7,8 +7,8 @@ ___
 TODO:
 
 - [x] add, sub
-- [ ] swap, save 
-- [ ] microphone block
+- [x] swap, save 
+- [x] microphone block
 - [ ] reproductor
 - [ ] paddle
 - [ ] golden micro
@@ -17,3 +17,4 @@ TODO:
 - [ ] win/lose scene
 - [ ] level select
 
+Better save objects, by collections

@@ -21,6 +21,13 @@ var bot_ids:int = 0
 # bots waiting for other to move (for bot sync)
 var hoping_bots:Array
 
+# objects
+
+#mic
+var mics:Array
+#speakers
+var speakers:Array
+
 # time 
 var sleep:bool = false
 var tick:bool = false
@@ -36,16 +43,12 @@ func _ready():
 		map[i].fill(0)
 	# lvls config
 	lvl_maps[5][5] = 1
-	lvl_maps[5][6] = 1
-	lvl_maps[6][5] = 1
-	lvl_maps[6][6] = 1
 	lvl_maps[10][0] = 2
 	lvl_maps[10][1] = 2
 	lvl_maps[10][3] = 2
 	lvl_maps[8][7] = 3
+	lvl_maps[6][7] = 4
 	
-	
-
 func code_save():
 	if !FileAccess.file_exists("res://codeSaves/"+"level "+str(level)):
 		var dir = DirAccess.open("res://codeSaves/")

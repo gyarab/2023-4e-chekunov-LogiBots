@@ -67,6 +67,8 @@ tick_count = 10
 
 [node name="Microphones" type="Node" parent="."]
 
+[node name="Speakers" type="Node" parent="."]
+
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
 

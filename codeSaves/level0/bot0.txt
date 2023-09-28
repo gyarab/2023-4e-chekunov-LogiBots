@@ -1,5 +1,7 @@
-add 3
-start:
+move down
+move right
+listen down
+move right
+move right
+say down
 move up
-sub 1
-jumpg start

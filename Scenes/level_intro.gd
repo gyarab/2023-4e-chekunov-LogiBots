@@ -7,7 +7,7 @@ var bot_count:int
 var bot_scene = preload("res://Scenes/bot/bot.tscn")
 var box_scene = preload("res://Scenes/objects/box.tscn")
 var microphone_scene = preload("res://Scenes/objects/microphone.tscn")
-
+var speaker_scene = preload("res://Scenes/objects/speaker.tscn")
 var step:int = 0
 
 
@@ -137,7 +137,7 @@ func bot_porcess(bot,i):
 				if len(line.rsplit(" ")) > 1:
 					second = line.rsplit(" ")[1]
 				# jumps
-				if first == "jump" or first == "jumpz" or first == "jumpn" or first == "jumpg":
+				if first == "jump" or first == "jumpz" or first == "jumpl" or first == "jumpg":
 					if bot.code_anchors.has(second):
 						bot.emit_signal("jump",first,second)
 						return
@@ -195,8 +195,19 @@ func lvl_load():
 		for box in $boxes.get_children():
 			$boxes.remove_child(box)
 			box.queue_free()
+	if len($Microphones.get_children()) >= 1:
+		for mic in $Microphones.get_children():
+			$Microphones.remove_child(mic)
+			mic.queue_free()
+	if len($Speakers.get_children()) >= 1:
+		for spk in $Microphones.get_children():
+			$Speakers.remove_child(spk)
+			spk.queue_free()
+			
 	Variables.hoping_bots = []
 	Variables.bot_ids = 0
+	Variables.mics = []
+	Variables.speakers = []
 	# clear all buttons
 	$interface/Panel/botsSelect.clear()
 	
@@ -226,12 +237,21 @@ func lvl_load():
 				microphone.pos = Vector2(i,j)
 				microphone.number = 24
 				$Microphones.add_child(microphone)
+			# speaker
+			if Variables.lvl_maps[i][j] == 4:
+				var speaker = speaker_scene.instantiate()
+				speaker.pos = Vector2(i,j)
+				speaker.number = 120
+				$Speakers.add_child(speaker)
 	
 	#Variables.map = Variables.lvl_maps
 	# bots update
 	bot_count = len($bots.get_children())
 	Variables.current_bot_count = bot_count
 	Variables.bots = $bots.get_children()
+	Variables.mics = $Microphones.get_children()
+	Variables.speakers = $Speakers.get_children()
+	
 	# code files
 	for i in range(0,bot_count):
 		$interface/Panel/botsSelect.add_item("Bot "+str(i+1))

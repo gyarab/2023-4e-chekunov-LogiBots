@@ -103,13 +103,34 @@ func _on_listen(direction):
 	if Variables.map[destination.x][destination.y] == 2:
 		self.available = false
 		return
-	print(Variables.map[destination.x][destination.y])
-	print("neni?")
-	print(saying_bot)
 	if Variables.map[destination.x][destination.y] == 1:
 		Variables.hoping_bots.append(self)
+	
+	# microphone
+	if Variables.map[destination.x][destination.y] == 3:
+		# search right microphone
+		var right_mic
+		for mic in Variables.mics:
+			if mic.pos == destination:
+				right_mic = mic
+				#chybi
+				self.active = right_mic.number
+				await get_parent().get_parent().all_bots_ready
+				iterator_update()
+				return
+	# speaker
+	if Variables.map[destination.x][destination.y] == 4:
+		# search right microphone
+		var right_spk
+		for spk in Variables.speakers:
+			if spk.pos == destination:
+				right_spk = spk
+				#chybi
+				self.active = right_spk.number
+				await get_parent().get_parent().all_bots_ready
+				iterator_update()
+				return
 	if Variables.map[destination.x][destination.y] == saying_bot:
-		print("pridavam")
 		#search right bot
 		var right_bot
 		for bot in Variables.bots:
@@ -120,7 +141,7 @@ func _on_listen(direction):
 				await get_parent().get_parent().all_bots_ready
 				self.active = right_bot.active
 				iterator_update()
-
+				return
 func _on_move(direction):
 	var map = Variables.map
 	var destination:Vector2
@@ -178,10 +199,20 @@ func _on_say(direction):
 		self.available = false
 		return
 	# saying to box, huh?
-	if Variables.map[destination.x][destination.y] == 2:
+	if Variables.map[destination.x][destination.y] == 2 or Variables.map[destination.x][destination.y] == 4:
 		self.available = false
 		return
-	print("rikam")
+	# microphone
+	if Variables.map[destination.x][destination.y] == 3:
+		var right_mic
+		for mic in Variables.mics:
+			if mic.pos == destination:
+				right_mic = mic
+				#chybi
+				right_mic.number = self.active
+				await get_parent().get_parent().all_bots_ready
+				iterator_update()
+				return
 	await was_listened
 	print("uz rekl")
 	Variables.map[pos.x][pos.y] = 1
@@ -205,7 +236,7 @@ func _on_jump(type, anchor):
 	var jump:bool = false
 	if type == "jump":
 		jump = true
-	elif type == "jumpn":
+	elif type == "jumpl":
 			jump = active < 0
 	elif type == "jumpz":
 		jump = active == 0
