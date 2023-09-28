@@ -27,9 +27,8 @@ func _on_bots_select_item_selected(index):
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
-	step+=1
+	step += 1
 	print("tick! "+ str(step))
-	
 	Variables.tick = true
 
 func set_running_mode():
@@ -126,6 +125,9 @@ func bot_porcess(bot,i):
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					bot.iterator_update()
+				if line == "swap":
+					# TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					print("zloba!")
 			# two word commands
 			if len(line.rsplit(" ")) == 2:
 				
