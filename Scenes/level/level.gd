@@ -8,6 +8,7 @@ var bot_scene = preload("res://Scenes/bot/bot.tscn")
 var box_scene = preload("res://Scenes/objects/box.tscn")
 var microphone_scene = preload("res://Scenes/objects/microphone.tscn")
 var speaker_scene = preload("res://Scenes/objects/speaker.tscn")
+var plate_scene = preload("res://Scenes/objects/plate.tscn")
 var step:int = 0
 
 var is_code_hide:bool = false
@@ -210,10 +211,16 @@ func lvl_load():
 			$Speakers.remove_child(spk)
 			spk.queue_free()
 			
+	if len($Plates.get_children()) >= 1:
+		for plate in $Plates.get_children():
+			$Plates.remove_child(plate)
+			plate.queue_free()
+			
 	Variables.hoping_bots = []
 	Variables.bot_ids = 0
 	Variables.mics = []
 	Variables.speakers = []
+	Variables.plates = []
 	# clear all buttons
 	$interface/Panel/botsSelect.clear()
 	
@@ -249,7 +256,11 @@ func lvl_load():
 				speaker.pos = Vector2(i,j)
 				speaker.number = 120
 				$Speakers.add_child(speaker)
-	
+				
+	var plate = plate_scene.instantiate()
+	plate.pos = Vector2(9,4)
+	$Plates.add_child(plate)
+
 	#Variables.map = Variables.lvl_maps
 	# bots update
 	bot_count = len($bots.get_children())

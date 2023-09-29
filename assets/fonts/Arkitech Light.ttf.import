@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://cbxxye4pej5v6"
+path="res://.godot/imported/Arkitech Light.ttf-84b0df3cb2fc0860cb05f4678a8b1cdb.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/Arkitech Light.ttf"
+dest_files=["res://.godot/imported/Arkitech Light.ttf-84b0df3cb2fc0860cb05f4678a8b1cdb.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

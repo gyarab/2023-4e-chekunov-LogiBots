@@ -127,6 +127,8 @@ text = "Game speed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Plates" type="Node" parent="."]
+
 [node name="bots" type="Node" parent="."]
 
 [node name="boxes" type="Node" parent="."]

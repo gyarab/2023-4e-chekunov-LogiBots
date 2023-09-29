@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://2gr2cmkiobfa"]
+
+[ext_resource type="Script" path="res://Scenes/menu/main_menu.gd" id="1_ghmhn"]
+[ext_resource type="Texture2D" uid="uid://bnaaux7kwtar3" path="res://assets/menu/menu_bg.png" id="1_h7nnp"]
+[ext_resource type="Theme" uid="uid://cvhrwgxh48p4h" path="res://Scenes/level/custom_theme.tres" id="2_dyffx"]
+[ext_resource type="FontFile" uid="uid://ibdd8p7nexah" path="res://assets/fonts/Arkitech Bold.ttf" id="3_ihnhm"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_ghmhn")
+
+[node name="MenuBg" type="Sprite2D" parent="."]
+position = Vector2(640, 352)
+texture = ExtResource("1_h7nnp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 704.0
+theme = ExtResource("2_dyffx")
+
+[node name="LogiBotLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -319.0
+offset_top = 50.0
+offset_right = 319.0
+offset_bottom = 192.0
+grow_horizontal = 2
+theme = ExtResource("2_dyffx")
+theme_override_fonts/font = ExtResource("3_ihnhm")
+theme_override_font_sizes/font_size = 72
+text = "LOGIBOTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 596.0
+offset_right = 272.0
+offset_bottom = 668.0
+text = "exit to os"
+
+[node name="SettingsButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 488.0
+offset_right = 272.0
+offset_bottom = 560.0
+text = "settings"
+
+[node name="ContinueButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 380.0
+offset_right = 272.0
+offset_bottom = 452.0
+text = "continue"
+
+[node name="NewGameButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 272.0
+offset_right = 272.0
+offset_bottom = 344.0
+text = "New Game"
+
+[connection signal="pressed" from="Control/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Control/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Control/NewGameButton" to="." method="_on_new_game_button_pressed"]

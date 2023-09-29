@@ -27,8 +27,10 @@ var hoping_bots:Array
 var mics:Array
 #speakers
 var speakers:Array
+# Plates
+var plates:Array
 
-# time 
+# time
 var sleep:bool = false
 var tick:bool = false
 var tick_time:float = 0.5
@@ -49,6 +51,7 @@ func _ready():
 	lvl_maps[10][3] = 2
 	lvl_maps[8][7] = 3
 	lvl_maps[6][7] = 4
+	
 	
 func code_save():
 	if !FileAccess.file_exists("res://codeSaves/"+"level "+str(level)):

@@ -1,0 +1,6 @@
+move right
+move right
+move right
+move right
+move up
+move up

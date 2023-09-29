@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyeomxif3yd0g"]
+
+[ext_resource type="Script" path="res://Scenes/objects/plate.gd" id="1_4veny"]
+[ext_resource type="Texture2D" uid="uid://bcfju82q8vjj4" path="res://assets/objects/paddle.png" id="1_kxyxg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yje2d"]
+size = Vector2(24, 26)
+
+[node name="Plate" type="StaticBody2D"]
+script = ExtResource("1_4veny")
+
+[node name="Paddle" type="Sprite2D" parent="."]
+texture = ExtResource("1_kxyxg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yje2d")
