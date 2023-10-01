@@ -2,5 +2,6 @@ move right
 move right
 move right
 move right
-move up
+add 5
+add 10.6
 move up
