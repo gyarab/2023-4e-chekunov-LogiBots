@@ -283,3 +283,15 @@ func lvl_load():
 func _on_h_slider_drag_ended(value_changed):
 	Variables.tick_time = 10/$interface/Panel/HSlider.value
 
+
+
+func _on_exit_button_pressed():
+	get_tree().quit()
+
+
+func _on_full_screen_button_pressed():
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.window_set_size(Vector2(1280,704))
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

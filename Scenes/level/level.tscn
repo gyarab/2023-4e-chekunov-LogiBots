@@ -127,6 +127,24 @@ text = "Game speed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExitButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 1229.0
+offset_top = 10.0
+offset_right = 1269.0
+offset_bottom = 50.0
+text = "X"
+
+[node name="FullScreenButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 1177.0
+offset_top = 10.0
+offset_right = 1217.0
+offset_bottom = 50.0
+theme = ExtResource("3_eeaed")
+text = "FZ"
+icon_alignment = 1
+
 [node name="Plates" type="Node" parent="."]
 
 [node name="bots" type="Node" parent="."]
@@ -174,5 +192,7 @@ justification_flags = 99
 [connection signal="pressed" from="interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="drag_ended" from="interface/Panel/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="pressed" from="interface/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="interface/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
