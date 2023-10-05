@@ -223,7 +223,7 @@ func lvl_load():
 	# clear all buttons
 	$interface/Panel/botsSelect.clear()
 	$interface/Description.text = Variables.description
-	$interface/Title.text = "level - "+str(Variables.level)+" "+Variables.title
+	$interface/Title.text = "level "+str(Variables.level)+" - "+Variables.title
 	# step
 	step = 0
 	

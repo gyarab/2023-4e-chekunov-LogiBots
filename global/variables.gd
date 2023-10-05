@@ -53,7 +53,7 @@ func _ready():
 
 	LevelClass.save_level(1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","move to the plate")
 	GameFiles.last_user_load()
-	LevelClass.load_level(1)
+	LevelClass.load_level(2)
 	return
 	
 	# lvls config
