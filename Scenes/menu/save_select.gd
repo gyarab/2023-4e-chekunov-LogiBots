@@ -13,3 +13,17 @@ func _process(delta):
 
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
+
+func change_current_save(num:int):
+	Variables.current_save_file = num
+	GameFiles.last_user_save()
+
+func _on_first_file_pressed():
+	change_current_save(1)
+
+
+func _on_second_file_pressed():
+	change_current_save(2)
+	
+func _on_third_file_pressed():
+	change_current_save(3)

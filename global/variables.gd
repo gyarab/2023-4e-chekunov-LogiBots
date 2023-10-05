@@ -5,11 +5,18 @@ var level := 0
 
 
 
-var current_save_file := 1
+var current_save_file := -1
 # level
 #saves
 var lvl_maps:Array = []
+"""lvl_map from save, initial lvl map"""
+
+var title:String = "title"
+var description:String = "description"
+
 var map:Array = []
+"""dynamic map"""
+
 var running:bool = false
 # code
 var current_code:int = 0
@@ -24,8 +31,10 @@ var hoping_bots:Array
 # objects
 #mic
 var mics:Array
+var mics_val:Array
 #speakers
 var speakers:Array
+var speakers_val:Array
 # Plates
 var plates:Array
 # time
@@ -41,6 +50,12 @@ func _ready():
 		lvl_maps[i].fill(0)
 		map[i].resize(10)
 		map[i].fill(0)
+
+	LevelClass.save_level(1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","move to the plate")
+	GameFiles.last_user_load()
+	LevelClass.load_level(1)
+	return
+	
 	# lvls config
 	lvl_maps[5][5] = 1
 	lvl_maps[5][6] = 1
@@ -49,52 +64,4 @@ func _ready():
 	lvl_maps[10][3] = 2
 	lvl_maps[8][7] = 3
 	lvl_maps[6][7] = 4
-	
-
-func create_save_files():
-	if !DirAccess.dir_exists_absolute("user://Saves"):
-		var dir = DirAccess.open("user://")
-		dir.make_dir("Saves")
-		
-	if !DirAccess.dir_exists_absolute("user://Saves/Save "+str(current_save_file)):
-		var current_save_dir = DirAccess.open("user://Saves")
-		current_save_dir.make_dir("Save "+str(current_save_file))
-		print("Save")
-	else:
-		print("exist!")
-func code_save():
-	create_save_files()
-	game_progress_save()
-	#CodeSave dir
-	if !DirAccess.dir_exists_absolute("user://Saves/Save "+str(current_save_file)+"/CodeSaves/"):
-		var dir = DirAccess.open("user://Saves/Save "+str(current_save_file))
-		dir.make_dir("CodeSaves")
-		
-	if !FileAccess.file_exists("user://Saves/Save "+str(current_save_file)+"/CodeSaves/"+"Level "+str(level)):
-		var dir = DirAccess.open("user://Saves/Save "+str(current_save_file)+"/CodeSaves/")
-		dir.make_dir("Level "+str(level))
-	for i in range(0,current_bot_count):
-		
-		var file = FileAccess.open("user://Saves/Save "+str(current_save_file)+"/CodeSaves/"+"Level "+str(level)+"/Bot "+str(i)+".txt", FileAccess.WRITE)
-		file.store_string(codes[i])
-
-func game_progress_save():
-	var file_path := "user://Saves/Save "+str(current_save_file)+"/gameProgress.bat"
-	var file
-	file = FileAccess.open(file_path,FileAccess.WRITE)
-	file.store_var(level)
-		
-func game_progress_load():
-	pass
-
-func code_load():
-	for i in range(0,current_bot_count):
-		var content:String
-		var bot_path := "user://Saves/Save "+str(current_save_file)+"/CodeSaves/"+"Level "+str(level)+"/Bot "+str(i)+".txt"
-		if FileAccess.file_exists(bot_path):
-			var file = FileAccess.open(bot_path, FileAccess.READ)
-			content = file.get_as_text()
-		else:
-			content = ""
-		codes[i] = content
 	

@@ -36,7 +36,7 @@ func _on_tick_timer_timeout():
 	Variables.tick = true
 
 func set_running_mode():
-	Variables.code_save()
+	GameFiles.code_save()
 	Variables.running = true
 	Variables.tick = true
 	Variables.bots = $bots.get_children()
@@ -220,14 +220,13 @@ func lvl_load():
 	Variables.bot_ids = 0
 	Variables.mics = []
 	Variables.speakers = []
-	Variables.plates = []
 	# clear all buttons
 	$interface/Panel/botsSelect.clear()
-	
+	$interface/Description.text = Variables.description
+	$interface/Title.text = "level - "+str(Variables.level)+" "+Variables.title
 	# step
 	step = 0
 	
-	var lvl:int = Variables.level
 	for i in range(0,16):
 		for j in range(0,10):
 			# updating map
@@ -257,10 +256,13 @@ func lvl_load():
 				speaker.number = 120
 				$Speakers.add_child(speaker)
 				
-	var plate = plate_scene.instantiate()
-	plate.pos = Vector2(9,4)
-	$Plates.add_child(plate)
-
+	print(Variables.plates)
+	for plt in Variables.plates:
+		var plate = plate_scene.instantiate()
+		plate.pos = Vector2(plt.x,plt.y)
+		$Plates.add_child(plate)
+		print("pridal!")
+		
 	#Variables.map = Variables.lvl_maps
 	# bots update
 	bot_count = len($bots.get_children())
@@ -275,7 +277,7 @@ func lvl_load():
 		Variables.codes.append("")
 	
 	# Saves
-	Variables.code_load()
+	GameFiles.code_load()
 	$interface/Panel/botsSelect.select(Variables.current_code)
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 

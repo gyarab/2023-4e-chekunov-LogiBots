@@ -145,6 +145,25 @@ theme = ExtResource("3_eeaed")
 text = "FZ"
 icon_alignment = 1
 
+[node name="Title" type="Label" parent="interface"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 519.0
+offset_top = 10.0
+offset_right = 723.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "Level 0 - tutorial"
+
+[node name="Description" type="RichTextLabel" parent="interface"]
+layout_mode = 0
+offset_left = 831.0
+offset_top = -2.0
+offset_right = 1153.0
+offset_bottom = 62.0
+
 [node name="Plates" type="Node" parent="."]
 
 [node name="bots" type="Node" parent="."]

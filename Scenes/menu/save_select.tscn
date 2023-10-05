@@ -66,4 +66,7 @@ offset_right = 210.0
 offset_bottom = 120.0
 text = "back"
 
+[connection signal="pressed" from="Control/FirstFile" to="." method="_on_first_file_pressed"]
+[connection signal="pressed" from="Control/SecondFile" to="." method="_on_second_file_pressed"]
+[connection signal="pressed" from="Control/ThirdFile" to="." method="_on_third_file_pressed"]
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]
