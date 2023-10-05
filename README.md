@@ -10,10 +10,9 @@ TODO:
 - [x] swap, save 
 - [x] microphone block
 - [x] speaker
-- [ ] paddle
-- [ ] golden micro
-- [ ] main menu
-- [ ] progess file
+- [x] paddle
+- [x] main menu
+- [x] progess file
 - [ ] win/lose scene
 - [ ] level select
 
