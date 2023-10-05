@@ -51,9 +51,9 @@ func _ready():
 		map[i].resize(10)
 		map[i].fill(0)
 
-	LevelClass.save_level(1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","move to the plate")
+	#LevelClass.save_level(2,[Vector2(5,5)],[Vector2(8,5),Vector2(8,6),Vector2(8,7),Vector2(8,4),Vector2(8,3),Vector2(8,8),Vector2(8,9)],[],[],[Vector2(10,5)],"moving with mind","move to the yellow block")
 	GameFiles.last_user_load()
-	LevelClass.load_level(2)
+	LevelClass.load_level(1)
 	return
 	
 	# lvls config

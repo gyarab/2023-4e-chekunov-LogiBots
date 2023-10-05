@@ -10,7 +10,7 @@ var title:String
 var description:String
 """
 saves:
-1. (1,[Vector2(5,5)],[],[],[],[Vector2(10,5)])
+1. (1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","move to the plate")
 2. (2,[Vector2(5,5)],[Vector2(8,5),Vector2(8,6),Vector2(8,7),Vector2(8,4),Vector2(8,3),Vector2(8,8),Vector2(8,9)],[],[],[Vector2(10,5)])
 
 	"""
@@ -50,6 +50,8 @@ func load_level(index:int):
 		boxes = level["boxes"]
 		mics = level["mics"]
 		speakers = level["speakers"]
+		description = level["description"]
+		title = level["title"]
 		print(level)
 		print("prochital"+str( level["plates"]))
 		plates = level["plates"]
