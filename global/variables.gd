@@ -56,7 +56,7 @@ func _ready():
 	LevelClass.load_level(1)
 	return
 	
-	# lvls config
+	# old lvls config
 	lvl_maps[5][5] = 1
 	lvl_maps[5][6] = 1
 	lvl_maps[10][0] = 2

@@ -177,25 +177,6 @@ offset_bottom = 62.0
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="ErrorWindow" type="Window" parent="."]
-title = "Error"
-initial_position = 1
-size = Vector2i(400, 200)
-visible = false
-content_scale_size = Vector2i(400, 200)
-
-[node name="Label" type="Label" parent="ErrorWindow"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Error at line "
-
-[node name="ErrorButton" type="Button" parent="ErrorWindow"]
-offset_left = 20.0
-offset_top = 80.0
-offset_right = 68.0
-offset_bottom = 111.0
-text = "close"
-
 [node name="DebugWindow" type="Window" parent="."]
 position = Vector2i(0, 36)
 size = Vector2i(500, 300)
@@ -207,6 +188,114 @@ offset_bottom = 23.0
 text = "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
 justification_flags = 99
 
+[node name="ErrorWindow" type="Window" parent="."]
+transparent_bg = true
+title = "Error"
+initial_position = 1
+size = Vector2i(400, 200)
+visible = false
+content_scale_size = Vector2i(400, 200)
+theme = ExtResource("3_eeaed")
+
+[node name="Panel" type="Panel" parent="ErrorWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ErrorWindow"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 106.0
+offset_bottom = 36.0
+text = "Error at line "
+
+[node name="ErrorButton" type="Button" parent="ErrorWindow"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -51.0
+offset_right = 45.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "close"
+
+[node name="WinLoseWindow" type="Window" parent="."]
+transparent_bg = true
+initial_position = 4
+size = Vector2i(500, 300)
+visible = false
+theme = ExtResource("3_eeaed")
+
+[node name="Panel" type="Panel" parent="WinLoseWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinLoseLabel" type="Label" parent="WinLoseWindow/Panel"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 91.0
+offset_bottom = 36.0
+text = "Well done!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="WinLoseWindow/Panel"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 70.0
+offset_right = 91.0
+offset_bottom = 96.0
+text = "You did it with 90 seps, nice!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="WinLoseWindow/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -162.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NEXT LEVEL"
+
+[node name="RestartButton" type="Button" parent="WinLoseWindow/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "RESTART"
+
+[node name="ExitToMenuButton" type="Button" parent="WinLoseWindow/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 176.0
+grow_vertical = 0
+text = "EXIT TO MENU"
+
 [connection signal="item_selected" from="interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="drag_ended" from="interface/Panel/HSlider" to="." method="_on_h_slider_drag_ended"]
@@ -215,3 +304,6 @@ justification_flags = 99
 [connection signal="pressed" from="interface/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
+[connection signal="pressed" from="WinLoseWindow/Panel/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="WinLoseWindow/Panel/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="WinLoseWindow/Panel/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]

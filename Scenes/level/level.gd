@@ -10,7 +10,7 @@ var microphone_scene = preload("res://Scenes/objects/microphone.tscn")
 var speaker_scene = preload("res://Scenes/objects/speaker.tscn")
 var plate_scene = preload("res://Scenes/objects/plate.tscn")
 var step:int = 0
-
+var level_end:bool = false
 var is_code_hide:bool = false
 
 
@@ -18,10 +18,11 @@ func _ready():
 	lvl_load()
 
 func _on_run_button_pressed():
-	if Variables.running:
-		set_normal_mode()
-	else:
-		set_running_mode()
+	if not level_end:
+		if Variables.running:
+			set_normal_mode()
+		else:
+			set_running_mode()
 	
 func _on_code_edit_text_changed():
 	Variables.codes[Variables.current_code] =$interface/Panel/CodeEdit.text
@@ -31,8 +32,9 @@ func _on_bots_select_item_selected(index):
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
-	step += 1
-	print("tick! "+ str(step))
+	if not level_end:
+		step += 1
+		print("tick! "+ str(step))
 	Variables.tick = true
 
 func set_running_mode():
@@ -40,6 +42,7 @@ func set_running_mode():
 	Variables.running = true
 	Variables.tick = true
 	Variables.bots = $bots.get_children()
+	$ErrorWindow.visible = false
 	for i in range(0,bot_count):
 		Variables.bots[i].id = i
 		if len(Variables.codes[i].rsplit("\n", false)) == 0:
@@ -115,13 +118,36 @@ func _process(delta):
 		Variables.sleep = true
 		
 	var all_finished = true
+	var end:bool = true
+	
 	for bot in Variables.bots:
+		
 		if bot.is_doing:
 			all_finished = false
+		if bot.available:
+			end = false
 	if all_finished:
 		Variables.sleep = false
 		
-	
+	if end:
+		check_level(Variables.level)
+
+func check_level(level):
+	if level == 1 or level == 2:
+		show_end_window(Variables.map[10][5] == 1)
+
+func  show_end_window(win):
+	level_end = true
+	$WinLoseWindow.visible = true
+	$WinLoseWindow/Panel/NextLevelButton.visible = win
+	if win:
+		$WinLoseWindow/Panel/WinLoseLabel.text = "Great Job!"
+		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps! \n is it possible to do it better?"
+		
+	else:
+		$WinLoseWindow/Panel/WinLoseLabel.text = "Opsie wopsie.."
+		$WinLoseWindow/Panel/InfoLabel.text = "You need to fix it!"
+
 func bot_porcess(bot,i):
 			# line
 			var lns = bot.code_lines
@@ -297,3 +323,22 @@ func _on_full_screen_button_pressed():
 		DisplayServer.window_set_size(Vector2(1280,704))
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+
+func _on_restart_button_pressed():
+	$WinLoseWindow.visible = false
+	level_end = false
+	set_normal_mode()
+
+
+func _on_exit_to_menu_button_pressed():
+	$WinLoseWindow.visible = false
+	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
+
+
+func _on_next_level_button_pressed():
+	$WinLoseWindow.visible = false
+	level_end = false
+	Variables.level+=1
+	LevelClass.load_level(Variables.level)
+	set_normal_mode()

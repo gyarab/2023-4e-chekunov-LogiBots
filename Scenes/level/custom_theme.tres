@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cvhrwgxh48p4h"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cvhrwgxh48p4h"]
 
 [ext_resource type="FontFile" uid="uid://n4fcmggiwhc4" path="res://assets/fonts/Arkitech Medium.ttf" id="1_tu5tw"]
 
@@ -131,6 +131,18 @@ bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0mh1"]
+bg_color = Color(0.00392157, 0.0666667, 0.121569, 1)
+border_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 30.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
 [resource]
 Button/colors/font_color = Color(0.992157, 1, 0.988235, 1)
 Button/colors/icon_normal_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -153,3 +165,6 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_k0p5m")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_808es")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_2uane")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_3wrgw")
+Window/colors/title_color = Color(0.0666667, 0.87451, 0.87451, 1)
+Window/colors/title_outline_modulate = Color(1, 1, 0.176471, 1)
+Window/styles/embedded_border = SubResource("StyleBoxFlat_u0mh1")
