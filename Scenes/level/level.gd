@@ -32,9 +32,7 @@ func _on_bots_select_item_selected(index):
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
-	if not level_end:
-		step += 1
-		print("tick! "+ str(step))
+	
 	Variables.tick = true
 
 func set_running_mode():
@@ -114,6 +112,9 @@ func _process(delta):
 			Variables.hoping_bots.erase(bot)
 		Variables.hoping_bots = []
 		emit_signal("all_bots_ready")
+		if not level_end:
+			step += 1
+			print("tick! "+ str(step))
 		Variables.tick = false
 		Variables.sleep = true
 		
