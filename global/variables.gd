@@ -1,7 +1,7 @@
 extends Node
 
 #Globals
-var level := 0
+var level := 1
 
 
 
@@ -20,7 +20,7 @@ var map:Array = []
 var running:bool = false
 # code
 var current_code:int = 0
-var codes:Array = []
+var codes:Array = [""]
 # bots
 # current bots
 var bots:Array
@@ -52,10 +52,14 @@ func _ready():
 		map[i].fill(0)
 
 	#LevelClass.save_level(2,[Vector2(5,5)],[Vector2(8,5),Vector2(8,6),Vector2(8,7),Vector2(8,4),Vector2(8,3),Vector2(8,8),Vector2(8,9)],[],[],[Vector2(10,5)],"moving with mind","move to the yellow block")
-	GameFiles.last_user_load()
-	LevelClass.load_level(1)
-	return
 	
+	
+	return
+
+func _exit_tree():
+	GameFiles.game_progress_save()
+	
+
 	# old lvls config
 	lvl_maps[5][5] = 1
 	lvl_maps[5][6] = 1

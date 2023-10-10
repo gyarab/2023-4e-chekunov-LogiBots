@@ -24,7 +24,7 @@ func last_user_save():
 	file.store_var(Variables.current_save_file)
 
 func last_user_load():
-	var file_path := "user://Saves/settings.bat"	
+	var file_path := "user://Saves/settings.bat"
 	if FileAccess.file_exists(file_path):
 		var file = FileAccess.open(file_path,FileAccess.READ)
 		Variables.current_save_file = file.get_var(Variables.current_save_file)
@@ -45,7 +45,9 @@ func game_progress_load():
 	var file_path := "user://Saves/Save "+str(Variables.current_save_file)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
 		var file = FileAccess.open(file_path,FileAccess.READ)
-		Variables.level = file.get_var(Variables.level)
+		var a = file.get_var(Variables.level)
+		Variables.level = a
+		print("level update "+str(a))
 
 func code_save():
 	GameFiles.create_save_files()
