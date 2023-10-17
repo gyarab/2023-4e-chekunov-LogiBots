@@ -30,11 +30,11 @@ var update_iterator_bool:bool = false
 var is_doing:bool = false
 var direction:String
 func _ready():
-	$AnimationPlayer.play("down")
+	$AnimationPlayer.play("number")
 	#id on create
 	id = Variables.bot_ids
 	Variables.bot_ids+=1
-	active = id
+	active = 0
 	#pos = Vector2(floor(self.position.x/64),floor(self.position.y/64))
 	update_position()
 
@@ -45,8 +45,13 @@ func _process(delta):
 	
 	# cosmetics
 	if id == Variables.current_code and not Variables.running:
+		print("its me!")
 		$bodyLight.energy = 9
 		$bodyLight.color = Color("ff6600")
+		$bodyLight.enabled = true
+	else:
+		$bodyLight.energy = 4
+		$bodyLight.color = Color("ff660083")
 		$bodyLight.enabled = true
 		
 	
@@ -55,8 +60,14 @@ func _process(delta):
 		$bodyLight.color = Color("red", 5)
 		$bodyLight.enabled = true
 	
-	$Active.text = str(active)
+	
+	
+	if not Variables.running:
+		$Active.text = str(id+1)
+	else:
+		$Active.text = str(active)
 	$Memory.text = str(id+1)
+	
 	if is_doing:
 		$AnimationPlayer.play(direction)
 		if direction == "left":
@@ -158,7 +169,7 @@ func _on_move(direction):
 	if direction == "right":
 		destination = Vector2(pos.x+1,pos.y)
 	
-	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
+	if  destination.x > 19 or destination.y > 9 or destination.x < 0 or destination.y < 0:
 		self.available = false
 		return
 	

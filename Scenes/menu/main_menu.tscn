@@ -66,7 +66,7 @@ offset_left = 32.0
 offset_top = 272.0
 offset_right = 272.0
 offset_bottom = 344.0
-text = "New Game"
+text = "Select save"
 
 [connection signal="pressed" from="Control/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Control/SettingsButton" to="." method="_on_settings_button_pressed"]

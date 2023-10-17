@@ -34,7 +34,7 @@ text = "SELECT SAVE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FirstFile" type="Button" parent="Control"]
+[node name="FirstFileSelect" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 108.0
 offset_top = 251.0
@@ -42,7 +42,16 @@ offset_right = 383.0
 offset_bottom = 611.0
 text = "first file"
 
-[node name="SecondFile" type="Button" parent="Control"]
+[node name="FirstFileDelete" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 618.0
+offset_right = 383.0
+offset_bottom = 683.0
+text = "Delete
+file"
+
+[node name="SecondFileSelect" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 503.0
 offset_top = 251.0
@@ -50,13 +59,31 @@ offset_right = 778.0
 offset_bottom = 611.0
 text = "Second file"
 
-[node name="ThirdFile" type="Button" parent="Control"]
+[node name="SecondFileDelete" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 655.0
+offset_top = 619.0
+offset_right = 778.0
+offset_bottom = 684.0
+text = "Delete
+file"
+
+[node name="ThirdFileSelect" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 898.0
 offset_top = 251.0
 offset_right = 1173.0
 offset_bottom = 611.0
 text = "third file"
+
+[node name="ThirdFileDelete" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1041.0
+offset_top = 620.0
+offset_right = 1173.0
+offset_bottom = 688.0
+text = "delete
+file"
 
 [node name="BackButton" type="Button" parent="Control"]
 layout_mode = 0
@@ -66,7 +93,10 @@ offset_right = 210.0
 offset_bottom = 120.0
 text = "back"
 
-[connection signal="pressed" from="Control/FirstFile" to="." method="_on_first_file_pressed"]
-[connection signal="pressed" from="Control/SecondFile" to="." method="_on_second_file_pressed"]
-[connection signal="pressed" from="Control/ThirdFile" to="." method="_on_third_file_pressed"]
+[connection signal="pressed" from="Control/FirstFileSelect" to="." method="_on_first_file_select_pressed"]
+[connection signal="pressed" from="Control/FirstFileDelete" to="." method="_on_first_file_pressed"]
+[connection signal="pressed" from="Control/SecondFileSelect" to="." method="_on_second_file_select_pressed"]
+[connection signal="pressed" from="Control/SecondFileDelete" to="." method="_on_second_file_pressed"]
+[connection signal="pressed" from="Control/ThirdFileSelect" to="." method="_on_third_file_select_pressed"]
+[connection signal="pressed" from="Control/ThirdFileDelete" to="." method="_on_third_file_pressed"]
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]

@@ -134,9 +134,10 @@ func _process(delta):
 		check_level(Variables.level)
 
 func check_level(level):
-	if level == 1 or level == 2:
+	if level == 1:
 		show_end_window(Variables.map[10][5] == 1)
-
+	if level == 2:
+		show_end_window(Variables.map[6][3] == 1 && Variables.map[10][1] == 1)
 func  show_end_window(win):
 	level_end = true
 	$WinLoseWindow.visible = true

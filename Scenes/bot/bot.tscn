@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://kpldt8f0wv2g"]
+[gd_scene load_steps=18 format=3 uid="uid://kpldt8f0wv2g"]
 
 [ext_resource type="Script" path="res://Scenes/bot/bot.gd" id="1_2ni1o"]
 [ext_resource type="Texture2D" uid="uid://n2hiiaeeb2pb" path="res://assets/Bot/bot front.png" id="2_dq3c5"]
@@ -583,9 +583,127 @@ tracks/7/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_jgsrg"]
+resource_name = "idleCodeEdit"
+
+[sub_resource type="Animation" id="Animation_mm4m4"]
+resource_name = "IdleIDshow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BotIdle:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Active:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BotFront:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BotSide:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BotBack:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("bodyLight:enabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LightOccluder2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("bodyLight:texture_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [5.96]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_id"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iwbgi"]
 _data = {
+"IdleIDshow": SubResource("Animation_mm4m4"),
 "down": SubResource("Animation_mrb55"),
+"idleCodeEdit": SubResource("Animation_jgsrg"),
 "left": SubResource("Animation_vyd24"),
 "number": SubResource("Animation_524yr"),
 "right": SubResource("Animation_ny7kw"),
@@ -599,11 +717,12 @@ collision_mask = 0
 script = ExtResource("1_2ni1o")
 
 [node name="bodyLight" type="PointLight2D" parent="."]
-color = Color(1, 0.4, 0, 1)
+color = Color(1, 0.4, 0, 0.513726)
 energy = 10.03
+blend_mode = 2
 shadow_enabled = true
 texture = ExtResource("3_addyq")
-texture_scale = 7.15
+texture_scale = 5.96
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_ahnf3")
@@ -648,7 +767,6 @@ texture = ExtResource("4_6mhw0")
 visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_4kxhk")
-flip_h = true
 
 [node name="BotFront" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

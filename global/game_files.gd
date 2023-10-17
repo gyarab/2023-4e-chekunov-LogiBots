@@ -32,15 +32,47 @@ func last_user_load():
 	else:
 		print("not exist")
 
-func game_progress_save():
+func game_progress_save(new:bool):
 	# current level
 	# 
 	var file_path := "user://Saves/Save "+str(Variables.current_save_file)+"/gameProgress.bat"
 	var file
-	file = FileAccess.open(file_path,FileAccess.WRITE)
-	file.store_var(Variables.level)
-	
 		
+	file = FileAccess.open(file_path,FileAccess.WRITE)
+	if new:
+		# reset CodeSaves
+		var dir = DirAccess.open("user://Saves/Save "+str(Variables.current_save_file))
+		# Deleting Saves
+		print("delete saves")
+		var code_save_dir = DirAccess.open("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
+		remove_files_in_folder("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
+		DirAccess.remove_absolute("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
+		DirAccess.remove_absolute(file_path)
+		file = FileAccess.open(file_path,FileAccess.WRITE)
+		file.store_var(1)
+		Variables.level = 1
+	else:
+		file.store_var(Variables.level)
+
+
+func remove_files_in_folder(folder_path):
+	var dir = DirAccess.open(folder_path)
+	if dir:
+		dir.list_dir_begin()
+		while true:
+			var file = dir.get_next()
+			if file == "":
+				break
+			var file_path = folder_path+"/"+file
+			if dir.current_is_dir():
+				remove_files_in_folder(file_path)  # Recursively remove files in subfolders
+			else:
+				print("remove ",file_path)
+				dir.remove(file_path)  # Remove the file
+		dir.list_dir_end()
+	else:
+		print("Failed to open the directory.")
+
 func game_progress_load():
 	var file_path := "user://Saves/Save "+str(Variables.current_save_file)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
@@ -51,7 +83,7 @@ func game_progress_load():
 
 func code_save():
 	GameFiles.create_save_files()
-	GameFiles.game_progress_save()
+	GameFiles.game_progress_save(false)
 	
 	if !FileAccess.file_exists("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/"+"Level "+str(Variables.level)):
 		var dir = DirAccess.open("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
