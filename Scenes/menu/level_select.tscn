@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq8053r276o1w"]
+
+[ext_resource type="Theme" uid="uid://cvhrwgxh48p4h" path="res://Scenes/level/custom_theme.tres" id="1_0oyq5"]
+[ext_resource type="Texture2D" uid="uid://bnaaux7kwtar3" path="res://assets/menu/menu_bg.png" id="1_mgy7y"]
+[ext_resource type="Script" path="res://Scenes/menu/level_select.gd" id="1_sh24c"]
+[ext_resource type="FontFile" uid="uid://ibdd8p7nexah" path="res://assets/fonts/Arkitech Bold.ttf" id="2_rhtfg"]
+
+[node name="LevelSelect" type="Node2D"]
+script = ExtResource("1_sh24c")
+
+[node name="MenuBg" type="Sprite2D" parent="."]
+position = Vector2(640, 352)
+texture = ExtResource("1_mgy7y")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 704.0
+theme = ExtResource("1_0oyq5")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -344.0
+offset_right = 345.0
+offset_bottom = 177.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_rhtfg")
+theme_override_font_sizes/font_size = 64
+text = "SELECT LEVEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 27.0
+offset_right = 210.0
+offset_bottom = 120.0
+text = "back"
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+custom_minimum_size = Vector2(30, 50)
+layout_mode = 0
+offset_left = 54.0
+offset_top = 149.0
+offset_right = 1204.0
+offset_bottom = 630.0
+theme = ExtResource("1_0oyq5")
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 50
+columns = 8
