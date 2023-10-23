@@ -52,11 +52,8 @@ func load_level(index:int):
 		speakers = level["speakers"]
 		description = level["description"]
 		title = level["title"]
-		print(level)
-		print("prochital"+str( level["plates"]))
 		plates = level["plates"]
 		file.close()
-		print("prochital")
 		create_map()
 
 func create_map():
@@ -68,9 +65,6 @@ func create_map():
 	Variables.speakers_val = []
 	# Bots
 	for bot in bots:
-		print("bot:")
-		print(bot.x)
-		print(bot.y)
 		Variables.lvl_maps[bot.x][bot.y] = 1
 	# Boxes
 	for item in boxes:
@@ -81,8 +75,6 @@ func create_map():
 	for item in speakers:
 			Variables.lvl_maps[item[0].x][item[0].y] = 4
 			Variables.speakers_val.append(item[1])
-	print(Variables.plates)
-	print(plates)
 	Variables.plates = plates
 	Variables.description = description
 	Variables.title = title

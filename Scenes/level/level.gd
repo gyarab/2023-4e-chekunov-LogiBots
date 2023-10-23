@@ -344,3 +344,7 @@ func _on_next_level_button_pressed():
 	Variables.level+=1
 	LevelClass.load_level(Variables.level)
 	set_normal_mode()
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")

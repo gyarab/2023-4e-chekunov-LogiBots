@@ -164,6 +164,14 @@ offset_top = -2.0
 offset_right = 1153.0
 offset_bottom = 62.0
 
+[node name="Button" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 90.0
+offset_bottom = 54.0
+text = "exit to menu"
+
 [node name="Plates" type="Node" parent="."]
 
 [node name="bots" type="Node" parent="."]
@@ -302,6 +310,7 @@ text = "EXIT TO MENU"
 [connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
 [connection signal="pressed" from="interface/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="interface/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
+[connection signal="pressed" from="interface/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
 [connection signal="pressed" from="WinLoseWindow/Panel/NextLevelButton" to="." method="_on_next_level_button_pressed"]
