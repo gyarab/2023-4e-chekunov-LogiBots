@@ -10,6 +10,7 @@ func _ready():
 		lvl_button.text = "level "+ str(level+1)
 		lvl_button.button_down.connect(_change_level.bind(lvl_button))
 		lvl_button.custom_minimum_size = Vector2(120,100)
+		lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
 		$Control/GridContainer.add_child(lvl_button)
 
 
@@ -21,3 +22,7 @@ func _change_level(btn):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_back_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")

@@ -1,5 +1,6 @@
 extends Node
 # Scripts that iteracts with file system, saving and loading
+var data:Dictionary
 
 func create_save_files():
 	if !DirAccess.dir_exists_absolute("user://Saves"):
@@ -49,10 +50,16 @@ func game_progress_save(new:bool):
 		DirAccess.remove_absolute("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
 		DirAccess.remove_absolute(file_path)
 		file = FileAccess.open(file_path,FileAccess.WRITE)
-		file.store_var(1)
+		# reseting vars
+		data = {
+		"latest_level": 1,
+		"current_level":1,
+		"level_code_lines":[15],
+		"level_tick_count":[15],
+		}
 		Variables.level = 1
-	else:
-		file.store_var(Variables.level)
+		print("novy a saveujeme!")
+	file.store_var(data)
 
 
 func remove_files_in_folder(folder_path):
@@ -77,9 +84,10 @@ func game_progress_load():
 	var file_path := "user://Saves/Save "+str(Variables.current_save_file)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
 		var file = FileAccess.open(file_path,FileAccess.READ)
-		var a = file.get_var(Variables.level)
-		Variables.level = a
-		print("level update "+str(a))
+		data = file.get_var()
+		print(data)
+		Variables.level = data["current_level"]
+		
 
 func code_save():
 	GameFiles.create_save_files()

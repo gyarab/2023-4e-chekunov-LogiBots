@@ -1,30 +1,36 @@
 extends Node2D
 
-
+var emptyfile := [3]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var file_path := "user://Saves/Save "+str(1)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile[0] = false
 		var file = FileAccess.open(file_path,FileAccess.READ)
 		var a = file.get_var(Variables.level)
 		$Control/FirstFileSelect.text += "\n\nlevel "+str(a)
 	else:
+		emptyfile[0] = true
 		$Control/FirstFileSelect.text += "\n\nempty"
 	
 	file_path = "user://Saves/Save "+str(2)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile[1] = false
 		var file = FileAccess.open(file_path,FileAccess.READ)
 		var a = file.get_var(Variables.level)
 		$Control/SecondFileSelect.text += "\n\nlevel "+str(a)
 	else:
+		emptyfile[1] = true
 		$Control/SecondFileSelect.text += "\n\nempty"
 	
 	file_path = "user://Saves/Save "+str(3)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile[2] = false
 		var file = FileAccess.open(file_path,FileAccess.READ)
 		var a = file.get_var(Variables.level)
 		$Control/ThirdFileSelect.text += "\n\nlevel "+str(a)
 	else:
+		emptyfile[2] = true
 		$Control/ThirdFileSelect.text += "\n\nempty"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

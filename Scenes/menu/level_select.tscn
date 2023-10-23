@@ -53,3 +53,5 @@ theme = ExtResource("1_0oyq5")
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 50
 columns = 8
+
+[connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]

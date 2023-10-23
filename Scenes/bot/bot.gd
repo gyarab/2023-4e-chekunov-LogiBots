@@ -45,7 +45,6 @@ func _process(delta):
 	
 	# cosmetics
 	if id == Variables.current_code and not Variables.running:
-		print("its me!")
 		$bodyLight.energy = 9
 		$bodyLight.color = Color("ff6600")
 		$bodyLight.enabled = true
