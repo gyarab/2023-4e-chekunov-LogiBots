@@ -16,10 +16,6 @@ func _ready():
 func _on_quit_button_pressed():
 	get_tree().quit()
 
-func _on_settings_button_pressed():
-	#get_tree().change_scene_to_file()
-	pass
-
 func _on_continue_button_pressed():
 	if can_send_to_level:
 		get_tree().change_scene_to_file("res://Scenes/level/level.tscn")
@@ -27,3 +23,8 @@ func _on_continue_button_pressed():
 
 func _on_new_game_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/menu/save_select.tscn")
+
+
+func _on_selsect_level_button_pressed():
+	if can_send_to_level:
+		get_tree().change_scene_to_file("res://Scenes/menu/level_select.tscn")

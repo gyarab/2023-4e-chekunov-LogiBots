@@ -1,6 +1,18 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://cvhrwgxh48p4h"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cvhrwgxh48p4h"]
 
 [ext_resource type="FontFile" uid="uid://n4fcmggiwhc4" path="res://assets/fonts/Arkitech Medium.ttf" id="1_tu5tw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo1va"]
+bg_color = Color(0.00392157, 0.0431373, 0.0784314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.992157, 1, 0.988235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0eu84"]
 bg_color = Color(0.00392157, 0.0431373, 0.0784314, 1)
@@ -147,6 +159,7 @@ expand_margin_bottom = 5.0
 Button/colors/font_color = Color(0.992157, 1, 0.988235, 1)
 Button/colors/icon_normal_color = Color(0.00392157, 0.0862745, 0.152941, 1)
 Button/fonts/font = ExtResource("1_tu5tw")
+Button/styles/disabled = SubResource("StyleBoxFlat_mo1va")
 Button/styles/focus = null
 Button/styles/hover = SubResource("StyleBoxFlat_0eu84")
 Button/styles/normal = SubResource("StyleBoxFlat_7hbin")

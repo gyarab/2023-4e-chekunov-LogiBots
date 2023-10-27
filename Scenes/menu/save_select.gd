@@ -1,30 +1,36 @@
 extends Node2D
 
-
+var emptyfile := []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var file_path := "user://Saves/Save "+str(1)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile.append(false)
 		var file = FileAccess.open(file_path,FileAccess.READ)
-		var a = file.get_var(Variables.level)
-		$Control/FirstFileSelect.text += "\n\nlevel "+str(a)
+		var data = file.get_var()
+		$Control/FirstFileSelect.text += "\n\nlevel "+str(data["latest_level"])
 	else:
+		emptyfile.append(true)
 		$Control/FirstFileSelect.text += "\n\nempty"
 	
 	file_path = "user://Saves/Save "+str(2)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile.append(false)
 		var file = FileAccess.open(file_path,FileAccess.READ)
-		var a = file.get_var(Variables.level)
-		$Control/SecondFileSelect.text += "\n\nlevel "+str(a)
+		var data = file.get_var(Variables.level)
+		$Control/SecondFileSelect.text += "\n\nlevel "+str(data["latest_level"])
 	else:
+		emptyfile.append(true)
 		$Control/SecondFileSelect.text += "\n\nempty"
 	
 	file_path = "user://Saves/Save "+str(3)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
+		emptyfile.append(false)
 		var file = FileAccess.open(file_path,FileAccess.READ)
-		var a = file.get_var(Variables.level)
-		$Control/ThirdFileSelect.text += "\n\nlevel "+str(a)
+		var data = file.get_var(Variables.level)
+		$Control/ThirdFileSelect.text += "\n\nlevel "+str(data["latest_level"])
 	else:
+		emptyfile.append(false)
 		$Control/ThirdFileSelect.text += "\n\nempty"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +46,7 @@ func change_current_save(num:int,reset:bool):
 	Variables.current_save_file = num
 	GameFiles.create_save_files()
 	GameFiles.last_user_save()
-	if reset:
+	if reset or emptyfile[num-1]:
 		GameFiles.game_progress_save(true)
 	else:
 		GameFiles.game_progress_load()

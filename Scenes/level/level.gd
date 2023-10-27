@@ -94,8 +94,8 @@ func _process(delta):
 	# selected bot light
 	
 	#debug
-	$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
-	#$DebugWindow/Text.text = str(Variables.current_code)
+	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
+	$DebugWindow/Text.text = str(Variables.level)
 	if Variables.running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		for i in range(0,Variables.current_bot_count):
@@ -348,5 +348,13 @@ func _on_next_level_button_pressed():
 	$WinLoseWindow.visible = false
 	level_end = false
 	Variables.level+=1
+	GameFiles.data["current_level"] = Variables.level
+	if GameFiles.data.get("latest_level") < Variables.level:
+		GameFiles.data["latest_level"] = Variables.level
 	LevelClass.load_level(Variables.level)
 	set_normal_mode()
+	GameFiles.code_save()
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
