@@ -9,9 +9,14 @@ var code_lines:Array
 var saying:bool = false
 var listening:bool = false
 
-# better functions
+# better move
 var move_count := 0
 var new_move_count_down := true
+# func
+var index_stack:Array = []
+var code_funcs:Dictionary
+var code_end_funcs:Dictionary
+# back
 
 var id:int
 signal move(direction:String,count:int)
@@ -22,6 +27,8 @@ signal jump(type:String,anchor:String)
 signal add(number:int)
 signal swap()
 signal save()
+signal jump_to_func(name:String)
+signal return_signal()
 # jumps
 # 1 if positive
 # 0 if zero
@@ -95,7 +102,12 @@ func iterator_update():
 	else:
 		$AnimationPlayer.play("down")
 		self.available = false
-
+		
+func skip_func(func_name):
+	self.iterator = code_end_funcs[func_name]
+	iterator_update()
+	
+	
 func _on_listen(direction):
 	
 	var destination:Vector2
@@ -309,4 +321,20 @@ func _on_save():
 	$AnimationPlayer.play("number")
 	memory = active
 	await get_parent().get_parent().all_bots_ready
+	iterator_update()
+
+
+func _on_jump_to_func(name):
+	await get_parent().get_parent().all_bots_ready
+	# seek for the first line that is not anchor
+	index_stack.push_back(iterator)
+	
+	self.iterator = code_funcs[name]
+	iterator_update()
+
+
+func _on_return_signal():
+	#await get_parent().get_parent().all_bots_ready
+	
+	self.iterator = index_stack.pop_back()
 	iterator_update()

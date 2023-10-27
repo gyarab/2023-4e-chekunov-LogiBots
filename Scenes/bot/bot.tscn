@@ -787,8 +787,10 @@ texture = ExtResource("3_addyq")
 
 [connection signal="add" from="." to="." method="_on_add"]
 [connection signal="jump" from="." to="." method="_on_jump"]
+[connection signal="jump_to_func" from="." to="." method="_on_jump_to_func"]
 [connection signal="listen" from="." to="." method="_on_listen"]
 [connection signal="move" from="." to="." method="_on_move"]
+[connection signal="return_signal" from="." to="." method="_on_return_signal"]
 [connection signal="save" from="." to="." method="_on_save"]
 [connection signal="say" from="." to="." method="_on_say"]
 [connection signal="swap" from="." to="." method="_on_swap"]

@@ -64,15 +64,44 @@ func set_running_mode():
 				g+=1
 				Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].rstrip(" ")
 		Variables.bots[i].iterator = 0
+		
+		# adding functions and end functions
+		var last_func = null
+		for j in range(0,len(Variables.bots[i].code_lines)):
+			var line = Variables.bots[i].code_lines[j]
+			if len(line.rsplit(" ")) == 2:
+				if line.rsplit(" ")[0] == "func":
+					var second = line.rsplit(" ")[1]
+					print("second",second)
+					if second[len(second)-1] == ":":
+						if Variables.bots[i].code_funcs.has(second.get_slice(":",0)):
+							show_error(j,i,"duplicate function",line)
+							return
+						if last_func != null:
+							show_error(j,i,"nested functions are NOT allowed!",line)
+							return
+						Variables.bots[i].code_funcs[second.get_slice(":",0)] = j
+						last_func = second.get_slice(":",0)
+						
+			if len(line.rsplit(" ")) == 1:
+				if line == "endfunc":
+					if last_func != null:
+						Variables.bots[i].code_end_funcs[last_func] = j
+						last_func = null
+					else:
+						show_error(j,i,"no function to end",line)
+						return
+					
+		print("funcs:",Variables.bots[i].code_funcs)
 		# adding anchors
 		for j in range(0,len(Variables.bots[i].code_lines)):
 			var line = Variables.bots[i].code_lines[j]
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
+					if Variables.bots[i].code_anchors.has(line.get_slice(":",0)):
+						show_error(j,i,"duplicate anchor",line)
+						return
 					Variables.bots[i].code_anchors[line.get_slice(":",0)] = j
-				else:
-					show_error(j,i,"wrong anchor",line)
-					return
 					
 	$interface/Panel/RunButton.text = "Stop"
 	$interface/Panel/CodeEdit.editable = false
@@ -95,7 +124,8 @@ func _process(delta):
 	
 	#debug
 	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
-	$DebugWindow/Text.text = str(Variables.level)
+	#$DebugWindow/Text.text = str(Variables.current_code)
+	$DebugWindow/Text.text
 	if Variables.running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		for i in range(0,Variables.current_bot_count):
@@ -151,8 +181,6 @@ func  show_end_window(win):
 
 func bot_porcess(bot,i):
 			# line
-			var lns = bot.code_lines
-			var ite = bot.iterator
 			var line:String = bot.code_lines[bot.iterator]
 			
 			# one word commands
@@ -160,9 +188,29 @@ func bot_porcess(bot,i):
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					bot.iterator_update()
-				if line == "swap" or line == "save":
+			# one word
+				if line == "swap" or line == "save" :
 					bot.emit_signal(line)
-					print("zloba!")
+				if line == "return":
+					bot.emit_signal("return_signal")
+				
+				if bot.code_funcs.has(line):
+					bot.emit_signal("jump_to_func",line)
+					print("halo?1")
+			# func start
+			while true:
+				line = bot.code_lines[bot.iterator]
+				if len(line.rsplit(" ")) == 2:
+					if line.rsplit(" ")[0] == "func":
+						print("skip_func")
+						if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
+							bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
+					else:
+						break
+				else:
+					break
+					
+			
 			# two word commands
 			if len(line.rsplit(" ")) >= 2 and len(line.rsplit(" ")) <= 4:
 				
@@ -183,9 +231,36 @@ func bot_porcess(bot,i):
 					if second == "left" or second == "right" or second == "up" or second == "down":
 						if first == "move":
 							var third = 1
-							if len(line.rsplit(" ")) > 2:
+							if len(line.rsplit(" ")) == 3:
 								if line.rsplit(" ")[2].to_int() > 0:
 									third = line.rsplit(" ")[2].to_int()
+								elif line.rsplit(" ")[2] == "active":
+									if bot.active > 0:
+										third = bot.active
+									elif bot.active == 0:
+										bot.iterator_update()
+										return
+									else:
+										show_error(bot.iterator,i,"number is not positive","active")
+										return
+								elif line.rsplit(" ")[2] == "memory":
+									if bot.memory > 0:
+										third = bot.memory
+									elif bot.memory == 0:
+										bot.iterator_update()
+										return
+									else:
+										show_error(bot.iterator,i,"number is not positive","memory")
+										return
+								elif line.rsplit(" ")[2].to_int() == 0:
+									bot.iterator_update()
+									return
+								else:
+									show_error(bot.iterator,i,"wrong number",line.rsplit(" ")[2])
+									return
+							elif  len(line.rsplit(" ")) > 3:
+								show_error(bot.iterator,i,"more than 3 arguments",line)
+								return
 							bot.emit_signal("move",second,third)
 							return
 						bot.emit_signal(first,second)
@@ -348,13 +423,5 @@ func _on_next_level_button_pressed():
 	$WinLoseWindow.visible = false
 	level_end = false
 	Variables.level+=1
-	GameFiles.data["current_level"] = Variables.level
-	if GameFiles.data.get("latest_level") < Variables.level:
-		GameFiles.data["latest_level"] = Variables.level
 	LevelClass.load_level(Variables.level)
 	set_normal_mode()
-	GameFiles.code_save()
-
-
-func _on_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
