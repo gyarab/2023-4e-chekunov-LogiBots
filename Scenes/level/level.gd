@@ -64,9 +64,8 @@ func set_running_mode():
 				g+=1
 				Variables.bots[i].code_lines[j] = Variables.bots[i].code_lines[j].rstrip(" ")
 		Variables.bots[i].iterator = 0
-		print(Variables.bots[i].code_lines)
 		# adding anchors
-		for j  in range(0,len(Variables.bots[i].code_lines)):
+		for j in range(0,len(Variables.bots[i].code_lines)):
 			var line = Variables.bots[i].code_lines[j]
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
@@ -165,7 +164,7 @@ func bot_porcess(bot,i):
 					bot.emit_signal(line)
 					print("zloba!")
 			# two word commands
-			if len(line.rsplit(" ")) == 2:
+			if len(line.rsplit(" ")) >= 2 and len(line.rsplit(" ")) <= 4:
 				
 				var first:String = line.rsplit(" ")[0]
 				var second:String = "no argument"
@@ -182,6 +181,13 @@ func bot_porcess(bot,i):
 				# move
 				if first == "move" or first == "say" or first == "listen":
 					if second == "left" or second == "right" or second == "up" or second == "down":
+						if first == "move":
+							var third = 1
+							if len(line.rsplit(" ")) > 2:
+								if line.rsplit(" ")[2].to_int() > 0:
+									third = line.rsplit(" ")[2].to_int()
+							bot.emit_signal("move",second,third)
+							return
 						bot.emit_signal(first,second)
 						return
 					else:

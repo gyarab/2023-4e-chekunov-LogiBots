@@ -65,10 +65,10 @@ func remove_files_in_folder(folder_path):
 				break
 			var file_path = folder_path+"/"+file
 			if dir.current_is_dir():
-				remove_files_in_folder(file_path)  # Recursively remove files in subfolders
+				remove_files_in_folder(file_path)
 			else:
 				print("remove ",file_path)
-				dir.remove(file_path)  # Remove the file
+				dir.remove(file_path)
 		dir.list_dir_end()
 	else:
 		print("Failed to open the directory.")

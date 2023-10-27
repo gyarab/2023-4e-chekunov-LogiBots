@@ -1,7 +1,0 @@
-move right
-move right
-move right
-move right
-add 5
-add 10.6
-move up

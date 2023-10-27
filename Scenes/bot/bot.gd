@@ -9,8 +9,12 @@ var code_lines:Array
 var saying:bool = false
 var listening:bool = false
 
+# better functions
+var move_count := 0
+var new_move_count_down := true
+
 var id:int
-signal move(direction:String)
+signal move(direction:String,count:int)
 signal listen(direction:String)
 signal say(direction:String)
 signal was_listened()
@@ -45,7 +49,6 @@ func _process(delta):
 	
 	# cosmetics
 	if id == Variables.current_code and not Variables.running:
-		print("its me!")
 		$bodyLight.energy = 9
 		$bodyLight.color = Color("ff6600")
 		$bodyLight.enabled = true
@@ -157,7 +160,15 @@ func _on_listen(direction):
 				self.active = right_bot.active
 				iterator_update()
 				return
-func _on_move(direction):
+func _on_move(direction,count):
+	print("move_cont ")
+	print(move_count)
+	if move_count == 0 and new_move_count_down:
+		new_move_count_down = false
+		move_count = count - 1
+	else:
+		move_count -= 1
+		
 	var map = Variables.map
 	var destination:Vector2
 	if direction == "up":
@@ -182,12 +193,12 @@ func _on_move(direction):
 		map[destination.x][destination.y] = 1
 		map[pos.x][pos.y] = 0
 		pos = destination
-		update_iterator_bool = true
 		self_move(direction)
 	Variables.map = map
 	
 func self_move(dir:String):
 	await get_parent().get_parent().all_bots_ready
+	print("gotovo!")
 	is_doing = true
 	direction = dir
 	$WorkTimer.start(Variables.tick_time)
@@ -240,6 +251,9 @@ func _on_work_timer_timeout():
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32 +64)
 	is_doing = false
 	direction = " "
+	if move_count == 0:
+		update_iterator_bool = true
+		new_move_count_down = true
 	if update_iterator_bool:
 		iterator_update()
 		update_iterator_bool = false
