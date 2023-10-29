@@ -12,7 +12,7 @@ var plate_scene = preload("res://Scenes/objects/plate.tscn")
 var step:int = 0
 var level_end:bool = false
 var is_code_hide:bool = false
-
+var debug_mode:bool = false
 
 func _ready():
 	lvl_load()
@@ -41,6 +41,7 @@ func set_running_mode():
 	Variables.tick = true
 	Variables.bots = $bots.get_children()
 	$ErrorWindow.visible = false
+	$HelpWindow.visible = false
 	for i in range(0,bot_count):
 		Variables.bots[i].id = i
 		if len(Variables.codes[i].rsplit("\n", false)) == 0:
@@ -119,15 +120,36 @@ func set_normal_mode():
 	$interface/Panel/CodeEdit.editable = true
 	$interface/Panel/botsSelect.disabled = false
 	
-func _process(delta):
-	# selected bot light
+func _process(_delta):
+	#Bot Debug
+	if debug_mode:
+		# Color
+		$interface/Panel/DebugButton.modulate = Color("ff9f1c")
+		if not Variables.running:
+			$interface/Panel/CodeEdit.size = Vector2(249,459)
+			$interface/Panel/DebugRichTextLabel.visible = false
+	else:
+		$interface/Panel/DebugRichTextLabel.visible = false
+		$interface/Panel/DebugButton.modulate = Color("ffffff")
+		
 	
 	#debug
 	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
 	#$DebugWindow/Text.text = str(Variables.current_code)
-	$DebugWindow/Text.text
 	if Variables.running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
+		if debug_mode and Variables.running:
+			$interface/Panel/CodeEdit.size = Vector2(249,459-200)
+			# create text to show
+			var debug_text = "[b]Debug[/b]\n"
+			for bot in Variables.bots:
+				debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]\n"
+			
+			$interface/Panel/DebugRichTextLabel.visible = true
+			$interface/Panel/DebugRichTextLabel.text = debug_text
+		else:
+			$interface/Panel/CodeEdit.size = Vector2(249,459)
+			$interface/Panel/DebugRichTextLabel.visible = false
 		for i in range(0,Variables.current_bot_count):
 			
 			if not Variables.running:
@@ -146,6 +168,7 @@ func _process(delta):
 			print("tick! "+ str(step))
 		Variables.tick = false
 		Variables.sleep = true
+		
 		
 	var all_finished = true
 	var end:bool = true
@@ -189,7 +212,7 @@ func bot_porcess(bot,i):
 				if line[len(line)-1] == ":":
 					bot.iterator_update()
 			# one word
-				if line == "swap" or line == "save" :
+				if line == "swap" or line == "save":
 					bot.emit_signal(line)
 				if line == "return":
 					bot.emit_signal("return_signal")
@@ -391,9 +414,10 @@ func lvl_load():
 	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 
-func _on_h_slider_drag_ended(value_changed):
+func _on_h_slider_drag_ended(_value_changed):
 	Variables.tick_time = 10/$interface/Panel/HSlider.value
-
+	print($interface/Panel/HSlider.value)
+	print(Variables.tick_time)
 
 
 func _on_exit_button_pressed():
@@ -423,5 +447,20 @@ func _on_next_level_button_pressed():
 	$WinLoseWindow.visible = false
 	level_end = false
 	Variables.level+=1
+	if GameFiles.data["latest_level"]<Variables.level:
+		GameFiles.data["latest_level"] = Variables.level
+	GameFiles.data["current_level"] =Variables.level
 	LevelClass.load_level(Variables.level)
 	set_normal_mode()
+
+
+func _on_help_window_close_requested():
+	$HelpWindow.visible = false
+
+
+func _on_help_button_pressed():
+	$HelpWindow.visible = !$HelpWindow.visible
+
+
+func _on_debug_button_pressed():
+	debug_mode = !debug_mode

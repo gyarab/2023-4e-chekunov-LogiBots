@@ -52,12 +52,19 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_216y6"]
-color = Color(0, 0.956863, 0, 1)
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_th2dy"]
-color = Color(1, 0.623529, 0.109804, 1)
-thickness = 12
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4tmg"]
+bg_color = Color(1, 0.623529, 0.109804, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 0.623529, 0.109804, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4am6"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -143,6 +150,13 @@ bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irinm"]
+bg_color = Color(1, 0.623529, 0.109804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0mh1"]
 bg_color = Color(0.00392157, 0.0666667, 0.121569, 1)
 border_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -167,8 +181,8 @@ CodeEdit/colors/bookmark_color = Color(0.501961, 0.639216, 1, 0.8)
 CodeEdit/styles/normal = SubResource("StyleBoxFlat_iq0o1")
 GridContainer/constants/h_separation = 4
 GridContainer/constants/v_separation = 4
-HSlider/styles/grabber_area = SubResource("StyleBoxLine_216y6")
-HSlider/styles/slider = SubResource("StyleBoxLine_th2dy")
+HSlider/constants/center_grabber = 0
+HSlider/styles/slider = SubResource("StyleBoxFlat_x4tmg")
 Label/fonts/font = null
 MenuBar/styles/normal = SubResource("StyleBoxFlat_q4am6")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_traqd")
@@ -180,6 +194,7 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_k0p5m")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_808es")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_2uane")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_3wrgw")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_irinm")
 Window/colors/title_color = Color(0.0666667, 0.87451, 0.87451, 1)
 Window/colors/title_outline_modulate = Color(1, 1, 0.176471, 1)
 Window/styles/embedded_border = SubResource("StyleBoxFlat_u0mh1")

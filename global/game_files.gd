@@ -42,10 +42,8 @@ func game_progress_save(new:bool):
 	file = FileAccess.open(file_path,FileAccess.WRITE)
 	if new:
 		# reset CodeSaves
-		var dir = DirAccess.open("user://Saves/Save "+str(Variables.current_save_file))
 		# Deleting Saves
 		print("delete saves")
-		var code_save_dir = DirAccess.open("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
 		remove_files_in_folder("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
 		DirAccess.remove_absolute("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/")
 		DirAccess.remove_absolute(file_path)

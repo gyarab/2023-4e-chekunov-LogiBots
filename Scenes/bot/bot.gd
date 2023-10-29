@@ -63,7 +63,10 @@ func _process(delta):
 		$bodyLight.energy = 4
 		$bodyLight.color = Color("ff660083")
 		$bodyLight.enabled = true
-		
+	if Variables.running:
+		$bodyLight.energy = 9
+		$bodyLight.color = Color("ff6600")
+		$bodyLight.enabled = true
 	
 	if Variables.running and self.available == false:
 		$bodyLight.energy = 10
@@ -108,20 +111,20 @@ func skip_func(func_name):
 	iterator_update()
 	
 	
-func _on_listen(direction):
+func _on_listen(dir):
 	
 	var destination:Vector2
 	var saying_bot = -1
-	if direction == "up":
+	if dir == "up":
 		destination = Vector2(pos.x,pos.y-1)
 		saying_bot = 13
-	if direction == "down":
+	if dir == "down":
 		destination = Vector2(pos.x,pos.y+1)
 		saying_bot = 12
-	if direction == "left":
+	if dir == "left":
 		destination = Vector2(pos.x-1,pos.y)
 		saying_bot = 11
-	if direction == "right":
+	if dir == "right":
 		destination = Vector2(pos.x+1,pos.y)
 		saying_bot = 10
 	
@@ -172,7 +175,7 @@ func _on_listen(direction):
 				self.active = right_bot.active
 				iterator_update()
 				return
-func _on_move(direction,count):
+func _on_move(dir,count):
 	print("move_cont ")
 	print(move_count)
 	if move_count == 0 and new_move_count_down:
@@ -183,13 +186,13 @@ func _on_move(direction,count):
 		
 	var map = Variables.map
 	var destination:Vector2
-	if direction == "up":
+	if dir == "up":
 		destination = Vector2(pos.x,pos.y-1)
-	if direction == "down":
+	if dir == "down":
 		destination = Vector2(pos.x,pos.y+1)
-	if direction == "left":
+	if dir == "left":
 		destination = Vector2(pos.x-1,pos.y)
-	if direction == "right":
+	if dir == "right":
 		destination = Vector2(pos.x+1,pos.y)
 	
 	if  destination.x > 19 or destination.y > 9 or destination.x < 0 or destination.y < 0:
@@ -205,7 +208,7 @@ func _on_move(direction,count):
 		map[destination.x][destination.y] = 1
 		map[pos.x][pos.y] = 0
 		pos = destination
-		self_move(direction)
+		self_move(dir)
 	Variables.map = map
 	
 func self_move(dir:String):
@@ -215,22 +218,22 @@ func self_move(dir:String):
 	direction = dir
 	$WorkTimer.start(Variables.tick_time)
 	
-func _on_say(direction):
+func _on_say(dir):
 	var destination:Vector2
-	var say = -1
-	if direction == "up":
+	var number_to_say = -1
+	if dir == "up":
 		destination = Vector2(pos.x,pos.y-1)
-		say = 12
-	if direction == "down":
+		number_to_say = 12
+	if dir == "down":
 		destination = Vector2(pos.x,pos.y+1)
-		say = 13
-	if direction == "left":
+		number_to_say = 13
+	if dir == "left":
 		destination = Vector2(pos.x-1,pos.y)
-		say = 10
-	if direction == "right":
+		number_to_say = 10
+	if dir == "right":
 		destination = Vector2(pos.x+1,pos.y)
-		say = 11
-	Variables.map[pos.x][pos.y] = say
+		number_to_say = 11
+	Variables.map[pos.x][pos.y] = number_to_say
 	
 	# borders
 	if  destination.x > 19 or destination.y > 10 or destination.x < 0 or destination.y < 0:
@@ -260,7 +263,7 @@ func _on_say(direction):
 
 func _on_work_timer_timeout():
 	# position sync
-	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32 +64)
+	position = Vector2(pos.x * 64 + 32,pos.y * 64 + 32 +64)
 	is_doing = false
 	direction = " "
 	if move_count == 0:
@@ -274,17 +277,17 @@ func update_position():
 func self_destroy():
 	self.queue_free()
 func _on_jump(type, anchor):
-	var jump:bool = false
+	var is_jumping:bool = false
 	if type == "jump":
-		jump = true
+		is_jumping = true
 	elif type == "jumpl":
-			jump = active < 0
+			is_jumping = active < 0
 	elif type == "jumpz":
-		jump = active == 0
+		is_jumping = active == 0
 	elif type == "jumpg":
-		jump = active > 0 
+		is_jumping = active > 0 
 		
-	if jump:
+	if is_jumping:
 		code_jump(anchor)
 	else:
 		#print("halo!")
@@ -324,12 +327,12 @@ func _on_save():
 	iterator_update()
 
 
-func _on_jump_to_func(name):
+func _on_jump_to_func(func_name):
 	await get_parent().get_parent().all_bots_ready
 	# seek for the first line that is not anchor
 	index_stack.push_back(iterator)
 	
-	self.iterator = code_funcs[name]
+	self.iterator = code_funcs[func_name]
 	iterator_update()
 
 

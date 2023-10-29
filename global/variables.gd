@@ -61,7 +61,8 @@ func map_reset():
 	return
 
 func _exit_tree():
-	GameFiles.game_progress_save(false)
+	if current_save_file != -1:
+		GameFiles.game_progress_save(false)
 	
 
 	# old lvls config

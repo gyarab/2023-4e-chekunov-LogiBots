@@ -81,15 +81,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -105.0
-offset_top = -62.0
-offset_right = 105.0
+offset_left = -111.0
+offset_top = -67.0
+offset_right = 99.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 min_value = 10.0
 step = 10.0
-value = 10.0
-tick_count = 10
+value = 50.0
 
 [node name="CodeEdit" type="CodeEdit" parent="interface/Panel"]
 layout_mode = 1
@@ -118,14 +118,36 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -56.0
-offset_top = -66.0
+offset_top = -71.0
 offset_right = 56.0
-offset_bottom = -40.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Game speed"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DebugButton" type="Button" parent="interface/Panel"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 5.0
+offset_right = 181.0
+offset_bottom = 33.0
+text = "🐛"
+
+[node name="DebugRichTextLabel" type="RichTextLabel" parent="interface/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 305.0
+offset_right = -6.0
+offset_bottom = -133.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "awdawdawdd"
 
 [node name="ExitButton" type="Button" parent="interface"]
 layout_mode = 0
@@ -164,13 +186,21 @@ offset_top = 10.0
 offset_right = 1153.0
 offset_bottom = 74.0
 
-[node name="Button" type="Button" parent="interface"]
+[node name="ExitToMenuButton" type="Button" parent="interface"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 90.0
 offset_bottom = 54.0
 text = "exit to menu"
+
+[node name="HelpButton" type="Button" parent="interface"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 10.0
+offset_right = 269.0
+offset_bottom = 54.0
+text = "?"
 
 [node name="Plates" type="Node" parent="."]
 
@@ -184,17 +214,6 @@ text = "exit to menu"
 
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 2.0
-
-[node name="DebugWindow" type="Window" parent="."]
-position = Vector2i(0, 36)
-size = Vector2i(500, 300)
-visible = false
-
-[node name="Text" type="Label" parent="DebugWindow"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
-justification_flags = 99
 
 [node name="ErrorWindow" type="Window" parent="."]
 transparent_bg = true
@@ -304,15 +323,83 @@ offset_right = 176.0
 grow_vertical = 0
 text = "EXIT TO MENU"
 
+[node name="HelpWindow" type="Window" parent="."]
+transparent_bg = true
+initial_position = 4
+size = Vector2i(500, 500)
+visible = false
+theme = ExtResource("3_eeaed")
+
+[node name="Panel" type="Panel" parent="HelpWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HelpWindow/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Help text
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+bla
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+blee
+bla
+amogus
+amogus
+amogus
+amogus
+amogus
+amogus
+amogus
+"
+
 [connection signal="item_selected" from="interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="drag_ended" from="interface/Panel/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="text_changed" from="interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="pressed" from="interface/Panel/DebugButton" to="." method="_on_debug_button_pressed"]
 [connection signal="pressed" from="interface/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="interface/FullScreenButton" to="." method="_on_full_screen_button_pressed"]
-[connection signal="pressed" from="interface/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="interface/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="interface/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="ErrorWindow/ErrorButton" to="." method="_on_error_button_pressed"]
 [connection signal="pressed" from="WinLoseWindow/Panel/NextLevelButton" to="." method="_on_next_level_button_pressed"]
 [connection signal="pressed" from="WinLoseWindow/Panel/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WinLoseWindow/Panel/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="close_requested" from="HelpWindow" to="." method="_on_help_window_close_requested"]
