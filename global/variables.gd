@@ -51,7 +51,7 @@ func _ready():
 		map[i].resize(10)
 		map[i].fill(0)
 
-	LevelClass.save_level(3,[Vector2(2,2)],[],[[Vector2(10,5),20]],[[Vector2(5,5),0]],[],"first counting!","take number from red speaker double it and say it to the green one")
+	LevelClass.save_level(3,[Vector2(2,2)],[],[[Vector2(10,5),20]],[[Vector2(5,5),11]],[],"first counting!","take number from red speaker double it and say it to the green one")
 	
 func map_reset():
 	for i in range(0,16):
@@ -62,6 +62,7 @@ func map_reset():
 
 func _exit_tree():
 	if current_save_file != -1:
+		GameFiles.code_save()
 		GameFiles.game_progress_save(false)
 	
 

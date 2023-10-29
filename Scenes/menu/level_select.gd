@@ -15,11 +15,12 @@ func _ready():
 
 
 func _change_level(btn):
-	get_tree().change_scene_to_file("res://Scenes/level/level.tscn")
-	Variables.level = int(btn.text.split(" ",1)[1])
-	GameFiles.data["current_level"] = Variables.level
-	LevelClass.load_level(Variables.level)
 	
+	Variables.level = int(btn.text.split(" ",1)[1])
+	print(Variables.level," je current level")
+	GameFiles.data["current_level"] =Variables.level
+	LevelClass.load_level(Variables.level)
+	get_tree().change_scene_to_file("res://Scenes/level/level.tscn")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 

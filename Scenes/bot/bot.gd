@@ -64,9 +64,9 @@ func _process(delta):
 		$bodyLight.color = Color("ff660083")
 		$bodyLight.enabled = true
 	if Variables.running:
-		$bodyLight.energy = 9
+		$bodyLight.energy = 4
 		$bodyLight.color = Color("ff6600")
-		$bodyLight.enabled = true
+		
 	
 	if Variables.running and self.available == false:
 		$bodyLight.energy = 10

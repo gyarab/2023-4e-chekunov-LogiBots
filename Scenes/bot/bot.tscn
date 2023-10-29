@@ -256,7 +256,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Active:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -264,7 +264,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -454,7 +454,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Active:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -717,20 +717,53 @@ collision_mask = 0
 script = ExtResource("1_2ni1o")
 
 [node name="bodyLight" type="PointLight2D" parent="."]
+enabled = false
 color = Color(1, 0.4, 0, 0.513726)
 energy = 10.03
 blend_mode = 2
 shadow_enabled = true
+shadow_item_cull_mask = 2
 texture = ExtResource("3_addyq")
 texture_scale = 5.96
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_ahnf3")
+occluder_light_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_r3na3")
 
+[node name="WorkTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iwbgi")
+}
+
+[node name="BotIdle" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_6mhw0")
+
+[node name="BotSide" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_4kxhk")
+flip_h = true
+
+[node name="BotFront" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dq3c5")
+
+[node name="BotBack" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_xg5tm")
+
 [node name="Active" type="Label" parent="."]
+visible = false
 offset_left = -19.0
 offset_top = -14.0
 offset_right = 19.0
@@ -750,38 +783,16 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WorkTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_iwbgi")
-}
-
-[node name="BotIdle" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_6mhw0")
-
-[node name="BotSide" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_4kxhk")
-
-[node name="BotFront" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_dq3c5")
-
-[node name="BotBack" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_xg5tm")
-
 [node name="down" type="PointLight2D" parent="."]
 visible = false
 light_mask = 2
 visibility_layer = 2
 energy = 16.0
+shadow_enabled = true
+texture = ExtResource("3_addyq")
+
+[node name="BotLight" type="PointLight2D" parent="."]
+light_mask = 0
 shadow_enabled = true
 texture = ExtResource("3_addyq")
 

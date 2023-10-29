@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc6lbt5xi00ch"]
+[gd_scene load_steps=5 format=3 uid="uid://dc6lbt5xi00ch"]
 
 [ext_resource type="Script" path="res://Scenes/objects/box.gd" id="1_3krx7"]
 [ext_resource type="Texture2D" uid="uid://oshgkesdx7gq" path="res://assets/objects/box.png" id="1_km5n3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpkx3"]
 size = Vector2(60, 60)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lisny"]
+polygon = PackedVector2Array(-29, -14, -29, 29, 29, 29, 29, -13, 21, -25, -21, -25)
 
 [node name="box" type="StaticBody2D"]
 script = ExtResource("1_3krx7")
@@ -15,3 +18,6 @@ shape = SubResource("RectangleShape2D_cpkx3")
 [node name="Box" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_km5n3")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_lisny")

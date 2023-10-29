@@ -42,6 +42,7 @@ func save_level(idx,new_bots,new_boxes,new_mics,new_speakers,new_plates,new_titl
 	file.close()
 	print("zapsal")
 func load_level(index:int):
+	Variables.current_code = 0
 	Variables.level = index
 	if FileAccess.file_exists("res://levels/level"+str(index)+".bat"):
 		var file = FileAccess.open("res://levels/level"+str(index)+".bat",FileAccess.READ)

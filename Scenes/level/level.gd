@@ -25,11 +25,11 @@ func _on_run_button_pressed():
 			set_running_mode()
 	
 func _on_code_edit_text_changed():
-	Variables.codes[Variables.current_code] =$interface/Panel/CodeEdit.text
+	Variables.codes[Variables.current_code] =$CanvasLayer/interface/Panel/CodeEdit.text
 	
 func _on_bots_select_item_selected(index):
 	Variables.current_code = index
-	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
+	$CanvasLayer/interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 func _on_tick_timer_timeout():
 	
@@ -104,10 +104,10 @@ func set_running_mode():
 						return
 					Variables.bots[i].code_anchors[line.get_slice(":",0)] = j
 					
-	$interface/Panel/RunButton.text = "Stop"
-	$interface/Panel/CodeEdit.editable = false
-	$interface/Panel/botsSelect.disabled = true
-	$interface/Panel/HSlider.editable = false
+	$CanvasLayer/interface/Panel/RunButton.text = "Stop"
+	$CanvasLayer/interface/Panel/CodeEdit.editable = false
+	$CanvasLayer/interface/Panel/botsSelect.disabled = true
+	$CanvasLayer/interface/Panel/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
 func set_normal_mode():
@@ -115,22 +115,22 @@ func set_normal_mode():
 	Variables.tick = false
 	lvl_load()
 	$TickTimer.stop()
-	$interface/Panel/HSlider.editable = true
-	$interface/Panel/RunButton.text = "Run"
-	$interface/Panel/CodeEdit.editable = true
-	$interface/Panel/botsSelect.disabled = false
+	$CanvasLayer/interface/Panel/HSlider.editable = true
+	$CanvasLayer/interface/Panel/RunButton.text = "Run"
+	$CanvasLayer/interface/Panel/CodeEdit.editable = true
+	$CanvasLayer/interface/Panel/botsSelect.disabled = false
 	
 func _process(_delta):
 	#Bot Debug
 	if debug_mode:
 		# Color
-		$interface/Panel/DebugButton.modulate = Color("ff9f1c")
+		$CanvasLayer/interface/Panel/DebugButton.modulate = Color("ff9f1c")
 		if not Variables.running:
-			$interface/Panel/CodeEdit.size = Vector2(249,459)
-			$interface/Panel/DebugRichTextLabel.visible = false
+			$CanvasLayer/interface/Panel/CodeEdit.size = Vector2(249,459)
+			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = false
 	else:
-		$interface/Panel/DebugRichTextLabel.visible = false
-		$interface/Panel/DebugButton.modulate = Color("ffffff")
+		$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = false
+		$CanvasLayer/interface/Panel/DebugButton.modulate = Color("ffffff")
 		
 	
 	#debug
@@ -139,17 +139,19 @@ func _process(_delta):
 	if Variables.running and Variables.tick and not Variables.sleep:
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		if debug_mode and Variables.running:
-			$interface/Panel/CodeEdit.size = Vector2(249,459-200)
+			$CanvasLayer/interface/Panel/CodeEdit.size = Vector2(249,459-200)
 			# create text to show
 			var debug_text = "[b]Debug[/b]\n"
 			for bot in Variables.bots:
-				debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]\n"
-			
-			$interface/Panel/DebugRichTextLabel.visible = true
-			$interface/Panel/DebugRichTextLabel.text = debug_text
+				if len(bot.code_lines)>0:
+					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]\n"
+				else:
+					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" +"empty"+ "[/color]\n"
+			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = true
+			$CanvasLayer/interface/Panel/DebugRichTextLabel.text = debug_text
 		else:
-			$interface/Panel/CodeEdit.size = Vector2(249,459)
-			$interface/Panel/DebugRichTextLabel.visible = false
+			$CanvasLayer/interface/Panel/CodeEdit.size = Vector2(249,459)
+			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = false
 		for i in range(0,Variables.current_bot_count):
 			
 			if not Variables.running:
@@ -353,9 +355,9 @@ func lvl_load():
 	Variables.mics = []
 	Variables.speakers = []
 	# clear all buttons
-	$interface/Panel/botsSelect.clear()
-	$interface/Description.text = Variables.description
-	$interface/Title.text = "level "+str(Variables.level)+" - "+Variables.title
+	$CanvasLayer/interface/Panel/botsSelect.clear()
+	$CanvasLayer/interface/Description.text = Variables.description
+	$CanvasLayer/interface/Title.text = "level "+str(Variables.level)+" - "+Variables.title
 	# step
 	step = 0
 	
@@ -375,19 +377,20 @@ func lvl_load():
 				var box = box_scene.instantiate()
 				box.pos = Vector2(i,j)
 				$boxes.add_child(box)
-			# microphones
-			if Variables.lvl_maps[i][j] == 3:
-				var microphone = microphone_scene.instantiate()
-				microphone.pos = Vector2(i,j)
-				microphone.number = 24
-				$Microphones.add_child(microphone)
-			# speaker
-			if Variables.lvl_maps[i][j] == 4:
-				var speaker = speaker_scene.instantiate()
-				speaker.pos = Vector2(i,j)
-				speaker.number = 120
-				$Speakers.add_child(speaker)
+			
 				
+	for mic in LevelClass.mics:
+		var microphone = microphone_scene.instantiate()
+		microphone.pos = Vector2(mic[0].x,mic[0].y)
+		microphone.number = mic[1]
+		$Microphones.add_child(microphone)
+		
+	for spkr in LevelClass.speakers:
+		var speaker = speaker_scene.instantiate()
+		speaker.pos = Vector2(spkr[0].x,spkr[0].y)
+		speaker.number = spkr[1]
+		$Speakers.add_child(speaker)
+	
 	print(Variables.plates)
 	for plt in Variables.plates:
 		var plate = plate_scene.instantiate()
@@ -405,18 +408,18 @@ func lvl_load():
 	
 	# code files
 	for i in range(0,bot_count):
-		$interface/Panel/botsSelect.add_item("Bot "+str(i+1))
+		$CanvasLayer/interface/Panel/botsSelect.add_item("Bot "+str(i+1))
 		Variables.codes.append("")
 	
 	# Saves
 	GameFiles.code_load()
-	$interface/Panel/botsSelect.select(Variables.current_code)
-	$interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
+	$CanvasLayer/interface/Panel/botsSelect.select(Variables.current_code)
+	$CanvasLayer/interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 
 
 func _on_h_slider_drag_ended(_value_changed):
-	Variables.tick_time = 10/$interface/Panel/HSlider.value
-	print($interface/Panel/HSlider.value)
+	Variables.tick_time = 10/$CanvasLayer/interface/Panel/HSlider.value
+	print($CanvasLayer/interface/Panel/HSlider.value)
 	print(Variables.tick_time)
 
 
