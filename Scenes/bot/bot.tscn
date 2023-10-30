@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://kpldt8f0wv2g"]
+[gd_scene load_steps=20 format=3 uid="uid://kpldt8f0wv2g"]
 
 [ext_resource type="Script" path="res://Scenes/bot/bot.gd" id="1_2ni1o"]
 [ext_resource type="Texture2D" uid="uid://n2hiiaeeb2pb" path="res://assets/Bot/bot front.png" id="2_dq3c5"]
@@ -125,6 +125,18 @@ tracks/8/keys = {
 "method": &"show_id"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("LightOccluderRight:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_mrb55"]
 resource_name = "down"
@@ -211,6 +223,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LightOccluderRight:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_jgsrg"]
@@ -314,6 +338,30 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LightOccluderRight:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("LightOccluderRight:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_524yr"]
 resource_name = "number"
@@ -412,6 +460,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [5.96]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LightOccluderRight:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ny7kw"]
@@ -512,6 +572,30 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LightOccluderRight:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("LightOccluderRight:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_7f0ca"]
 resource_name = "say down"
@@ -599,6 +683,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LightOccluderRight:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_6eq3o"]
 resource_name = "up"
@@ -640,7 +736,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Active:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -672,7 +768,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -698,10 +794,38 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LightOccluderRight:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dxb7i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LightOccluderRight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iwbgi"]
 _data = {
 "IdleIDshow": SubResource("Animation_mm4m4"),
+"RESET": SubResource("Animation_dxb7i"),
 "down": SubResource("Animation_mrb55"),
 "idleCodeEdit": SubResource("Animation_jgsrg"),
 "left": SubResource("Animation_vyd24"),
@@ -710,6 +834,9 @@ _data = {
 "say down": SubResource("Animation_7f0ca"),
 "up": SubResource("Animation_6eq3o")
 }
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oqqff"]
+polygon = PackedVector2Array(-23, -12, -23, 23, 24, 23, 25, 17, 26, 13, 26, 8, 26, -3, 26, -9, 25, -13, 23, -19, 15, -19)
 
 [node name="bot" type="CharacterBody2D"]
 collision_layer = 0
@@ -748,9 +875,9 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_6mhw0")
 
 [node name="BotSide" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_4kxhk")
-flip_h = true
 
 [node name="BotFront" type="Sprite2D" parent="."]
 visible = false
@@ -758,7 +885,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_dq3c5")
 
 [node name="BotBack" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_xg5tm")
 
@@ -795,6 +921,12 @@ texture = ExtResource("3_addyq")
 light_mask = 0
 shadow_enabled = true
 texture = ExtResource("3_addyq")
+
+[node name="LightOccluderRight" type="LightOccluder2D" parent="."]
+visible = false
+scale = Vector2(-1, 1)
+occluder = SubResource("OccluderPolygon2D_oqqff")
+occluder_light_mask = 2
 
 [connection signal="add" from="." to="." method="_on_add"]
 [connection signal="jump" from="." to="." method="_on_jump"]

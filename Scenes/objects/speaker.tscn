@@ -40,3 +40,11 @@ theme_override_font_sizes/font_size = 20
 text = "50"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SpLight" type="PointLight2D" parent="."]
+light_mask = 0
+color = Color(1, 0, 0, 1)
+energy = 4.09
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = ExtResource("2_8xf1f")

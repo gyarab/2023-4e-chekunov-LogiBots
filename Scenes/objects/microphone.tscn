@@ -41,7 +41,7 @@ text = "50"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BotLight" type="PointLight2D" parent="."]
+[node name="McLight" type="PointLight2D" parent="."]
 light_mask = 0
 color = Color(0.278431, 1, 0.2, 1)
 shadow_enabled = true
