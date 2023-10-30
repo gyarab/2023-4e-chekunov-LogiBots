@@ -198,7 +198,7 @@ func  show_end_window(win):
 	$WinLoseWindow/Panel/NextLevelButton.visible = win
 	if win:
 		$WinLoseWindow/Panel/WinLoseLabel.text = "Great Job!"
-		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps! \n is it possible to do it better?"
+		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps!\nis it possible to do it better?"
 		
 	else:
 		$WinLoseWindow/Panel/WinLoseLabel.text = "Opsie wopsie.."
@@ -382,13 +382,19 @@ func lvl_load():
 	for mic in LevelClass.mics:
 		var microphone = microphone_scene.instantiate()
 		microphone.pos = Vector2(mic[0].x,mic[0].y)
-		microphone.number = mic[1]
+		if mic[1] == -12057:
+			microphone.number = randi_range(-99,99)
+		else:
+			microphone.number = mic[1]
 		$Microphones.add_child(microphone)
 		
 	for spkr in LevelClass.speakers:
 		var speaker = speaker_scene.instantiate()
 		speaker.pos = Vector2(spkr[0].x,spkr[0].y)
-		speaker.number = spkr[1]
+		if spkr[1] == -12057:
+			speaker.number = randi_range(1,99)
+		else:
+			speaker.number = spkr[1]
 		$Speakers.add_child(speaker)
 	
 	print(Variables.plates)
