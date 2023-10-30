@@ -178,11 +178,7 @@ func _on_listen(dir):
 func _on_move(dir,count):
 	print("move_cont ")
 	print(move_count)
-	if move_count == 0 and new_move_count_down:
-		new_move_count_down = false
-		move_count = count - 1
-	else:
-		move_count -= 1
+	
 		
 	var map = Variables.map
 	var destination:Vector2
@@ -195,7 +191,7 @@ func _on_move(dir,count):
 	if dir == "right":
 		destination = Vector2(pos.x+1,pos.y)
 	
-	if  destination.x > 19 or destination.y > 9 or destination.x < 0 or destination.y < 0:
+	if  destination.x > 15 or destination.y > 9 or destination.x < 0 or destination.y < 0:
 		self.available = false
 		return
 	
@@ -208,6 +204,11 @@ func _on_move(dir,count):
 		map[destination.x][destination.y] = 1
 		map[pos.x][pos.y] = 0
 		pos = destination
+		if move_count == 0 and new_move_count_down:
+			new_move_count_down = false
+			move_count = count - 1
+		else:
+			move_count -= 1
 		self_move(dir)
 	Variables.map = map
 	
