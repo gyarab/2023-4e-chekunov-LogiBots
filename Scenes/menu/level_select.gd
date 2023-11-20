@@ -10,7 +10,7 @@ func _ready():
 		lvl_button.text = "level "+ str(level+1)
 		lvl_button.button_down.connect(_change_level.bind(lvl_button))
 		lvl_button.custom_minimum_size = Vector2(120,100)
-		lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
+		#lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
 		$Control/GridContainer.add_child(lvl_button)
 
 

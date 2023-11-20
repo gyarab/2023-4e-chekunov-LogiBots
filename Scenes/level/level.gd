@@ -36,6 +36,7 @@ func _on_tick_timer_timeout():
 	Variables.tick = true
 
 func set_running_mode():
+	blind_random_numbers(false)
 	GameFiles.code_save()
 	Variables.running = true
 	Variables.tick = true
@@ -110,10 +111,24 @@ func set_running_mode():
 	$CanvasLayer/interface/Panel/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
+func blind_random_numbers(blind:bool):
+	
+	for mic in $Microphones.get_children():
+		if mic.number ==  -12057:
+			mic.show_questionmark = blind
+	
+	for spk in $Speakers.get_children():
+		if spk.number ==  -12057:
+			spk.show_questionmark = blind
+	
 func set_normal_mode():
+	
+	
+	
 	Variables.running = false
 	Variables.tick = false
 	lvl_load()
+	blind_random_numbers(true)
 	$TickTimer.stop()
 	$CanvasLayer/interface/Panel/HSlider.editable = true
 	$CanvasLayer/interface/Panel/RunButton.text = "Run"
