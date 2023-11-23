@@ -112,13 +112,17 @@ func set_running_mode():
 	$TickTimer.start(Variables.tick_time)
 	
 func blind_random_numbers(blind:bool):
+	print("zajimave...")
 	
 	for mic in $Microphones.get_children():
 		if mic.number ==  -12057:
+			print("nu da")
 			mic.show_questionmark = blind
 	
 	for spk in $Speakers.get_children():
-		if spk.number ==  -12057:
+		print(spk.number)
+		if spk.show_questionmark:
+			print("nu da")
 			spk.show_questionmark = blind
 	
 func set_normal_mode():
@@ -398,6 +402,7 @@ func lvl_load():
 		var microphone = microphone_scene.instantiate()
 		microphone.pos = Vector2(mic[0].x,mic[0].y)
 		if mic[1] == -12057:
+			microphone.show_questionmark = true
 			microphone.number = randi_range(-99,99)
 		else:
 			microphone.number = mic[1]
@@ -407,6 +412,7 @@ func lvl_load():
 		var speaker = speaker_scene.instantiate()
 		speaker.pos = Vector2(spkr[0].x,spkr[0].y)
 		if spkr[1] == -12057:
+			speaker.show_questionmark = true
 			speaker.number = randi_range(1,99)
 		else:
 			speaker.number = spkr[1]
