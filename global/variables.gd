@@ -50,8 +50,18 @@ func _ready():
 		lvl_maps[i].fill(0)
 		map[i].resize(10)
 		map[i].fill(0)
-
-	LevelClass.save_level(3,[Vector2(3,4),Vector2(12,4),Vector2(12,6),Vector2(3,6)],[],[[Vector2(10,5),0]],[[Vector2(5,5),-12057]],[],"first counting!","take number from red speaker double it and say it to the green one")
+	
+	var boxes := []
+	for i in 16:
+		for j in 10:
+			if i == 0 or i == 15:
+				boxes.append(Vector2(i,j))
+				continue
+			if j == 0 or j == 9:
+				boxes.append(Vector2(i,j))
+				continue 
+				
+	LevelClass.save_level(5,[Vector2(3,4)],boxes,[[Vector2(10,5),0]],[[Vector2(5,5),-10001]],[],"","if the number is negative, say '-1' to green microphone, if not, say 1")
 	
 func map_reset():
 	for i in range(0,16):

@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://kpldt8f0wv2g"]
+[gd_scene load_steps=23 format=3 uid="uid://kpldt8f0wv2g"]
 
 [ext_resource type="Script" path="res://Scenes/bot/bot.gd" id="1_2ni1o"]
 [ext_resource type="Texture2D" uid="uid://n2hiiaeeb2pb" path="res://assets/Bot/bot front.png" id="2_dq3c5"]
+[ext_resource type="Texture2D" uid="uid://dt8sq4dq1vim" path="res://assets/Bot/white.png" id="2_mh35x"]
 [ext_resource type="Texture2D" uid="uid://dlr280seljsls" path="res://assets/light/circle.png" id="3_addyq"]
 [ext_resource type="Texture2D" uid="uid://bnbk786bxoeug" path="res://assets/Bot/bot side.png" id="4_4kxhk"]
 [ext_resource type="Texture2D" uid="uid://r1ajnc8o3ich" path="res://assets/Bot/bot idle.png" id="4_6mhw0"]
 [ext_resource type="Texture2D" uid="uid://c5ihrqmq6s546" path="res://assets/Bot/bot back.png" id="6_xg5tm"]
+[ext_resource type="Texture2D" uid="uid://cl4qhjvfmqvyg" path="res://assets/Bot/zap.png" id="8_i8ms8"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ahnf3"]
 polygon = PackedVector2Array(-19, -14, -19, 19, -19, 23, -23, 23, -23, -17, 23, -17, 23, 23, -19, 23, -19, 19, 19, 19, 19, -14)
@@ -838,10 +840,24 @@ _data = {
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oqqff"]
 polygon = PackedVector2Array(-23, -12, -23, 23, 24, 23, 25, 17, 26, 13, 26, 8, 26, -3, 26, -9, 25, -13, 23, -19, 15, -19)
 
+[sub_resource type="Gradient" id="Gradient_5uttc"]
+colors = PackedColorArray(1, 0.4, 0, 1, 0.86, 0.79335, 0.0602, 1)
+
 [node name="bot" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_2ni1o")
+
+[node name="Smoke" type="CPUParticles2D" parent="."]
+visible = false
+lifetime = 0.6
+lifetime_randomness = 0.32
+texture = ExtResource("2_mh35x")
+emission_shape = 1
+emission_sphere_radius = 17.49
+spread = 33.95
+gravity = Vector2(200, -490)
+color = Color(0.521569, 0.521569, 0.521569, 1)
 
 [node name="bodyLight" type="PointLight2D" parent="."]
 enabled = false
@@ -870,7 +886,6 @@ libraries = {
 }
 
 [node name="BotIdle" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_6mhw0")
 
@@ -885,6 +900,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_dq3c5")
 
 [node name="BotBack" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_xg5tm")
 
@@ -913,12 +929,13 @@ vertical_alignment = 1
 visible = false
 light_mask = 2
 visibility_layer = 2
-energy = 16.0
 shadow_enabled = true
 texture = ExtResource("3_addyq")
 
 [node name="BotLight" type="PointLight2D" parent="."]
 light_mask = 0
+color = Color(1, 0.0901961, 0, 1)
+energy = 1.5
 shadow_enabled = true
 texture = ExtResource("3_addyq")
 
@@ -927,6 +944,24 @@ visible = false
 scale = Vector2(-1, 1)
 occluder = SubResource("OccluderPolygon2D_oqqff")
 occluder_light_mask = 2
+
+[node name="crack" type="CPUParticles2D" parent="."]
+visible = false
+amount = 4
+lifetime = 0.2
+texture = ExtResource("8_i8ms8")
+emission_shape = 1
+emission_sphere_radius = 15.45
+spread = 180.0
+gravity = Vector2(0, 9)
+initial_velocity_min = 30.67
+initial_velocity_max = 214.36
+angular_velocity_min = 2.1
+angular_velocity_max = 37.43
+linear_accel_max = 8.59
+scale_amount_min = 0.0
+color = Color(1, 1, 0.192157, 1)
+color_ramp = SubResource("Gradient_5uttc")
 
 [connection signal="add" from="." to="." method="_on_add"]
 [connection signal="jump" from="." to="." method="_on_jump"]

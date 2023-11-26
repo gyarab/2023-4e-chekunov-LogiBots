@@ -204,6 +204,14 @@ offset_right = 269.0
 offset_bottom = 54.0
 text = "?"
 
+[node name="TestCase" type="Label" parent="CanvasLayer/interface"]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 10.0
+offset_right = 455.0
+offset_bottom = 54.0
+text = "Test 1/1"
+
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.45
 blend_mode = 1
@@ -283,7 +291,6 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 91.0
 offset_bottom = 36.0
-text = "Well done!"
 horizontal_alignment = 1
 vertical_alignment = 1
 

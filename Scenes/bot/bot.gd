@@ -52,7 +52,6 @@ func _ready():
 func _process(delta):
 	
 	#debug
-	#print($bodyLight.enabled)
 	
 	# cosmetics
 	if id == Variables.current_code and not Variables.running:
@@ -72,6 +71,14 @@ func _process(delta):
 		$bodyLight.energy = 10
 		$bodyLight.color = Color("red", 5)
 		$bodyLight.enabled = true
+		$crack.visible = true
+		$Smoke.visible = true
+		$BotLight.color = Color("ff1700")
+	else:
+		$crack.visible = false
+		$Smoke.visible = false
+		$BotLight.color = Color("ffffff")
+		
 	
 	
 	
@@ -176,8 +183,6 @@ func _on_listen(dir):
 				iterator_update()
 				return
 func _on_move(dir,count):
-	print("move_cont ")
-	print(move_count)
 	
 		
 	var map = Variables.map
@@ -214,7 +219,6 @@ func _on_move(dir,count):
 	
 func self_move(dir:String):
 	await get_parent().get_parent().all_bots_ready
-	print("gotovo!")
 	is_doing = true
 	direction = dir
 	$WorkTimer.start(Variables.tick_time)
@@ -256,7 +260,6 @@ func _on_say(dir):
 				iterator_update()
 				return
 	await was_listened
-	print("uz rekl")
 	Variables.map[pos.x][pos.y] = 1
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()
@@ -291,7 +294,6 @@ func _on_jump(type, anchor):
 	if is_jumping:
 		code_jump(anchor)
 	else:
-		#print("halo!")
 		await get_parent().get_parent().all_bots_ready
 		iterator_update()
 func code_jump(anchor:String):
@@ -342,3 +344,4 @@ func _on_return_signal():
 	
 	self.iterator = index_stack.pop_back()
 	iterator_update()
+

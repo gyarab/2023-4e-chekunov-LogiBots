@@ -47,3 +47,7 @@ color = Color(0.278431, 1, 0.2, 1)
 shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = ExtResource("3_dt0ot")
+
+[node name="NumberTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="NumberTimer" to="." method="_on_number_timer_timeout"]

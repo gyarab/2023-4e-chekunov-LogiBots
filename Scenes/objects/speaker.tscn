@@ -44,7 +44,12 @@ vertical_alignment = 1
 [node name="SpLight" type="PointLight2D" parent="."]
 light_mask = 0
 color = Color(1, 0, 0, 1)
-energy = 4.09
 shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = ExtResource("2_8xf1f")
+
+[node name="NumberTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="NumberTimer" to="." method="_on_number_timer_timeout"]

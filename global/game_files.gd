@@ -23,6 +23,7 @@ func last_user_save():
 	var file_path := "user://Saves/settings.bat"
 	var file = FileAccess.open(file_path,FileAccess.WRITE)
 	file.store_var(Variables.current_save_file)
+	file.close()
 
 func last_user_load():
 	var file_path := "user://Saves/settings.bat"
@@ -30,6 +31,7 @@ func last_user_load():
 		var file = FileAccess.open(file_path,FileAccess.READ)
 		Variables.current_save_file = file.get_var(Variables.current_save_file)
 		print(Variables.current_save_file)
+		file.close()
 	else:
 		print("not exist")
 
@@ -37,9 +39,7 @@ func game_progress_save(new:bool):
 	# current level
 	# 
 	var file_path := "user://Saves/Save "+str(Variables.current_save_file)+"/gameProgress.bat"
-	var file
-		
-	file = FileAccess.open(file_path,FileAccess.WRITE)
+	var file = FileAccess.open(file_path,FileAccess.WRITE)
 	if new:
 		# reset CodeSaves
 		# Deleting Saves
@@ -58,6 +58,7 @@ func game_progress_save(new:bool):
 		Variables.level = 1
 		print("novy a saveujeme!")
 	file.store_var(data)
+	file.close()
 
 
 func remove_files_in_folder(folder_path):
@@ -85,7 +86,7 @@ func game_progress_load():
 		data = file.get_var()
 		print(data)
 		Variables.level = data["current_level"]
-		
+		file.close()
 
 func code_save():
 	GameFiles.create_save_files()
@@ -98,7 +99,7 @@ func code_save():
 		
 		var file = FileAccess.open("user://Saves/Save "+str(Variables.current_save_file)+"/CodeSaves/"+"Level "+str(Variables.level)+"/Bot "+str(i)+".txt", FileAccess.WRITE)
 		file.store_string(Variables.codes[i])
-
+		file.close()
 
 func code_load():
 	for i in range(0,Variables.current_bot_count):
@@ -107,6 +108,8 @@ func code_load():
 		if FileAccess.file_exists(bot_path):
 			var file = FileAccess.open(bot_path, FileAccess.READ)
 			content = file.get_as_text()
+			file.close()
 		else:
 			content = ""
 		Variables.codes[i] = content
+		
