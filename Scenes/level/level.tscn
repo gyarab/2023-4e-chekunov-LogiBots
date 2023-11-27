@@ -183,10 +183,12 @@ text = "Level 0 - tutorial"
 
 [node name="Description" type="RichTextLabel" parent="CanvasLayer/interface"]
 layout_mode = 0
-offset_left = 831.0
-offset_top = 10.0
+offset_left = 812.0
+offset_top = 1.0
 offset_right = 1153.0
-offset_bottom = 74.0
+offset_bottom = 67.0
+focus_mode = 2
+selection_enabled = true
 
 [node name="ExitToMenuButton" type="Button" parent="CanvasLayer/interface"]
 layout_mode = 0
@@ -405,6 +407,9 @@ amogus
 amogus
 amogus
 "
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 352)
 
 [connection signal="item_selected" from="CanvasLayer/interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/RunButton" to="." method="_on_run_button_pressed"]

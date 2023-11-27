@@ -278,6 +278,7 @@ func _on_work_timer_timeout():
 		update_iterator_bool = false
 func update_position():
 	position =Vector2(pos.x * 64 + 32,pos.y * 64 + 32 + 64)
+	
 func self_destroy():
 	self.queue_free()
 func _on_jump(type, anchor):

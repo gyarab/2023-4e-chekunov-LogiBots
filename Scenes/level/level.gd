@@ -27,6 +27,14 @@ func lights_up():
 	$DirectionalLight2D.energy = 2
 	tween.tween_property($DirectionalLight2D,'energy',0.45,4)
 	tween.play()
+	
+	
+	
+	
+
+
+
+
 func _on_run_button_pressed():
 	if not level_end:
 		if Variables.running:
@@ -266,7 +274,8 @@ func show_end_window(win):
 	else:
 		$WinLoseWindow.title = ["Opsie wopsie..","Unlucky","Try more","Bad luck!"].pick_random()
 		$WinLoseWindow/Panel/InfoLabel.text = "You need to fix it!"
-	set_normal_mode()
+	set_normal_mode() #FLAG
+	
 func bot_porcess(bot,i):
 			# line
 			var line:String = bot.code_lines[bot.iterator]
@@ -561,6 +570,7 @@ func _on_exit_to_menu_button_pressed():
 
 
 func _on_next_level_button_pressed():
+	
 	$WinLoseWindow.visible = false
 	level_end = false
 	Variables.level+=1
@@ -568,8 +578,10 @@ func _on_next_level_button_pressed():
 		GameFiles.data["latest_level"] = Variables.level
 	GameFiles.data["current_level"] =Variables.level
 	LevelClass.load_level(Variables.level)
-	set_normal_mode()
 	lights_up()
+	set_normal_mode()
+	
+	
 
 
 func _on_help_window_close_requested():
