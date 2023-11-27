@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7ly6vn05t3rr"]
+[gd_scene load_steps=7 format=3 uid="uid://b7ly6vn05t3rr"]
 
 [ext_resource type="Texture2D" uid="uid://cig2f567a0eht" path="res://assets/objects/speaker.png" id="1_4uji8"]
 [ext_resource type="Script" path="res://Scenes/objects/speaker.gd" id="1_a1no3"]
 [ext_resource type="Texture2D" uid="uid://dlr280seljsls" path="res://assets/light/circle.png" id="2_8xf1f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ekw4t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvey7"]
 size = Vector2(58, 54)
@@ -13,6 +15,12 @@ polygon = PackedVector2Array(26, -10, 26, 26, -26, 26, -26, -10, -26, -10, -26, 
 [node name="Speaker" type="StaticBody2D"]
 script = ExtResource("1_a1no3")
 
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0.499999, 8)
+scale = Vector2(53, 38)
+texture = SubResource("CanvasTexture_ekw4t")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_bvey7")
@@ -20,12 +28,6 @@ shape = SubResource("RectangleShape2D_bvey7")
 [node name="Speaker" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_4uji8")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.909804, 0, 0, 1)
-energy = 5.12
-shadow_enabled = true
-texture = ExtResource("2_8xf1f")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_pe1mk")
@@ -43,6 +45,7 @@ vertical_alignment = 1
 
 [node name="SpLight" type="PointLight2D" parent="."]
 light_mask = 0
+position = Vector2(5, -3)
 color = Color(1, 0, 0, 1)
 shadow_enabled = true
 shadow_item_cull_mask = 2

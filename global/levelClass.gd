@@ -14,6 +14,8 @@ saves:
 2. (2,[Vector2(1,1),Vector2(14,8)],[Vector2(2,0),Vector2(2,1),Vector2(2,2),Vector2(2,3),Vector2(2,4),Vector2(2,5),Vector2(2,6),Vector2(2,7),Vector2(2,8),Vector2(3,2),Vector2(3,6),Vector2(4,2),Vector2(4,8),Vector2(4,9),Vector2(4,4),Vector2(5,2),Vector2(5,4),Vector2(5,5),Vector2(5,6),Vector2(5,7),Vector2(5,8),Vector2(6,2),Vector2(6,4),Vector2(7,2),Vector2(7,3),Vector2(7,4),Vector2(9,0),Vector2(9,1),Vector2(9,2),Vector2(9,3),Vector2(9,4),Vector2(9,5),Vector2(10,0),Vector2(10,5),Vector2(11,0),Vector2(11,1),Vector2(11,2),Vector2(11,3),Vector2(11,5),Vector2(12,5),Vector2(13,1),Vector2(13,2),Vector2(13,3),Vector2(13,4),Vector2(13,5),Vector2(13,6),Vector2(13,7),Vector2(13,8),Vector2(13,9)],[],[],[Vector2(6,3),Vector2(10,1)],"moving with mind","move to the green block")
 3. (3,[Vector2(3,4)],borders,[[Vector2(10,5),0]],[[Vector2(5,5),-12057]],[],"first counting!","take number from red speaker double it and say it to the green one")
 4. (4,[Vector2(3,4)],boxes,[[Vector2(10,5),0]],[[Vector2(5,5),-10000]],[],"simple switch","if the number is negative, say 0 to green microphone, if not, say 1")
+5. 
+10. 	LevelClass.save_level(5,[Vector2(3,4)],boxes,[[Vector2(10,5),0]],spks,[],"Huge problems","Find the biggest number from red speakers, say it to the green")
 	"""
 func save_level(idx,new_bots,new_boxes,new_mics,new_speakers,new_plates,new_title,new_description):
 	"""manual created levels"""

@@ -11,7 +11,7 @@ func _ready():
 func _process(_delta):
 	
 	if show_questionmark:
-		$number.text = random_number
+		$number.text = str(random_number)
 	else:
 		$number.text = str(number)
 

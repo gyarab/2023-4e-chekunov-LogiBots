@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://co7pq8bixjiq8"]
+[gd_scene load_steps=7 format=3 uid="uid://co7pq8bixjiq8"]
 
 [ext_resource type="Script" path="res://Scenes/objects/microphone.gd" id="1_ig16j"]
 [ext_resource type="Texture2D" uid="uid://d3q4kfmy4ckkt" path="res://assets/objects/microphone.png" id="2_r58j5"]
 [ext_resource type="Texture2D" uid="uid://dlr280seljsls" path="res://assets/light/circle.png" id="3_dt0ot"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lwg8g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpaxr"]
 size = Vector2(58, 57)
@@ -13,6 +15,12 @@ polygon = PackedVector2Array(26, -10, 26, 26, -26, 26, -26, -10, -26, -10, -26, 
 [node name="Microphone" type="StaticBody2D"]
 script = ExtResource("1_ig16j")
 
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.0901961, 1, 0.105882, 1)
+position = Vector2(0.499999, 8)
+scale = Vector2(53, 38)
+texture = SubResource("CanvasTexture_lwg8g")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_bpaxr")
@@ -20,12 +28,6 @@ shape = SubResource("RectangleShape2D_bpaxr")
 [node name="Microphone" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_r58j5")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0, 1, 0.0156863, 1)
-energy = 3.63
-shadow_enabled = true
-texture = ExtResource("3_dt0ot")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_vtjup")
@@ -44,7 +46,6 @@ vertical_alignment = 1
 [node name="McLight" type="PointLight2D" parent="."]
 light_mask = 0
 color = Color(0.278431, 1, 0.2, 1)
-shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = ExtResource("3_dt0ot")
 

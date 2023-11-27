@@ -228,7 +228,19 @@ func check_level(level):
 				test_case+=1
 				lvl_load(step)
 				set_running_mode()
-				
+		else:
+			show_end_window(false)
+	if level == 5:
+		var spk_num1 = $Speakers.get_child(0).number
+		var spk_num2 = $Speakers.get_child(1).number
+		var mic_num = $Microphones.get_child(0).number
+		if spk_num1+spk_num2>0 and mic_num == 1 or spk_num1+spk_num2==0 and mic_num == 0 or spk_num1+spk_num2<0 and mic_num == -1:
+			if test_case == max_test_case:
+				show_end_window(true)
+			else:
+				test_case+=1
+				lvl_load(step)
+				set_running_mode()
 		else:
 			show_end_window(false)
 func show_end_window(win):
@@ -344,10 +356,12 @@ func bot_porcess(bot,i):
 						return
 				# add sub
 				elif first == "add" or first == "sub":
-					if second.to_int() != null or second == "active":
+					if second.to_int() != null or second == "active" or second == "pasive":
 						var num:int
 						if second == "active":
 							num = bot.active
+						elif second == "memory":
+							num = bot.memory
 						else:
 							num = second.to_int()
 						if first == "sub":
@@ -412,7 +426,9 @@ func lvl_load(_step):
 	# Test cases
 	if Variables.level == 4:
 		max_test_case = 2
-	
+	elif Variables.level == 5:
+		max_test_case = 3
+		
 	for i in range(0,16):
 		for j in range(0,10):
 			# updating map
@@ -467,6 +483,35 @@ func lvl_load(_step):
 				$Speakers.get_child(0).number = randi_range(1,99)
 			elif test_case == 2:
 				$Speakers.get_child(0).number = randi_range(-99,-1)
+	
+	if Variables.level == 5:
+			if test_case == 1:
+				var first = randi_range(-99,99)
+				var second = randi_range(-99,99)
+				print("prvni!")
+				while (first+second<0):
+					first = randi_range(-99,99)
+					second = randi_range(-99,99)
+				print(first)
+				print(second)
+				$Speakers.get_child(0).number = first
+				$Speakers.get_child(1).number = second
+				
+			elif test_case == 2:
+				var first = randi_range(-99,99)
+				var second = -first
+				
+				$Speakers.get_child(0).number = first
+				$Speakers.get_child(1).number = second
+			elif test_case == 3:
+				var first:int = randi_range(-99,99)
+				var second:int = randi_range(-99,99)
+				while (first+second>0):
+					first = randi_range(-99,99)
+					second = randi_range(-99,99)
+				$Speakers.get_child(0).number = first
+				$Speakers.get_child(1).number = second
+		
 	
 	#Variables.map = Variables.lvl_maps
 	# bots update

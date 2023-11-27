@@ -60,8 +60,8 @@ func _ready():
 			if j == 0 or j == 9:
 				boxes.append(Vector2(i,j))
 				continue 
-				
-	LevelClass.save_level(5,[Vector2(3,4)],boxes,[[Vector2(10,5),0]],[[Vector2(5,5),-10001]],[],"","if the number is negative, say '-1' to green microphone, if not, say 1")
+	
+	LevelClass.save_level(5,[Vector2(3,4)],boxes,[[Vector2(10,5),0]],[[Vector2(1,3),-10000],[Vector2(1,5), -10000]],[],"adding together","Add two numbers from red speakers, if sum is positive whrite 1, if zero write zero, if negative whrite -1")
 	
 func map_reset():
 	for i in range(0,16):
