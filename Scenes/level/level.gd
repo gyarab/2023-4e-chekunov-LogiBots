@@ -29,12 +29,6 @@ func lights_up():
 	tween.play()
 	
 	
-	
-	
-
-
-
-
 func _on_run_button_pressed():
 	if not level_end:
 		if Variables.running:
@@ -338,7 +332,7 @@ func bot_porcess(bot,i):
 									else:
 										show_error(bot.iterator,i,"number is not positive","active")
 										return
-								elif line.rsplit(" ")[2] == "memory":
+								elif line.rsplit(" ")[2] == "mem":
 									if bot.memory > 0:
 										third = bot.memory
 									elif bot.memory == 0:
@@ -369,7 +363,7 @@ func bot_porcess(bot,i):
 						var num:int
 						if second == "active":
 							num = bot.active
-						elif second == "memory":
+						elif second == "mem":
 							num = bot.memory
 						else:
 							num = second.to_int()

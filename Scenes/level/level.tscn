@@ -347,7 +347,6 @@ text = "EXIT TO MENU"
 transparent_bg = true
 initial_position = 4
 size = Vector2i(500, 500)
-visible = false
 theme = ExtResource("3_eeaed")
 
 [node name="Panel" type="Panel" parent="HelpWindow"]
@@ -364,49 +363,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 bbcode_enabled = true
-text = "Help text
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-bla
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-blee
-bla
-amogus
-amogus
-amogus
-amogus
-amogus
-amogus
-amogus
+text = "[center][color=#e71d36][b][font_size=30]LogiDocs[/font_size][/b][/color][/center]
+Wellcome to LogiDocs, here you can learn about [color=#ff9f1c]Bots[/color] and how to code them!
+
+[font_size=20][b][color=#2ec4b6]General Info[/color][/b][/font_size]
+	Bot have [b]2[/b] memory slots. Active and Memory. You can acsess them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]say [color=#ff9f1c]active[/color][/i]'.
+	By default Active and memory have value of 0.
+	To switch them you can use [i][color=#ff9f1c][b]swap[/b][/color][/i] command.
+	To save active value to Memory you can use  [i][color=#ff9f1c][b]save[/b][/color][/i] command.
+
+[font_size=20][b][color=#2ec4b6]Movement[/color][/b][/font_size]
+To move bot you need to use [b][color=#ff9f1c]move[/color][/b] command.
+[i]Syntax:[/i]
+	'move <direction>'
+	<direction> = [code]up, down, left, right[/code]
+
+[b][color=#208c81]Advanced Movement[/color][/b]
+[i]Syntax:[/i]
+	'move <direction> <times>'
+	<direction> = [code]up, down, left, right[/code]
+	<times> = [code]number between 0, 16[/code]
 "
+selection_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 352)
