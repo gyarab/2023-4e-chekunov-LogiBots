@@ -347,6 +347,7 @@ text = "EXIT TO MENU"
 transparent_bg = true
 initial_position = 4
 size = Vector2i(500, 500)
+visible = false
 theme = ExtResource("3_eeaed")
 
 [node name="Panel" type="Panel" parent="HelpWindow"]
@@ -366,13 +367,13 @@ grow_vertical = 2
 focus_mode = 2
 bbcode_enabled = true
 text = "[center][color=#e71d36][b][font_size=30]LogiDocs[/font_size][/b][/color][/center]
-Wellcome to LogiDocs, here you can learn about [color=#ff9f1c]Bots[/color] and how to code them!
+	Welcome to LogiDocs, here you can learn about [color=#ff9f1c]Bots[/color] and how to code them!
 
 [font_size=20][b][color=#2ec4b6]General Info[/color][/b][/font_size]
-	Bot have [b]2[/b] memory slots. Active and Memory. You can acsess them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]say [color=#ff9f1c]active[/color][/i]'.
+	Bot have [b]2[/b] memory slots. Active and Memory. You can accsess them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]say [color=#ff9f1c]active[/color][/i]'.
 	By default Active and memory have value of 0.
 	To switch them you can use [i][color=#ff9f1c][b]swap[/b][/color][/i] command.
-	To save active value to Memory you can use  [i][color=#ff9f1c][b]save[/b][/color][/i] command.
+	To save active value to Memory you can use [i][color=#ff9f1c][b]save[/b][/color][/i] command.
 
 [font_size=20][b][color=#2ec4b6]Movement[/color][/b][/font_size]
 To move bot you need to use [b][color=#ff9f1c]move[/color][/b] command.
@@ -380,11 +381,45 @@ To move bot you need to use [b][color=#ff9f1c]move[/color][/b] command.
 	'move <direction>'
 	<direction> = [code]up, down, left, right[/code]
 
-[b][color=#208c81]Advanced Movement[/color][/b]
+	[b][color=#208c81]Advanced Movement[/color][/b]
 [i]Syntax:[/i]
 	'move <direction> <times>'
 	<direction> = [code]up, down, left, right[/code]
-	<times> = [code]number between 0, 16[/code]
+	<times> = [code]integer number [/code]
+
+
+[font_size=20][b][color=#2ec4b6]Calculation[/color][/b][/font_size]
+	[b][color=#ff9f1c]add[/color][/b] command will add number to active slot.
+	E.g. '[i][color=#ff9f1c]add 10[/color][/i] '.
+	[b][color=#ff9f1c]sub[/color][/b] command will substract number from active slot.
+	E.g. '[i][color=#ff9f1c]sub 3[/color][/i] '.
+[i]Syntax:[/i]
+	'add <number>'
+	<number> can be any integer or memory slot [color=#ff9f1c]'active'[/color] or[color=#ff9f1c] 'mem'[/color].
+
+[font_size=20][b][color=#2ec4b6]Communication[/color][/b][/font_size]
+	To communicate with bots and speakers you use [b][color=#ff9f1c]say[/color][/b] and [b][color=#ff9f1c]listen[/color][/b] command.
+	Use '[color=#ff9f1c]say[/color]' to say active number to the direction you chose.
+	Use '[color=#ff9f1c]listen[/color]' to get number from the direction you chose.
+	You can listen from any boxes, but say only to green boxes and bots.
+	Bots are very silly. If they listen to some direction, they will wait until someone speak to them.
+ 
+[i]Syntax:[/i]
+	'say <direction>'
+	'listen <direction>'
+
+	<direction> = [code]up, down, left, right[/code]
+
+[font_size=20][b][color=#2ec4b6]Code features[/color][/b][/font_size]
+	[b][color=#208c81]Jumps[/color][/b]
+	In code you can jump between lines. First of all you need to create an anchor.
+	E.g. '[i][color=#ff9f1c]start:[/color][/i] '.
+	Every anchor has ' : ' at the end.
+	Then you can use any jump in this list.
+	...
+	
+
+
 "
 selection_enabled = true
 
