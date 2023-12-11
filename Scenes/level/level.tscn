@@ -214,6 +214,16 @@ offset_right = 455.0
 offset_bottom = 54.0
 text = "Test 1/1"
 
+[node name="MuteButton" type="Button" parent="CanvasLayer/interface"]
+layout_mode = 0
+offset_left = 1213.0
+offset_top = 578.0
+offset_right = 1261.0
+offset_bottom = 625.0
+text = "M"
+icon_alignment = 2
+expand_icon = true
+
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.45
 blend_mode = 1
@@ -416,8 +426,38 @@ To move bot you need to use [b][color=#ff9f1c]move[/color][/b] command.
 	E.g. '[i][color=#ff9f1c]start:[/color][/i] '.
 	Every anchor has ' : ' at the end.
 	Then you can use any jump in this list.
-	...
-	
+[ul][b][color=#ff9f1c]jump[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpz[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpl[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [color=#ff9f1c][b]less[/b][/color] than [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpg[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [color=#ff9f1c][b]greater[/b][/color] than [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+
+	[b][color=#208c81]Functions[/color][/b]
+	To create function you use '[b][color=#ff9f1c]func[/color][/b]' keyword.
+	E.g. 'func func_name:
+	And closed with andfunc.
+	If you need to quit it you can use '[b][color=#ff9f1c]return[/color][/b]' keyword.
+	E.g.:
+		func func_name:
+		add 2
+		return
+		endfunc
+	To [b][color=#ff9f1c]call[/color][/b] a function just write func_name.
 
 
 "

@@ -16,7 +16,6 @@ var debug_mode:bool = false
 var test_case:int = 1
 var max_test_case:int = 1
 
-
 func _ready():
 	lights_up()
 	lvl_load(0)
@@ -282,7 +281,7 @@ func bot_porcess(bot,i):
 			# one word
 				if line == "swap" or line == "save":
 					bot.emit_signal(line)
-				if line == "return":
+				if line == "return" or line == "endfunc":
 					bot.emit_signal("return_signal")
 				
 				if bot.code_funcs.has(line):
@@ -294,8 +293,8 @@ func bot_porcess(bot,i):
 					if line.rsplit(" ")[0] == "func":
 						if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
 							bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
-					else:
-						break
+						else:
+							show_error(bot.iterator,i,"wrong argument",line)
 				else:
 					break
 					
