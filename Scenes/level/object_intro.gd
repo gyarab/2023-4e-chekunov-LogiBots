@@ -15,11 +15,7 @@ func _ready():
 	var speaker_scene = preload("res://Scenes/objects/speaker.tscn")
 	var plate_scene = preload("res://Scenes/objects/plate.tscn")
 	show_object(Variables.object_to_show)
-	var tween = get_tree().create_tween()
-	var animation_time = len($Control/TextPanel/RichTextLabel.text)/30
 	
-	tween.tween_property($Control/TextPanel/RichTextLabel,"visible_ratio", 1,animation_time)
-	tween.play()
 	
 func show_object(object:int):
 	object = 1
@@ -29,8 +25,7 @@ func show_object(object:int):
 			var bot_scene = preload("res://Scenes/bot/bot.tscn")
 			var bot = bot_scene.instantiate()
 			bot.pos = Vector2(5,3)
-			add_child(bot)
-			
+			$Show_object.add_child(bot)
 		2:
 			pass
 		3:
@@ -39,8 +34,12 @@ func show_object(object:int):
 			pass
 		5:
 			pass
-			
-
+	$Control/TextPanel/RichTextLabel.visible_ratio = 0
+	var tween = get_tree().create_tween()
+	var animation_time = len($Control/TextPanel/RichTextLabel.text)/30
+	
+	tween.tween_property($Control/TextPanel/RichTextLabel,"visible_ratio", 1,animation_time)
+	tween.play()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

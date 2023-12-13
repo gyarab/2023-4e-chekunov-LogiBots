@@ -69,3 +69,5 @@ offset_top = 7.0
 offset_right = 225.0
 offset_bottom = 79.0
 text = "previous"
+
+[node name="Show_object" type="Node" parent="."]
