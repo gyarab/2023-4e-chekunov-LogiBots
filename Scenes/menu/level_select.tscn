@@ -40,19 +40,21 @@ offset_left = 33.0
 offset_top = 27.0
 offset_right = 210.0
 offset_bottom = 120.0
+theme_override_colors/icon_pressed_color = Color(0.521569, 0.443137, 0, 1)
 text = "back"
 
 [node name="GridContainer" type="GridContainer" parent="Control"]
 clip_contents = true
-custom_minimum_size = Vector2(30, 50)
-layout_mode = 0
-offset_left = 60.0
+layout_mode = 2
+anchor_right = 0.89375
+anchor_bottom = 0.633523
+offset_left = 35.0
 offset_top = 171.0
-offset_right = 1175.0
-offset_bottom = 556.0
-theme = ExtResource("1_0oyq5")
-theme_override_constants/h_separation = 50
-theme_override_constants/v_separation = 50
-columns = 7
+offset_right = 75.0
+offset_bottom = 211.0
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 35
+columns = 8
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]

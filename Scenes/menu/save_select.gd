@@ -3,6 +3,25 @@ extends Node2D
 var emptyfile := []
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	# Warning color
+	var sb_normal = $Control/BackButton.get_theme_stylebox("normal").duplicate()
+	var sb_hover = $Control/BackButton.get_theme_stylebox("normal").duplicate()
+	sb_normal.bg_color = Color("cc0000")
+	sb_hover.bg_color = Color("610000")
+	
+	$Control/FirstFileDelete.add_theme_color_override("font_color",Color(0,0,0))
+	$Control/FirstFileDelete.add_theme_stylebox_override("normal", sb_normal)
+	$Control/FirstFileDelete.add_theme_stylebox_override("hover", sb_hover)
+	
+	$Control/SecondFileDelete.add_theme_color_override("font_color",Color(0,0,0))
+	$Control/SecondFileDelete.add_theme_stylebox_override("normal", sb_normal)
+	$Control/SecondFileDelete.add_theme_stylebox_override("hover", sb_hover)
+	
+	$Control/ThirdFileDelete.add_theme_color_override("font_color",Color(0,0,0))
+	$Control/ThirdFileDelete.add_theme_stylebox_override("normal", sb_normal)
+	$Control/ThirdFileDelete.add_theme_stylebox_override("hover", sb_hover)
+	
 	var file_path := "user://Saves/Save "+str(1)+"/gameProgress.bat"
 	if FileAccess.file_exists(file_path):
 		emptyfile.append(false)
