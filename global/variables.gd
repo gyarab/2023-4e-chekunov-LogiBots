@@ -5,6 +5,8 @@ var level := 1
 
 # object_intro
 var object_to_show := -1
+var current_screen := "menu"
+var first_look = true
 
 var current_save_file := -1
 # level

@@ -4,6 +4,7 @@ var can_send_to_level:bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	Variables.current_screen = "menu"
 	
 	GameFiles.last_user_load()
 	GameFiles.game_progress_load()

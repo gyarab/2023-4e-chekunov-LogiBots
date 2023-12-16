@@ -25,6 +25,7 @@ offset_bottom = 705.0
 theme = ExtResource("3_6c71e")
 
 [node name="TextPanel" type="Panel" parent="Control"]
+layout_mode = 0
 offset_left = 836.0
 offset_top = 36.0
 offset_right = 1252.0
@@ -43,12 +44,13 @@ visible_characters = 0
 visible_ratio = 0.0
 
 [node name="ButtonPanel" type="Panel" parent="Control"]
+layout_mode = 0
 offset_left = 26.0
 offset_top = 570.0
 offset_right = 833.0
 offset_bottom = 663.0
 
-[node name="Button" type="Button" parent="Control/ButtonPanel"]
+[node name="ButtonBack" type="Button" parent="Control/ButtonPanel"]
 layout_mode = 0
 offset_left = 590.0
 offset_top = 9.0
@@ -56,14 +58,16 @@ offset_right = 794.0
 offset_bottom = 81.0
 text = "back"
 
-[node name="Button2" type="Button" parent="Control/ButtonPanel"]
+[node name="ButtonNext" type="Button" parent="Control/ButtonPanel"]
+layout_mode = 0
 offset_left = 311.0
 offset_top = 8.0
 offset_right = 515.0
 offset_bottom = 80.0
 text = "next"
 
-[node name="Button3" type="Button" parent="Control/ButtonPanel"]
+[node name="ButtonPrev" type="Button" parent="Control/ButtonPanel"]
+layout_mode = 0
 offset_left = 21.0
 offset_top = 7.0
 offset_right = 225.0
@@ -71,3 +75,7 @@ offset_bottom = 79.0
 text = "previous"
 
 [node name="Show_object" type="Node" parent="."]
+
+[connection signal="pressed" from="Control/ButtonPanel/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="Control/ButtonPanel/ButtonNext" to="." method="_on_button_next_pressed"]
+[connection signal="pressed" from="Control/ButtonPanel/ButtonPrev" to="." method="_on_button_prev_pressed"]

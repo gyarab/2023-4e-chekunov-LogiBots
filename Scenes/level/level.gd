@@ -17,6 +17,7 @@ var test_case:int = 1
 var max_test_case:int = 1
 
 func _ready():
+	Variables.current_screen = "level"
 	lights_up()
 	lvl_load(0)
 
@@ -532,7 +533,13 @@ func lvl_load(_step):
 	GameFiles.code_load()
 	$CanvasLayer/interface/Panel/botsSelect.select(Variables.current_code)
 	$CanvasLayer/interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
-
+	
+	# showing help on first look
+	if Variables.level == 1 and len($CanvasLayer/interface/Panel/CodeEdit.text) == 0 and Variables.first_look:
+		Variables.object_to_show = 1
+		Variables.first_look = false
+		print("amogus")
+		#get_tree().change_scene_to_file("res://Scenes/level/object_intro.tscn")
 
 func _on_h_slider_drag_ended(_value_changed):
 	Variables.tick_time = 10/$CanvasLayer/interface/Panel/HSlider.value
