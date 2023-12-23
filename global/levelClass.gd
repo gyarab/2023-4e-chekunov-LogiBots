@@ -59,7 +59,7 @@ func load_level(index:int):
 		plates = level["plates"]
 		file.close()
 		create_map()
-
+	
 func create_map():
 	
 	# Map reset
