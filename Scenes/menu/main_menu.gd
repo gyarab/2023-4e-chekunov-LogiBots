@@ -14,6 +14,7 @@ func _ready():
 		$Control/ContinueButton.text = "CONTINUE \n level "+str(Variables.level)
 
 
+
 func _on_quit_button_pressed():
 	get_tree().quit()
 
@@ -29,3 +30,14 @@ func _on_new_game_button_pressed():
 func _on_selsect_level_button_pressed():
 	if can_send_to_level:
 		get_tree().change_scene_to_file("res://Scenes/menu/level_select.tscn")
+
+
+func _on_object_help_button_pressed():
+	Variables.object_to_show = 1
+	get_tree().change_scene_to_file("res://Scenes/level/object_intro.tscn")
+
+func _on_help_window_close_requested():
+	$HelpWindow.visible = false
+
+func _on_docs_button_pressed():
+	$HelpWindow.visible = !$HelpWindow.visible

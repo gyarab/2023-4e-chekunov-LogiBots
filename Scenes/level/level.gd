@@ -17,9 +17,13 @@ var test_case:int = 1
 var max_test_case:int = 1
 
 func _ready():
+	
 	Variables.current_screen = "level"
 	lights_up()
 	lvl_load(0)
+	
+	
+	
 
 
 func lights_up():
@@ -30,6 +34,7 @@ func lights_up():
 	
 	
 func _on_run_button_pressed():
+	
 	if not level_end:
 		if Variables.running:
 			set_normal_mode()
@@ -287,15 +292,15 @@ func bot_porcess(bot,i):
 				
 				if bot.code_funcs.has(line):
 					bot.emit_signal("jump_to_func",line)
-			# func start
+			# func skip
+			line = bot.code_lines[bot.iterator]
 			while true:
-				line = bot.code_lines[bot.iterator]
-				if len(line.rsplit(" ")) == 2:
-					if line.rsplit(" ")[0] == "func":
-						if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
-							bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
-						else:
-							show_error(bot.iterator,i,"wrong argument",line)
+				if len(line.rsplit(" ")) == 2 and line.rsplit(" ")[0] == "func":
+					if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
+						bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
+					else:
+						show_error(bot.iterator,i,"wrong argument",line)
+						return
 				else:
 					break
 					
@@ -534,14 +539,6 @@ func lvl_load(_step):
 	$CanvasLayer/interface/Panel/botsSelect.select(Variables.current_code)
 	$CanvasLayer/interface/Panel/CodeEdit.text = Variables.codes[Variables.current_code]
 	
-	# showing help on first look
-	"""
-	if Variables.level == 1 and len($CanvasLayer/interface/Panel/CodeEdit.text) == 0 and Variables.first_look:
-		Variables.object_to_show = 1
-		Variables.first_look = false
-		print("amogus")
-		#get_tree().change_scene_to_file("res://Scenes/level/object_intro.tscn")
-"""
 func _on_h_slider_drag_ended(_value_changed):
 	Variables.tick_time = 10/$CanvasLayer/interface/Panel/HSlider.value
 	
@@ -575,10 +572,12 @@ func _on_next_level_button_pressed():
 	$WinLoseWindow.visible = false
 	level_end = false
 	Variables.level+=1
+	Variables.first_look = true
 	if GameFiles.data["latest_level"]<Variables.level:
 		GameFiles.data["latest_level"] = Variables.level
 	GameFiles.data["current_level"] =Variables.level
 	LevelClass.load_level(Variables.level)
+	$TileMap.emit_signal("floor_reset")
 	lights_up()
 	set_normal_mode()
 	
@@ -587,7 +586,6 @@ func _on_next_level_button_pressed():
 
 func _on_help_window_close_requested():
 	$HelpWindow.visible = false
-
 
 func _on_help_button_pressed():
 	$HelpWindow.visible = !$HelpWindow.visible

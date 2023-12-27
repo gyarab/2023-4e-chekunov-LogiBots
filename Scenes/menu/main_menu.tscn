@@ -44,6 +44,22 @@ offset_right = 272.0
 offset_bottom = 668.0
 text = "exit to os"
 
+[node name="ObjectHelpButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1128.0
+offset_top = 596.0
+offset_right = 1248.0
+offset_bottom = 668.0
+text = "Help"
+
+[node name="DocsButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 596.0
+offset_right = 1096.0
+offset_bottom = 668.0
+text = "Docs"
+
 [node name="SelsectLevelButton" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 32.0
@@ -68,7 +84,120 @@ offset_right = 272.0
 offset_bottom = 344.0
 text = "Select save"
 
+[node name="HelpWindow" type="Window" parent="."]
+transparent_bg = true
+initial_position = 4
+size = Vector2i(500, 500)
+visible = false
+theme = ExtResource("2_dyffx")
+
+[node name="Panel" type="Panel" parent="HelpWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HelpWindow/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center][color=#e71d36][b][font_size=30]LogiDocs[/font_size][/b][/color][/center]
+	Welcome to LogiDocs, here you can learn about [color=#ff9f1c]Bots[/color] and how to code them!
+
+[font_size=20][b][color=#2ec4b6]General Info[/color][/b][/font_size]
+	Bot have [b]2[/b] memory slots. Active and Memory. You can accsess them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]say [color=#ff9f1c]active[/color][/i]'.
+	By default Active and memory have value of 0.
+	To switch them you can use [i][color=#ff9f1c][b]swap[/b][/color][/i] command.
+	To save active value to Memory you can use [i][color=#ff9f1c][b]save[/b][/color][/i] command.
+
+[font_size=20][b][color=#2ec4b6]Movement[/color][/b][/font_size]
+To move bot you need to use [b][color=#ff9f1c]move[/color][/b] command.
+[i]Syntax:[/i]
+	'move <direction>'
+	<direction> = [code]up, down, left, right[/code]
+
+	[b][color=#208c81]Advanced Movement[/color][/b]
+[i]Syntax:[/i]
+	'move <direction> <times>'
+	<direction> = [code]up, down, left, right[/code]
+	<times> = [code]integer number [/code]
+
+
+[font_size=20][b][color=#2ec4b6]Calculation[/color][/b][/font_size]
+	[b][color=#ff9f1c]add[/color][/b] command will add number to active slot.
+	E.g. '[i][color=#ff9f1c]add 10[/color][/i] '.
+	[b][color=#ff9f1c]sub[/color][/b] command will substract number from active slot.
+	E.g. '[i][color=#ff9f1c]sub 3[/color][/i] '.
+[i]Syntax:[/i]
+	'add <number>'
+	<number> can be any integer or memory slot [color=#ff9f1c]'active'[/color] or[color=#ff9f1c] 'mem'[/color].
+
+[font_size=20][b][color=#2ec4b6]Communication[/color][/b][/font_size]
+	To communicate with bots and speakers you use [b][color=#ff9f1c]say[/color][/b] and [b][color=#ff9f1c]listen[/color][/b] command.
+	Use '[color=#ff9f1c]say[/color]' to say active number to the direction you chose.
+	Use '[color=#ff9f1c]listen[/color]' to get number from the direction you chose.
+	You can listen from any boxes, but say only to green boxes and bots.
+	Bots are very silly. If they listen to some direction, they will wait until someone speak to them.
+ 
+[i]Syntax:[/i]
+	'say <direction>'
+	'listen <direction>'
+
+	<direction> = [code]up, down, left, right[/code]
+
+[font_size=20][b][color=#2ec4b6]Code features[/color][/b][/font_size]
+	[b][color=#208c81]Jumps[/color][/b]
+	In code you can jump between lines. First of all you need to create an anchor.
+	E.g. '[i][color=#ff9f1c]start:[/color][/i] '.
+	Every anchor has ' : ' at the end.
+	Then you can use any jump in this list.
+[ul][b][color=#ff9f1c]jump[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpz[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpl[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [color=#ff9f1c][b]less[/b][/color] than [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+[ul][b][color=#ff9f1c]jumpg[/color][/b] <anchor> 
+[ul]
+Gets you to the anchor if active number is [color=#ff9f1c][b]greater[/b][/color] than [b][color=#ff9f1c]zero[/color][/b]. Otherwise just skip this line.
+[/ul]
+[/ul]
+
+	[b][color=#208c81]Functions[/color][/b]
+	To create function you use '[b][color=#ff9f1c]func[/color][/b]' keyword.
+	E.g. 'func func_name:
+	And closed with andfunc.
+	If you need to quit it you can use '[b][color=#ff9f1c]return[/color][/b]' keyword.
+	E.g.:
+		func func_name:
+		add 2
+		return
+		endfunc
+	To [b][color=#ff9f1c]call[/color][/b] a function just write func_name.
+
+
+"
+selection_enabled = true
+
 [connection signal="pressed" from="Control/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Control/ObjectHelpButton" to="." method="_on_object_help_button_pressed"]
+[connection signal="pressed" from="Control/DocsButton" to="." method="_on_docs_button_pressed"]
 [connection signal="pressed" from="Control/SelsectLevelButton" to="." method="_on_selsect_level_button_pressed"]
 [connection signal="pressed" from="Control/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="Control/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="close_requested" from="HelpWindow" to="." method="_on_help_window_close_requested"]

@@ -119,7 +119,7 @@ func skip_func(func_name):
 	
 	
 func _on_listen(dir):
-	
+	print("posloucha!!")
 	var destination:Vector2
 	var saying_bot = -1
 	if dir == "up":
