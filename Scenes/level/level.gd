@@ -15,6 +15,7 @@ var is_code_hide:bool = false
 var debug_mode:bool = false
 var test_case:int = 1
 var max_test_case:int = 1
+var level_complete = false
 
 func _ready():
 	
@@ -165,6 +166,34 @@ func _process(_delta):
 	
 	$CanvasLayer/interface/TestCase.text = "Test "+ str(test_case)+"/"+str(max_test_case)
 	
+	# keyboard input
+	if Input.is_action_pressed("code_run"):
+		if not level_end:
+			if Variables.running:
+				set_normal_mode()
+				test_case = 1
+			else:
+				test_case = 1
+				set_running_mode()
+	if level_end:
+		if Input.is_action_pressed("restart"):
+			if level_complete:
+				$WinLoseWindow.visible = false
+				level_end = false
+				level_complete = false
+				Variables.level+=1
+				Variables.first_look = true
+				if GameFiles.data["latest_level"]<Variables.level:
+					GameFiles.data["latest_level"] = Variables.level
+				GameFiles.data["current_level"] =Variables.level
+				LevelClass.load_level(Variables.level)
+				$TileMap.emit_signal("floor_reset")
+				lights_up()
+				set_normal_mode()
+			else:
+				$WinLoseWindow.visible = false
+				level_end = false
+				set_normal_mode()
 	#debug
 	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
 	#$DebugWindow/Text.text = str(Variables.current_code)
@@ -219,43 +248,42 @@ func _process(_delta):
 		check_level(Variables.level)
 
 func check_level(level):
-	if level == 1:
-		show_end_window(Variables.map[10][5] == 1)
-	if level == 2:
-		show_end_window(Variables.map[6][3] == 1 && Variables.map[10][1] == 1)
-	if level == 3:
-		show_end_window($Microphones.get_child(0).number == $Speakers.get_child(0).number * 2)
-	if level == 4:
-		var spk_num = $Speakers.get_child(0).number
-		var mic_num = $Microphones.get_child(0).number
-		if spk_num<0 and mic_num == -1 or spk_num >0 and mic_num == 1:
-			if test_case == max_test_case:
-				show_end_window(true)
+	
+	match level:
+		1:
+			show_end_window(Variables.map[10][5] == 1)
+		2:
+			show_end_window(Variables.map[5][5] == 1 && Variables.map[10][3] == 1)
+		3:
+			show_end_window(Variables.map[6][3] == 1 && Variables.map[10][1] == 1)
+		4:
+			var pos1 = $bots.get_child(0).pos
+			var pos2 = $bots.get_child(1).pos
+			show_end_window(pos1 ==Vector2(12,5) && pos2 == Vector2(4,5))
+		5:
+			var pos1 = $bots.get_child(0).pos
+			var pos2 = $bots.get_child(1).pos
+			var pos3 = $bots.get_child(2).pos
+			show_end_window(pos1 == Vector2(8,1) or pos1 == Vector2(12,5) and pos2 == Vector2(4,5) or pos2 == Vector2(12,5) and pos3 == Vector2(4,5) or pos3 == Vector2(8,1))
+			
+		18:
+			var spk_num = $Speakers.get_child(0).number
+			var mic_num = $Microphones.get_child(0).number
+			if spk_num<0 and mic_num == -1 or spk_num >0 and mic_num == 1:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
 			else:
-				test_case+=1
-				lvl_load(step)
-				set_running_mode()
-		else:
-			show_end_window(false)
-	if level == 5:
-		var spk_num1 = $Speakers.get_child(0).number
-		var spk_num2 = $Speakers.get_child(1).number
-		var mic_num = $Microphones.get_child(0).number
-		if spk_num1+spk_num2>0 and mic_num == 1 or spk_num1+spk_num2==0 and mic_num == 0 or spk_num1+spk_num2<0 and mic_num == -1:
-			if test_case == max_test_case:
-				show_end_window(true)
-			else:
-				test_case+=1
-				lvl_load(step)
-				set_running_mode()
-		else:
-			show_end_window(false)
+				show_end_window(false)
+	
 func show_end_window(win):
 	test_case = 1
 	level_end = true
+	level_complete = win
 	# Animation !
-	
-	
 	var tween = get_tree().create_tween()
 	$WinLoseWindow.position = Vector2($WinLoseWindow.position.x-250,$WinLoseWindow.position.y-150) 
 	$WinLoseWindow.visible = true
@@ -266,15 +294,29 @@ func show_end_window(win):
 	tween.play()
 	
 	$WinLoseWindow/Panel/NextLevelButton.visible = win
+	$WinLoseWindow/Panel/RestartButton.set_focus_mode(0)
+	
 	if win:
+		var level_lines = count_level_lines()
+		GameFiles.data["level_code_lines"][Variables.level] = level_lines if GameFiles.data["level_code_lines"][Variables.level] > level_lines else GameFiles.data["level_code_lines"][Variables.level]
+		GameFiles.data["level_tick_count"][Variables.level] = step if GameFiles.data["level_tick_count"][Variables.level] > step else GameFiles.data["level_tick_count"][Variables.level]
 		$WinLoseWindow.title = ["Great Job!","Great!","Well done!"].pick_random()
-		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps!\nis it possible to do it better?"
+		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps!\nand with "+str(level_lines)+" lines of code!\n\nYour smallest program has "+str(GameFiles.data["level_code_lines"][Variables.level])+" lines!\nYour fastest program done in with "+str(GameFiles.data["level_tick_count"][Variables.level])+" steps!\n...is it possible to do it better?"
 		
 	else:
 		$WinLoseWindow.title = ["Opsie wopsie..","Unlucky","Try more","Bad luck!"].pick_random()
 		$WinLoseWindow/Panel/InfoLabel.text = "You need to fix it!"
 	set_normal_mode() #FLAG
+
+func count_level_lines():
+	var lines_count := 0
 	
+	for i in range(0,Variables.current_bot_count):
+		lines_count+=len(Variables.codes[i].rsplit("\n"))
+		
+	
+	return lines_count
+
 func bot_porcess(bot,i):
 			# line
 			var line:String = bot.code_lines[bot.iterator]
@@ -432,9 +474,9 @@ func lvl_load(_step):
 	# step
 	step = _step
 	# Test cases
-	if Variables.level == 4:
+	if Variables.level == 6:
 		max_test_case = 2
-	elif Variables.level == 5:
+	elif Variables.level == 7:
 		max_test_case = 3
 		
 	for i in range(0,16):
@@ -486,13 +528,13 @@ func lvl_load(_step):
 		$Plates.add_child(plate)
 	
 	#levels test cases
-	if Variables.level == 4:
+	if Variables.level == 18:
 			if test_case == 1:
 				$Speakers.get_child(0).number = randi_range(1,99)
 			elif test_case == 2:
 				$Speakers.get_child(0).number = randi_range(-99,-1)
 	
-	if Variables.level == 5:
+	if Variables.level == 18:
 			if test_case == 1:
 				var first = randi_range(-99,99)
 				var second = randi_range(-99,99)
@@ -530,6 +572,7 @@ func lvl_load(_step):
 	Variables.speakers = $Speakers.get_children()
 	
 	# code files
+	Variables.codes = []
 	for i in range(0,bot_count):
 		$CanvasLayer/interface/Panel/botsSelect.add_item("Bot "+str(i+1))
 		Variables.codes.append("")
@@ -571,6 +614,7 @@ func _on_next_level_button_pressed():
 	
 	$WinLoseWindow.visible = false
 	level_end = false
+	level_complete = false
 	Variables.level+=1
 	Variables.first_look = true
 	if GameFiles.data["latest_level"]<Variables.level:

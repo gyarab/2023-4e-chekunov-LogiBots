@@ -49,11 +49,18 @@ func game_progress_save(new:bool):
 		DirAccess.remove_absolute(file_path)
 		file = FileAccess.open(file_path,FileAccess.WRITE)
 		# reseting vars
+		var lines := []
+		lines.resize(20)
+		lines.fill(INF)
+		var ticks := []
+		ticks.resize(20)
+		ticks.fill(INF)
+		
 		data = {
 		"latest_level": 1,
 		"current_level":1,
-		"level_code_lines":[15],
-		"level_tick_count":[15],
+		"level_code_lines":lines,
+		"level_tick_count":ticks,
 		}
 		Variables.level = 1
 		print("novy a saveujeme!")
