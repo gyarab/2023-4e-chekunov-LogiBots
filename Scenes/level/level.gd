@@ -266,6 +266,61 @@ func check_level(level):
 			var pos3 = $bots.get_child(2).pos
 			show_end_window(pos1 == Vector2(8,1) or pos1 == Vector2(12,5) and pos2 == Vector2(4,5) or pos2 == Vector2(12,5) and pos3 == Vector2(4,5) or pos3 == Vector2(8,1))
 			
+		6:
+			var num1 = $Speakers.get_child(0).number
+			var num2 = $Speakers.get_child(1).number
+			var res = $Microphones.get_child(0).number
+			show_end_window(res == num1+num2)
+		7:
+			var spk_num = $Speakers.get_child(0).number
+			var mic_num = $Microphones.get_child(0).number
+			if spk_num<=0 and mic_num == -1 or spk_num >0 and mic_num == 1:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+		8:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var mic_num = $Microphones.get_child(0).number
+			
+			if spk_num1 == spk_num2 and mic_num == 1 or not(spk_num1 == spk_num2) and mic_num ==-1:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+		9:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var spk_num3 = $Speakers.get_child(2).number
+			var spk_num4 = $Speakers.get_child(3).number
+			var mic_num = $Microphones.get_child(0).number
+			print(spk_num1+spk_num2+spk_num3+spk_num4)
+			print(mic_num)
+			show_end_window(spk_num1+spk_num2+spk_num3+spk_num4 == mic_num)
+		10:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var spk_num3 = $Speakers.get_child(2).number
+			var mic_num = $Microphones.get_child(0).number
+			
+			if spk_num1 == spk_num2 and spk_num2 == spk_num3 and mic_num == 1 or not(spk_num1 == spk_num2 and spk_num2 == spk_num3) and mic_num ==-1:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
 		18:
 			var spk_num = $Speakers.get_child(0).number
 			var mic_num = $Microphones.get_child(0).number
@@ -474,10 +529,13 @@ func lvl_load(_step):
 	# step
 	step = _step
 	# Test cases
-	if Variables.level == 6:
-		max_test_case = 2
-	elif Variables.level == 7:
-		max_test_case = 3
+	match Variables.level:
+		7:
+			max_test_case = 3
+		8:
+			max_test_case = 2
+		10:
+			max_test_case = 3
 		
 	for i in range(0,16):
 		for j in range(0,10):
@@ -528,11 +586,40 @@ func lvl_load(_step):
 		$Plates.add_child(plate)
 	
 	#levels test cases
-	if Variables.level == 18:
-			if test_case == 1:
+	if Variables.level == 7:
+		match test_case:
+			1:
 				$Speakers.get_child(0).number = randi_range(1,99)
-			elif test_case == 2:
+			2:
 				$Speakers.get_child(0).number = randi_range(-99,-1)
+			3:
+				$Speakers.get_child(0).number = 0
+	
+	if Variables.level == 8:
+		match test_case:
+			1:
+				$Speakers.get_child(0).number = randi_range(1,50)
+				$Speakers.get_child(1).number = $Speakers.get_child(0).number + randi_range(1,49)  
+			2:
+				$Speakers.get_child(0).number = randi_range(-99,99)
+				$Speakers.get_child(1).number = $Speakers.get_child(0).number
+	
+	
+	if Variables.level == 10:
+		match test_case:
+			1:
+				$Speakers.get_child(0).number = randi_range(1,99)
+				$Speakers.get_child(1).number = randi_range(1,99)
+				$Speakers.get_child(2).number = randi_range(1,99)
+			2:
+				$Speakers.get_child(0).number = randi_range(-50,50)
+				$Speakers.get_child(1).number = $Speakers.get_child(0).number
+				$Speakers.get_child(2).number =  $Speakers.get_child(0).number + randi_range(-45,45)
+			3:
+				$Speakers.get_child(0).number = randi_range(1,99)
+				$Speakers.get_child(1).number = $Speakers.get_child(0).number
+				$Speakers.get_child(2).number = $Speakers.get_child(0).number
+				
 	
 	if Variables.level == 18:
 			if test_case == 1:

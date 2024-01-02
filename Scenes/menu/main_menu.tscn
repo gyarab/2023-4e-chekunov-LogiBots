@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://2gr2cmkiobfa"]
+[gd_scene load_steps=7 format=3 uid="uid://2gr2cmkiobfa"]
 
 [ext_resource type="Script" path="res://Scenes/menu/main_menu.gd" id="1_ghmhn"]
 [ext_resource type="Texture2D" uid="uid://bnaaux7kwtar3" path="res://assets/menu/menu_bg.png" id="1_h7nnp"]
 [ext_resource type="Theme" uid="uid://cvhrwgxh48p4h" path="res://Scenes/level/custom_theme.tres" id="2_dyffx"]
 [ext_resource type="FontFile" uid="uid://ibdd8p7nexah" path="res://assets/fonts/Arkitech Bold.ttf" id="3_ihnhm"]
+[ext_resource type="FontFile" uid="uid://n4fcmggiwhc4" path="res://assets/fonts/Arkitech Medium.ttf" id="5_lwc7m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3arqv"]
+bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.992157, 1, 0.988235, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_ghmhn")
@@ -83,6 +97,69 @@ offset_top = 272.0
 offset_right = 272.0
 offset_bottom = 344.0
 text = "Select save"
+
+[node name="Online" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Online"]
+layout_mode = 0
+offset_left = 1027.0
+offset_top = 39.0
+offset_right = 1169.0
+offset_bottom = 76.0
+text = "Online Username"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Control/Online"]
+layout_mode = 0
+offset_left = 1030.0
+offset_top = 76.0
+offset_right = 1167.0
+offset_bottom = 107.0
+
+[node name="Audio" type="Control" parent="Control"]
+anchors_preset = 0
+offset_bottom = 6.0
+
+[node name="Panel" type="Panel" parent="Control/Audio"]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 596.0
+offset_right = 940.0
+offset_bottom = 668.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3arqv")
+
+[node name="HSlider" type="HSlider" parent="Control/Audio/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -41.0
+offset_right = 107.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 50.0
+
+[node name="Label" type="Label" parent="Control/Audio/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -119.0
+offset_top = 5.0
+offset_right = 119.0
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_lwc7m")
+text = "Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HelpWindow" type="Window" parent="."]
 transparent_bg = true

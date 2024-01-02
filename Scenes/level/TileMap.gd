@@ -12,6 +12,13 @@ func flr_rst():
 		tiles = movment_tiles
 	if Variables.level > 5 and Variables.level < 11:
 		tiles = counting_tiles
+		
+	if Variables.level >= 11 and Variables.level < 17:
+		tiles = counting_tiles #TODO new tiles
+		
+	
+	if Variables.level >=17:
+		tiles = movment_tiles
 	
 	for i in range(16):
 		for j in range(10):
