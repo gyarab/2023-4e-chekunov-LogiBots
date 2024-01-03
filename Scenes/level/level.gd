@@ -133,7 +133,7 @@ func set_running_mode():
 func blind_random_numbers(blind:bool):
 	
 	for mic in $Microphones.get_children():
-		if mic.number ==  -12057:
+		if mic.show_questionmark:
 			mic.show_questionmark = blind
 	
 	for spk in $Speakers.get_children():
@@ -621,7 +621,7 @@ func lvl_load(_step):
 				$Speakers.get_child(2).number = $Speakers.get_child(0).number
 				
 	
-	if Variables.level == 18:
+	if Variables.level == 180: # TODO
 			if test_case == 1:
 				var first = randi_range(-99,99)
 				var second = randi_range(-99,99)

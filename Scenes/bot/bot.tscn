@@ -928,7 +928,6 @@ vertical_alignment = 1
 [node name="BotLight" type="PointLight2D" parent="."]
 light_mask = 0
 color = Color(1, 0.0901961, 0, 1)
-energy = 1.5
 shadow_enabled = true
 texture = ExtResource("3_addyq")
 
