@@ -119,7 +119,6 @@ func skip_func(func_name):
 	
 	
 func _on_listen(dir):
-	print("posloucha!!")
 	var destination:Vector2
 	var saying_bot = -1
 	if dir == "up":
@@ -260,9 +259,7 @@ func _on_say(dir):
 				iterator_update()
 				return
 	await was_listened
-	Variables.map[pos.x][pos.y] = 1
-	await get_parent().get_parent().all_bots_ready
-	iterator_update()
+	
 	return
 
 func _on_work_timer_timeout():
@@ -302,10 +299,13 @@ func code_jump(anchor:String):
 	# seek for the first line that is not anchor
 	self.iterator = code_anchors[anchor] - 1
 	iterator_update()
-	
+	return
 
 func _on_was_listened():
-	pass # Replace with function body.
+	print("bot id:",id," Say to ")
+	Variables.map[pos.x][pos.y] = 1
+	await get_parent().get_parent().all_bots_ready
+	iterator_update()
 
 
 func _on_add(number):

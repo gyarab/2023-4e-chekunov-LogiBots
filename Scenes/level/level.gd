@@ -205,7 +205,7 @@ func _process(_delta):
 			var debug_text = "[b]Debug[/b]\n"
 			for bot in Variables.bots:
 				if len(bot.code_lines)>0:
-					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]\n"
+					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]" + "("+str(bot.iterator)+")\n"
 				else:
 					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" +"empty"+ "[/color]\n"
 			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = true
@@ -321,6 +321,46 @@ func check_level(level):
 					set_running_mode()
 			else:
 				show_end_window(false)
+		
+		11:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var spk_num3 = $Speakers.get_child(2).number
+			var mic_num = $Microphones.get_child(0).number
+			var max_num = max(spk_num1,spk_num2,spk_num3)
+			if mic_num == max_num:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+		12:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var spk_num3 = $Speakers.get_child(2).number
+			var spk_num4 =  $Speakers.get_child(3).number
+			var mic_num1 = $Microphones.get_child(0).number
+			var mic_num2 = $Microphones.get_child(1).number
+			var mic_num3 = $Microphones.get_child(2).number
+			var  mic_num4 = $Microphones.get_child(3).number
+			print(spk_num1," ",spk_num2," ",spk_num3)
+			print(mic_num1," ",mic_num2," ",mic_num3)
+			print("AHA!")
+			if spk_num1 == mic_num1 and spk_num2 == mic_num2 and spk_num3 == mic_num3 and spk_num4 ==mic_num4:
+				
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case+=1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+		
+		
 		18:
 			var spk_num = $Speakers.get_child(0).number
 			var mic_num = $Microphones.get_child(0).number
@@ -376,6 +416,17 @@ func bot_porcess(bot,i):
 			# line
 			var line:String = bot.code_lines[bot.iterator]
 			
+			# skip func
+			while true:
+				if len(line.rsplit(" ")) == 2 and line.rsplit(" ")[0] == "func":
+					if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
+						bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
+						line = bot.code_lines[bot.iterator]
+					else:
+						show_error(bot.iterator,i,"wrong argument",line)
+						return
+				else:
+					break
 			# one word commands
 			# anchor
 			if len(line.rsplit(" ")) == 1:
@@ -389,17 +440,8 @@ func bot_porcess(bot,i):
 				
 				if bot.code_funcs.has(line):
 					bot.emit_signal("jump_to_func",line)
-			# func skip
-			line = bot.code_lines[bot.iterator]
-			while true:
-				if len(line.rsplit(" ")) == 2 and line.rsplit(" ")[0] == "func":
-					if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
-						bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
-					else:
-						show_error(bot.iterator,i,"wrong argument",line)
-						return
-				else:
-					break
+			
+			
 					
 			
 			# two word commands
@@ -536,6 +578,11 @@ func lvl_load(_step):
 			max_test_case = 2
 		10:
 			max_test_case = 3
+		11:
+			max_test_case = 3
+		12:
+			max_test_case = 4
+		
 		
 	for i in range(0,16):
 		for j in range(0,10):
@@ -619,7 +666,49 @@ func lvl_load(_step):
 				$Speakers.get_child(0).number = randi_range(1,99)
 				$Speakers.get_child(1).number = $Speakers.get_child(0).number
 				$Speakers.get_child(2).number = $Speakers.get_child(0).number
+	
+	if Variables.level == 11:
+		var num1 = randi_range(50,99)
+		var num2 = num1 - randi_range(10,20)
+		var num3 = num2 - randi_range(10,20)
+		match test_case:
+			1:
+				$Speakers.get_child(0).number = num1
+				$Speakers.get_child(1).number = num2
+				$Speakers.get_child(2).number = num3
+			2:
+				$Speakers.get_child(0).number = num2
+				$Speakers.get_child(1).number = num1
+				$Speakers.get_child(2).number = num3
+			3:
+				$Speakers.get_child(0).number = num3
+				$Speakers.get_child(1).number = num2
+				$Speakers.get_child(2).number = num1
 				
+	if Variables.level == 12:
+		var num1 = randi_range(50,99)
+		var num2 = num1 - randi_range(10,20)
+		var num3 = num2 - randi_range(10,20)
+		match test_case:
+			1:
+				$Speakers.get_child(0).number = 1
+				$Speakers.get_child(1).number = 3
+				$Speakers.get_child(2).number = 2
+				$Speakers.get_child(3).number = 4
+			2:
+				$Speakers.get_child(0).number = 4
+				$Speakers.get_child(1).number = 2
+				$Speakers.get_child(2).number = 3
+				$Speakers.get_child(3).number = 1
+			3:
+				$Speakers.get_child(0).number = num3
+				$Speakers.get_child(1).number = num2
+				$Speakers.get_child(2).number = num1
+			4:
+				$Speakers.get_child(0).number = num1
+				$Speakers.get_child(1).number = num3
+				$Speakers.get_child(2).number = num2
+			
 	
 	if Variables.level == 180: # TODO
 			if test_case == 1:
