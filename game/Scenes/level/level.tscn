@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://coxunvt2id6yf"]
+[gd_scene load_steps=39 format=3 uid="uid://coxunvt2id6yf"]
 
 [ext_resource type="Script" path="res://Scenes/level/level.gd" id="1_33gbj"]
 [ext_resource type="Texture2D" uid="uid://b3dwryuhv2i0s" path="res://assets/objects/floor.png" id="2_3h3nl"]
@@ -8,10 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://cs02icpm0jp5q" path="res://assets/Bot/right floor.png" id="4_4hsm0"]
 [ext_resource type="Texture2D" uid="uid://bnemrjfr7mn26" path="res://assets/objects/floor2_E.png" id="6_wi4va"]
 [ext_resource type="Texture2D" uid="uid://4hdvxyw7g3se" path="res://assets/objects/floor1_A.png" id="7_pkuxd"]
+[ext_resource type="Texture2D" uid="uid://bqfr3373yb44y" path="res://assets/objects/floor3_A.png" id="7_val44"]
 [ext_resource type="Texture2D" uid="uid://c464xac3y1sci" path="res://assets/objects/floor1_B.png" id="8_dm6a0"]
 [ext_resource type="Texture2D" uid="uid://c6sl7k8nggnue" path="res://assets/objects/floor2_A.png" id="8_utb6d"]
+[ext_resource type="Texture2D" uid="uid://dousbjkrw543x" path="res://assets/objects/floor3_B.png" id="8_yxi5f"]
 [ext_resource type="Texture2D" uid="uid://6kqev280ypif" path="res://assets/objects/floor1_C.png" id="9_1mm0i"]
+[ext_resource type="Texture2D" uid="uid://b4okrvuk3jltf" path="res://assets/objects/floor3_C.png" id="9_yeg4i"]
 [ext_resource type="Script" path="res://Scenes/level/TileMap.gd" id="10_1esls"]
+[ext_resource type="Texture2D" uid="uid://bmci1m4t8hax2" path="res://assets/objects/floor3_D.png" id="10_d0kuk"]
+[ext_resource type="Texture2D" uid="uid://dvlw6o8j05x7c" path="res://assets/objects/floor3_E.png" id="11_7alsm"]
 [ext_resource type="Texture2D" uid="uid://csfnycnso0bog" path="res://assets/objects/floor2_B.png" id="12_cx0i8"]
 [ext_resource type="Texture2D" uid="uid://bykcay8xocl57" path="res://assets/objects/floor2_C.png" id="13_h7poa"]
 [ext_resource type="Texture2D" uid="uid://dhto6pxc5q5lh" path="res://assets/objects/floor2_D.png" id="14_r4dci"]
@@ -28,6 +33,31 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_upip7"]
 texture = ExtResource("6_wi4va")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkl3d"]
+texture = ExtResource("7_val44")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g7mxx"]
+texture = ExtResource("8_yxi5f")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66slr"]
+texture = ExtResource("9_yeg4i")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hggq0"]
+texture = ExtResource("10_d0kuk")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6rp1"]
+texture = ExtResource("11_7alsm")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
@@ -84,6 +114,13 @@ sources/7 = SubResource("TileSetAtlasSource_qgruy")
 sources/8 = SubResource("TileSetAtlasSource_fvheb")
 sources/9 = SubResource("TileSetAtlasSource_g0r7k")
 sources/10 = SubResource("TileSetAtlasSource_upip7")
+sources/11 = SubResource("TileSetAtlasSource_lkl3d")
+sources/12 = SubResource("TileSetAtlasSource_g7mxx")
+sources/13 = SubResource("TileSetAtlasSource_66slr")
+sources/14 = SubResource("TileSetAtlasSource_hggq0")
+sources/15 = SubResource("TileSetAtlasSource_c6rp1")
+
+[sub_resource type="ImageTexture" id="ImageTexture_2i65s"]
 
 [node name="level" type="Node2D"]
 editor_description = "Todo:
@@ -132,6 +169,18 @@ offset_right = 85.0
 offset_bottom = -76.0
 grow_vertical = 0
 text = "Run"
+
+[node name="StepButton" type="Button" parent="CanvasLayer/interface/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 99.15
+offset_top = -126.0
+offset_right = 179.15
+offset_bottom = -76.0
+grow_vertical = 0
+text = "Step"
 
 [node name="HSlider" type="HSlider" parent="CanvasLayer/interface/Panel"]
 layout_mode = 1
@@ -194,9 +243,9 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 145.0
 offset_top = 5.0
-offset_right = 181.0
+offset_right = 250.0
 offset_bottom = 33.0
-text = "🐛"
+text = "debug"
 
 [node name="DebugRichTextLabel" type="RichTextLabel" parent="CanvasLayer/interface/Panel"]
 layout_mode = 1
@@ -221,9 +270,9 @@ text = "X"
 
 [node name="FullScreenButton" type="Button" parent="CanvasLayer/interface"]
 layout_mode = 0
-offset_left = 1177.0
+offset_left = 1130.0
 offset_top = 10.0
-offset_right = 1217.0
+offset_right = 1170.0
 offset_bottom = 50.0
 theme = ExtResource("3_eeaed")
 text = "FZ"
@@ -276,10 +325,11 @@ text = "Test 1/1"
 
 [node name="MuteButton" type="Button" parent="CanvasLayer/interface"]
 layout_mode = 0
-offset_left = 1213.0
-offset_top = 578.0
-offset_right = 1261.0
-offset_bottom = 625.0
+offset_left = 1179.22
+offset_top = 10.0
+offset_right = 1219.22
+offset_bottom = 50.0
+pivot_offset = Vector2(0, 1000)
 text = "M"
 icon_alignment = 2
 expand_icon = true
@@ -350,6 +400,7 @@ initial_position = 4
 size = Vector2i(500, 300)
 visible = false
 theme = ExtResource("3_eeaed")
+theme_override_icons/close = SubResource("ImageTexture_2i65s")
 
 [node name="Panel" type="Panel" parent="WinLoseWindow"]
 anchors_preset = 15
@@ -441,7 +492,7 @@ text = "[center][color=#e71d36][b][font_size=30]LogiDocs[/font_size][/b][/color]
 	Welcome to LogiDocs, here you can learn about [color=#ff9f1c]Bots[/color] and how to code them!
 
 [font_size=20][b][color=#2ec4b6]General Info[/color][/b][/font_size]
-	Bot have [b]2[/b] memory slots. Active and Memory. You can accsess them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]say [color=#ff9f1c]active[/color][/i]'.
+	Bot have [b]2[/b] memory slots. Active and Memory. You can access them by [i][color=#ff9f1c]active[/color][/i] or [i][color=#ff9f1c]mem[/color][/i]. E.g. '[i]add [color=#ff9f1c]active[/color][/i]'.
 	By default Active and memory have value of 0.
 	To switch them you can use [i][color=#ff9f1c][b]swap[/b][/color][/i] command.
 	To save active value to Memory you can use [i][color=#ff9f1c][b]save[/b][/color][/i] command.
@@ -510,14 +561,17 @@ Gets you to the anchor if active number is [color=#ff9f1c][b]greater[/b][/color]
 
 	[b][color=#208c81]Functions[/color][/b]
 	To create function you use '[b][color=#ff9f1c]func[/color][/b]' keyword.
-	E.g. 'func func_name:
+	E.g. 'func func_name:'
 	And closed with andfunc.
 	If you need to quit it you can use '[b][color=#ff9f1c]return[/color][/b]' keyword.
-	E.g.:
+	E.g.:[i][color=#ff9f1c]
 		func func_name:
-		add 2
+		loop:
+		sub 1
+		jumpg loop
 		return
 		endfunc
+[/color][/i]
 	To [b][color=#ff9f1c]call[/color][/b] a function just write func_name.
 
 
@@ -529,6 +583,7 @@ position = Vector2(640, 352)
 
 [connection signal="item_selected" from="CanvasLayer/interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/interface/Panel/StepButton" to="." method="_on_step_button_pressed"]
 [connection signal="drag_ended" from="CanvasLayer/interface/Panel/HSlider" to="." method="_on_h_slider_drag_ended"]
 [connection signal="text_changed" from="CanvasLayer/interface/Panel/CodeEdit" to="." method="_on_code_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/DebugButton" to="." method="_on_debug_button_pressed"]

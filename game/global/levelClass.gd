@@ -19,11 +19,11 @@ func save_level(idx,new_bots,new_boxes,new_mics,new_speakers,new_plates,new_titl
 	plates = new_plates
 	title = new_title
 	description = new_description
-	if !DirAccess.dir_exists_absolute("res://levels"):
-		var dir = DirAccess.open("res://")
+	if !DirAccess.dir_exists_absolute("user://levels"):
+		var dir = DirAccess.open("user://")
 		dir.make_dir("levels")
 	
-	var file = FileAccess.open("res://levels/level"+str(index)+".bat",FileAccess.WRITE)
+	var file = FileAccess.open("user://levels/level"+str(index)+".bat",FileAccess.WRITE)
 	var level:Dictionary = {
 		"bots": bots,
 		"boxes": boxes,
@@ -39,8 +39,8 @@ func save_level(idx,new_bots,new_boxes,new_mics,new_speakers,new_plates,new_titl
 func load_level(index:int):
 	Variables.current_code = 0
 	Variables.level = index
-	if FileAccess.file_exists("res://levels/level"+str(index)+".bat"):
-		var file = FileAccess.open("res://levels/level"+str(index)+".bat",FileAccess.READ)
+	if FileAccess.file_exists("user://levels/level"+str(index)+".bat"):
+		var file = FileAccess.open("user://levels/level"+str(index)+".bat",FileAccess.READ)
 		var level = file.get_var(true)
 		bots = level["bots"]
 		boxes = level["boxes"]

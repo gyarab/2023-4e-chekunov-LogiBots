@@ -16,6 +16,7 @@ var debug_mode:bool = false
 var test_case:int = 1
 var max_test_case:int = 1
 var level_complete = false
+var step_mode = false
 
 func _ready():
 	
@@ -31,10 +32,18 @@ func lights_up():
 	var tween = get_tree().create_tween()
 	$DirectionalLight2D.energy = 2
 	tween.tween_property($DirectionalLight2D,'energy',0.45,4)
+	var animation_time = 2
+	$CanvasLayer/interface/Title.visible_ratio = 0
+	$CanvasLayer/interface/Description.visible_ratio = 0
+	tween.chain().tween_property($CanvasLayer/interface/Title,"visible_ratio", 1,animation_time)
+	tween.chain().tween_property($CanvasLayer/interface/Description,"visible_ratio", 1,animation_time)
 	tween.play()
 	
 	
 func _on_run_button_pressed():
+	
+	if step_mode:
+		step_mode=false
 	
 	if not level_end:
 		if Variables.running:
@@ -43,6 +52,7 @@ func _on_run_button_pressed():
 		else:
 			test_case = 1
 			set_running_mode()
+			$CanvasLayer/interface/Panel/StepButton.disabled = true
 	
 func _on_code_edit_text_changed():
 	Variables.codes[Variables.current_code] =$CanvasLayer/interface/Panel/CodeEdit.text
@@ -126,7 +136,7 @@ func set_running_mode():
 					
 	$CanvasLayer/interface/Panel/RunButton.text = "Stop"
 	$CanvasLayer/interface/Panel/CodeEdit.editable = false
-	$CanvasLayer/interface/Panel/botsSelect.disabled = true
+	$CanvasLayer/interface/Panel/botsSelect.disabled = false
 	$CanvasLayer/interface/Panel/HSlider.editable = false
 	$TickTimer.start(Variables.tick_time)
 	
@@ -151,7 +161,7 @@ func set_normal_mode():
 	$CanvasLayer/interface/Panel/RunButton.text = "Run"
 	$CanvasLayer/interface/Panel/CodeEdit.editable = true
 	$CanvasLayer/interface/Panel/botsSelect.disabled = false
-	
+	$CanvasLayer/interface/Panel/StepButton.disabled = false
 func _process(_delta):
 	#Bot Debug
 	if debug_mode:
@@ -197,7 +207,11 @@ func _process(_delta):
 	#debug
 	#$DebugWindow/Text.text = str(Variables.map).replace("],","], \n")
 	#$DebugWindow/Text.text = str(Variables.current_code)
+	
 	if Variables.running and Variables.tick and not Variables.sleep:
+		
+		# Step mode
+		
 		#$DebugWindow/Text.text = str(bots[0].iterator)
 		if debug_mode and Variables.running:
 			$CanvasLayer/interface/Panel/CodeEdit.size = Vector2(249,459-200)
@@ -205,7 +219,7 @@ func _process(_delta):
 			var debug_text = "[b]Debug[/b]\n"
 			for bot in Variables.bots:
 				if len(bot.code_lines)>0:
-					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]" + "("+str(bot.iterator)+")\n"
+					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]" + "\n ln:"+str(bot.iterator)+" a:"+str(bot.active)+" m:"+str(bot.memory)+"\n"
 				else:
 					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" +"empty"+ "[/color]\n"
 			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = true
@@ -230,7 +244,10 @@ func _process(_delta):
 			step += 1
 		Variables.tick = false
 		Variables.sleep = true
-		
+	
+	if step_mode:
+		await $CanvasLayer/interface/Panel/StepButton.pressed
+		print("ted!")
 		
 	var all_finished = true
 	var end:bool = true
@@ -242,11 +259,13 @@ func _process(_delta):
 		if bot.available:
 			end = false
 	if all_finished:
+		
 		Variables.sleep = false
 		
 	if end:
 		check_level(Variables.level)
-
+		
+	
 func check_level(level):
 	
 	match level:
@@ -264,7 +283,7 @@ func check_level(level):
 			var pos1 = $bots.get_child(0).pos
 			var pos2 = $bots.get_child(1).pos
 			var pos3 = $bots.get_child(2).pos
-			show_end_window(pos1 == Vector2(8,1) or pos1 == Vector2(12,5) and pos2 == Vector2(4,5) or pos2 == Vector2(12,5) and pos3 == Vector2(4,5) or pos3 == Vector2(8,1))
+			show_end_window((pos1 == Vector2(8,1) or pos1 == Vector2(12,5)) and (pos2 == Vector2(4,5) or pos2 == Vector2(12,5)) and (pos3 == Vector2(4,5) or pos3 == Vector2(8,1)))
 			
 		6:
 			var num1 = $Speakers.get_child(0).number
@@ -360,24 +379,65 @@ func check_level(level):
 			else:
 				show_end_window(false)
 		
-		
-		18:
-			var spk_num = $Speakers.get_child(0).number
+		13:
+			var spk_num1 = $Speakers.get_child(0).number
+			var spk_num2 = $Speakers.get_child(1).number
+			var spk_num3 = $Speakers.get_child(2).number
+			var spk_num4 =  $Speakers.get_child(3).number
+			var spk_num5 = $Speakers.get_child(4).number
+			var spk_num6 = $Speakers.get_child(5).number
+			
+			var numbers:Array
+			for i in $Speakers.get_children():
+				numbers.append(i.number)
+			var bot_id = numbers.find(numbers.max())
 			var mic_num = $Microphones.get_child(0).number
-			if spk_num<0 and mic_num == -1 or spk_num >0 and mic_num == 1:
+			
+			
+			if mic_num == bot_id+1:
 				if test_case == max_test_case:
 					show_end_window(true)
 				else:
-					test_case+=1
+					test_case += 1
 					lvl_load(step)
 					set_running_mode()
 			else:
 				show_end_window(false)
-	
+				
+		14:
+			var numbers:Array
+			for i in range(1,$Microphones.get_child_count()-1):
+				numbers.append($Microphones.get_child(i).number)
+			
+			if $Microphones.get_child(0).number == numbers.min() and $Microphones.get_child($Microphones.get_child_count()-1).number == numbers.max():
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case += 1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+		15:
+			var numbers:Array
+			for i in range(1,$Microphones.get_child_count()-1):
+				numbers.append($Microphones.get_child(i).number)
+			
+			if $Microphones.get_child(0).number == numbers.find(numbers.min()) and $Microphones.get_child($Microphones.get_child_count()-1).number == numbers.find(numbers.max()):
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case += 1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+
 func show_end_window(win):
 	test_case = 1
 	level_end = true
 	level_complete = win
+	step_mode = false
 	# Animation !
 	var tween = get_tree().create_tween()
 	$WinLoseWindow.position = Vector2($WinLoseWindow.position.x-250,$WinLoseWindow.position.y-150) 
@@ -417,16 +477,14 @@ func bot_porcess(bot,i):
 			var line:String = bot.code_lines[bot.iterator]
 			
 			# skip func
-			while true:
-				if len(line.rsplit(" ")) == 2 and line.rsplit(" ")[0] == "func":
-					if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
-						bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
-						line = bot.code_lines[bot.iterator]
-					else:
-						show_error(bot.iterator,i,"wrong argument",line)
-						return
+			while len(line.rsplit(" ")) == 2 and line.rsplit(" ")[0] == "func":
+				
+				if bot.code_funcs.has(line.rsplit(" ")[1].get_slice(":",0)):
+					bot.skip_func(line.rsplit(" ")[1].get_slice(":",0))
+					line = bot.code_lines[bot.iterator]
 				else:
-					break
+					show_error(bot.iterator,i,"wrong argument",line)
+					return
 			# one word commands
 			# anchor
 			if len(line.rsplit(" ")) == 1:
@@ -435,12 +493,14 @@ func bot_porcess(bot,i):
 			# one word
 				if line == "swap" or line == "save":
 					bot.emit_signal(line)
-				if line == "return" or line == "endfunc":
+				elif line == "return" or line == "endfunc":
 					bot.emit_signal("return_signal")
 				
-				if bot.code_funcs.has(line):
+				elif bot.code_funcs.has(line):
 					bot.emit_signal("jump_to_func",line)
-			
+				else:
+					show_error(bot.iterator,i,"wrong comand",line)
+					return
 			
 					
 			
@@ -582,6 +642,12 @@ func lvl_load(_step):
 			max_test_case = 3
 		12:
 			max_test_case = 4
+		13:
+			max_test_case = 4
+		14:
+			max_test_case = 3
+		15:
+			max_test_case = 3
 		
 		
 	for i in range(0,16):
@@ -708,7 +774,22 @@ func lvl_load(_step):
 				$Speakers.get_child(0).number = num1
 				$Speakers.get_child(1).number = num3
 				$Speakers.get_child(2).number = num2
+	if Variables.level == 13:
+
+		var numbers = []
+		numbers.append(randi_range(-99,40))
+		numbers.append(numbers[len(numbers)-1]+randi_range(1,10))
+		numbers.append(numbers[len(numbers)-1]+randi_range(1,10))
+		numbers.append(numbers[len(numbers)-1]+randi_range(1,10))
+		numbers.append(numbers[len(numbers)-1]+randi_range(1,10))
+		numbers.append(numbers[len(numbers)-1]+randi_range(1,10))
+		for spk in $Speakers.get_children():
+			var num = numbers.pick_random()
+			spk.number = num
+			numbers.erase(num)
 			
+	
+	
 	
 	if Variables.level == 180: # TODO
 			if test_case == 1:
@@ -783,6 +864,10 @@ func _on_restart_button_pressed():
 
 func _on_exit_to_menu_button_pressed():
 	$WinLoseWindow.visible = false
+	if Variables.current_save_file != -1:
+		GameFiles.code_save()
+		GameFiles.game_progress_save(false)
+		
 	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
 
 
@@ -813,3 +898,11 @@ func _on_help_button_pressed():
 
 func _on_debug_button_pressed():
 	debug_mode = !debug_mode
+
+
+func _on_step_button_pressed():
+	if !step_mode:
+		set_running_mode()
+		step_mode = true
+		
+pass # Replace with function body.

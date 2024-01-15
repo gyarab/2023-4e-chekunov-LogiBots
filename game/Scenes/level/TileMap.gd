@@ -5,6 +5,7 @@ signal floor_reset
 # Called when the node enters the scene tree for the first time.
 var movment_tiles = [0,0,0,0,0,0,5,5,5,5,5,5,4,6,6,6,6,6,6]
 var counting_tiles = [3,3,3,7,7,8,8,8,9,10,10,10,10,10]
+var algorithm_tiles = [11,11,11,12,12,12,13,14]
 func flr_rst():
 	var tiles = []
 	
@@ -14,11 +15,11 @@ func flr_rst():
 		tiles = counting_tiles
 		
 	if Variables.level >= 11 and Variables.level < 17:
-		tiles = counting_tiles #TODO new tiles
+		tiles = algorithm_tiles
 		
 	
 	if Variables.level >=17:
-		tiles = movment_tiles
+		tiles = movment_tiles + counting_tiles + algorithm_tiles
 	
 	for i in range(16):
 		for j in range(10):

@@ -107,7 +107,7 @@ func create_levels():
 	boxes.append(Vector2(6,6))
 
 	
-	LevelClass.save_level(9,[Vector2(2,2),Vector2(2,4),Vector2(2,6),Vector2(2,8)],boxes,[[Vector2(12,5),0]],[[Vector2(1,2),-10000],[Vector2(1,4),-10000],[Vector2(1,6),-10000],[Vector2(1,8),-10000]],[],"Greate sum","Sum all numbers from speakers. Say result to green mic.")
+	LevelClass.save_level(9,[Vector2(2,2),Vector2(2,4),Vector2(2,6),Vector2(2,8)],boxes,[[Vector2(12,5),0]],[[Vector2(1,2),-10000],[Vector2(1,4),-10000],[Vector2(1,6),-10000],[Vector2(1,8),-10000]],[],"Great sum","Sum all numbers from speakers. Say result to green mic.")
 	
 	#level 10
 	boxes = []
@@ -115,7 +115,7 @@ func create_levels():
 		for j in range(0,10):
 			if i == 0 or i == 15 or j == 0 or j == 9:
 				boxes.append(Vector2(i,j))
-	LevelClass.save_level(10,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,5),-10000],[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"Tree numbers","Check if Tree numbers are the same if is, say 1. If not say -1.")
+	LevelClass.save_level(10,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,5),-10000],[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"Three numbers!","If the numbers are the same, say 1. If not, say -1.")
 
 	#level 11
 
@@ -143,7 +143,7 @@ func create_levels():
 			if j < 4 and not [2,4,6,9,11,13].has(i):
 				boxes.append(Vector2(i,j))
 				
-	LevelClass.save_level(13,[Vector2(2,2),Vector2(4,2),Vector2(6,2),Vector2(9,2),Vector2(11,2),Vector2(13,2)],boxes,[[Vector2(8,8),0]],[[Vector2(2,1),-10000],[Vector2(4,1),-10000],[Vector2(6,1),-10000],[Vector2(13,1),-10000],[Vector2(11,1),-10000],[Vector2(9,1),-10000]],[],"Battle Royale","Every bot has a number above him. write bot INDEX with biggest number")
+	LevelClass.save_level(13,[Vector2(2,2),Vector2(4,2),Vector2(6,2),Vector2(9,2),Vector2(11,2),Vector2(13,2)],boxes,[[Vector2(8,8),0]],[[Vector2(2,1),-10000],[Vector2(4,1),-10000],[Vector2(6,1),-10000],[Vector2(9,1),-10000],[Vector2(11,1),-10000],[Vector2(13,1),-10000]],[],"Battle Royale","Every bot has a number above him. write bot INDEX with biggest number")
 	
 	# level 14
 	boxes = []
@@ -153,10 +153,10 @@ func create_levels():
 				boxes.append(Vector2(i,j))
 	
 	
-	LevelClass.save_level(14,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(14,5),0],[Vector2(1,5),0],[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000],[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"Best and worse","There is a GREEN ARRAY of numbers. Say the biggest number to right and the smallest to left. (red indexes might help)")
+	LevelClass.save_level(14,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(1,5),0],[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000],[Vector2(14,5),0]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"Best and worse","There is a GREEN ARRAY of numbers. Say the biggest number to right and the smallest to left. (red indexes might help)")
 	
 	# level 15
-	LevelClass.save_level(15,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(14,5),0],[Vector2(1,5),0],[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000],[Vector2(14,5),0],[Vector2(1,5),0]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"Profit graph","There is a GREEN ARRAY of numbers. Say index of the biggest number. (red indexes might help)")
+	LevelClass.save_level(15,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(1,5),0],[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000],[Vector2(14,5),0]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"Profit graph","There is a GREEN ARRAY of numbers. Say index of the smallest number to left and index of biggest number to right. (indexes are red)")
 	
 	# level 16
 	LevelClass.save_level(16,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"sorter","There is an ARRAY of numbers. Sort it :) ")
@@ -168,4 +168,4 @@ func create_levels():
 	LevelClass.save_level(18,[Vector2(8,5),Vector2(14,1),Vector2(14,2),Vector2(14,3),Vector2(14,4),Vector2(14,5)],boxes,[[Vector2(1,1),-10000],[Vector2(1,2),-10000],[Vector2(1,3),-10000],[Vector2(1,4),-10000],[Vector2(1,5),-10000],[Vector2(1,6),-10000],[Vector2(1,7),-10000],[Vector2(1,8),-10000]],[],[],"sandbox","Have fun!")
 	
 	# level 20
-	LevelClass.save_level(19,[Vector2(8,5),Vector2(14,1),Vector2(14,2),Vector2(14,3),Vector2(14,4),Vector2(14,5)],boxes,[[Vector2(1,1),-10000],[Vector2(1,2),-10000],[Vector2(1,3),-10000],[Vector2(1,4),-10000],[Vector2(1,5),-10000],[Vector2(1,6),-10000],[Vector2(1,7),-10000],[Vector2(1,8),-10000]],[],[],"sandbox","Have fun!")
+	#LevelClass.save_level(19,[Vector2(8,5),Vector2(14,1),Vector2(14,2),Vector2(14,3),Vector2(14,4),Vector2(14,5)],boxes,[[Vector2(1,1),-10000],[Vector2(1,2),-10000],[Vector2(1,3),-10000],[Vector2(1,4),-10000],[Vector2(1,5),-10000],[Vector2(1,6),-10000],[Vector2(1,7),-10000],[Vector2(1,8),-10000]],[],[],"sandbox","Have fun!")

@@ -3,14 +3,26 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var dir = DirAccess.open("res://levels")
+	var dir = DirAccess.open("user://levels")
 	var levels = dir.get_files()
 	for level in range(0,len(levels)):
+		print(level)
 		var lvl_button = Button.new()
-		lvl_button.text = "level "+ str(level+1)
+		if level == 17:
+			lvl_button.text = "sandbox"
+		elif level >15 and level != 17:
+			if level<17:
+				lvl_button.text = "Bonus\nlevel "+ str((level+1)%17+1)
+			else:
+				lvl_button.text = "Bonus\nlevel "+ str((level+1)%17)
+		else:
+			lvl_button.text = "level "+ str(level+1)
 		lvl_button.button_down.connect(_change_level.bind(lvl_button))
 		lvl_button.custom_minimum_size = Vector2(120,100)
-		#lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
+		if level == 17:
+			lvl_button.disabled = false
+		else:
+			lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
 		# colors
 		if level <5:
 			var sb_normal = $Control/BackButton.get_theme_stylebox("normal").duplicate()
@@ -50,8 +62,10 @@ func _ready():
 
 func _change_level(btn):
 	
-	Variables.level = int(btn.text.split(" ",1)[1])
-	print(Variables.level," je current level")
+	if btn.text =="sandbox":
+		Variables.level =18
+	else:
+		Variables.level = int(btn.text.split(" ",1)[1])
 	GameFiles.data["current_level"] =Variables.level
 	LevelClass.load_level(Variables.level)
 	get_tree().change_scene_to_file("res://Scenes/level/level.tscn")
