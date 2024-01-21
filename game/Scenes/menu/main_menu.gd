@@ -41,3 +41,7 @@ func _on_help_window_close_requested():
 
 func _on_docs_button_pressed():
 	$HelpWindow.visible = !$HelpWindow.visible
+
+
+func _on_online_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/menu/online_menu.tscn")

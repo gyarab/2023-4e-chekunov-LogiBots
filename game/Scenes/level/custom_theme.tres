@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cvhrwgxh48p4h"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://cvhrwgxh48p4h"]
 
 [ext_resource type="FontFile" uid="uid://n4fcmggiwhc4" path="res://assets/fonts/Arkitech Medium.ttf" id="1_tu5tw"]
 
@@ -65,6 +65,31 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgg6m"]
+bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.992157, 1, 0.988235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dekw6"]
+bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.992157, 1, 0.988235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4am6"]
 bg_color = Color(0.00392157, 0.0862745, 0.152941, 1)
@@ -184,6 +209,8 @@ GridContainer/constants/v_separation = 4
 HSlider/constants/center_grabber = 0
 HSlider/styles/slider = SubResource("StyleBoxFlat_x4tmg")
 Label/fonts/font = null
+LineEdit/styles/focus = SubResource("StyleBoxFlat_xgg6m")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_dekw6")
 MenuBar/styles/normal = SubResource("StyleBoxFlat_q4am6")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_traqd")
 OptionButton/styles/focus = null

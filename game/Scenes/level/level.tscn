@@ -270,9 +270,9 @@ text = "X"
 
 [node name="FullScreenButton" type="Button" parent="CanvasLayer/interface"]
 layout_mode = 0
-offset_left = 1130.0
+offset_left = 1175.0
 offset_top = 10.0
-offset_right = 1170.0
+offset_right = 1215.0
 offset_bottom = 50.0
 theme = ExtResource("3_eeaed")
 text = "FZ"
@@ -322,17 +322,6 @@ offset_top = 10.0
 offset_right = 455.0
 offset_bottom = 54.0
 text = "Test 1/1"
-
-[node name="MuteButton" type="Button" parent="CanvasLayer/interface"]
-layout_mode = 0
-offset_left = 1179.22
-offset_top = 10.0
-offset_right = 1219.22
-offset_bottom = 50.0
-pivot_offset = Vector2(0, 1000)
-text = "M"
-icon_alignment = 2
-expand_icon = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.45
@@ -581,6 +570,8 @@ selection_enabled = true
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 352)
 
+[node name="HTTPRequestScoreUpdate" type="HTTPRequest" parent="."]
+
 [connection signal="item_selected" from="CanvasLayer/interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/StepButton" to="." method="_on_step_button_pressed"]
@@ -598,3 +589,4 @@ position = Vector2(640, 352)
 [connection signal="pressed" from="WinLoseWindow/Panel/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WinLoseWindow/Panel/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
 [connection signal="close_requested" from="HelpWindow" to="." method="_on_help_window_close_requested"]
+[connection signal="request_completed" from="HTTPRequestScoreUpdate" to="." method="_on_http_request_score_update_request_completed"]

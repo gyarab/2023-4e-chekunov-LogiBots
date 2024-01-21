@@ -247,7 +247,6 @@ func _process(_delta):
 	
 	if step_mode:
 		await $CanvasLayer/interface/Panel/StepButton.pressed
-		print("ted!")
 		
 	var all_finished = true
 	var end:bool = true
@@ -432,6 +431,27 @@ func check_level(level):
 					set_running_mode()
 			else:
 				show_end_window(false)
+		16:
+			var numbers:Array
+			for i in range(1,$Microphones.get_child_count()-1):
+				numbers.append($Microphones.get_child(i).number)
+			var sorted:Array
+			for i in numbers:
+				sorted.append(i)
+			sorted.sort()
+			
+			print(sorted)
+			print(numbers)
+			if numbers == sorted:
+				if test_case == max_test_case:
+					show_end_window(true)
+				else:
+					test_case += 1
+					lvl_load(step)
+					set_running_mode()
+			else:
+				show_end_window(false)
+			
 
 func show_end_window(win):
 	test_case = 1
@@ -457,7 +477,8 @@ func show_end_window(win):
 		GameFiles.data["level_tick_count"][Variables.level] = step if GameFiles.data["level_tick_count"][Variables.level] > step else GameFiles.data["level_tick_count"][Variables.level]
 		$WinLoseWindow.title = ["Great Job!","Great!","Well done!"].pick_random()
 		$WinLoseWindow/Panel/InfoLabel.text = "You complete level with "+str(step)+ " steps!\nand with "+str(level_lines)+" lines of code!\n\nYour smallest program has "+str(GameFiles.data["level_code_lines"][Variables.level])+" lines!\nYour fastest program done in with "+str(GameFiles.data["level_tick_count"][Variables.level])+" steps!\n...is it possible to do it better?"
-		
+		GameFiles.save_points()
+		send_to_server()
 	else:
 		$WinLoseWindow.title = ["Opsie wopsie..","Unlucky","Try more","Bad luck!"].pick_random()
 		$WinLoseWindow/Panel/InfoLabel.text = "You need to fix it!"
@@ -787,20 +808,28 @@ func lvl_load(_step):
 			var num = numbers.pick_random()
 			spk.number = num
 			numbers.erase(num)
+		
+		if Variables.level == 16:
+			numbers = []
+			for i in range(6):
+				numbers.append(randi_range(-50,99))
+			var sorted: Array
+			sorted.append_array(numbers)
+			sorted.sort()
+			if sorted == numbers:
+				for i in range(6):
+					numbers[i] = sorted[6-i]
+					
+			for i in range(0,6):
+				$Microphones.get_child(i).number = numbers[i]
 			
-	
-	
-	
 	if Variables.level == 180: # TODO
 			if test_case == 1:
 				var first = randi_range(-99,99)
 				var second = randi_range(-99,99)
-				print("prvni!")
 				while (first+second<0):
 					first = randi_range(-99,99)
 					second = randi_range(-99,99)
-				print(first)
-				print(second)
 				$Speakers.get_child(0).number = first
 				$Speakers.get_child(1).number = second
 				
@@ -906,3 +935,51 @@ func _on_step_button_pressed():
 		step_mode = true
 		
 pass # Replace with function body.
+
+func get_secret_key():
+	var file_path := "user://Saves/online/.secret.key"
+	
+	if FileAccess.file_exists(file_path):
+		
+		var file = FileAccess.open(file_path,FileAccess.READ)
+		var key = file.get_var()
+		file.close()
+		return key
+	else:
+		return ""
+		
+func get_username():
+	var file_path := "user://Saves/online/.username.txt"
+	
+	if FileAccess.file_exists(file_path):
+		
+		var file = FileAccess.open(file_path,FileAccess.READ)
+		var name = file.get_var()
+		file.close()
+		return name
+	else:
+		return ""
+
+
+
+func send_to_server():
+	var data_to_send:Dictionary
+	var username = get_username()
+	if username == "":
+		username = "Anonymous"
+	data_to_send["username"] = username
+	data_to_send["points"] = Variables.points
+	
+	var secret_key: String = get_secret_key()
+	
+	data_to_send["password"] = str(secret_key)
+	
+	var json = JSON.stringify(data_to_send)
+	#print(json)
+	var headers = ["Content-Type: application/json"]
+	var url = "http://127.0.0.1:8000/players/"
+	$HTTPRequestScoreUpdate.request(url, headers, HTTPClient.METHOD_POST, json)
+
+func _on_http_request_score_update_request_completed(result, response_code, headers, body):
+	print("code: ",response_code)
+	

@@ -66,6 +66,14 @@ offset_right = 1248.0
 offset_bottom = 668.0
 text = "Help"
 
+[node name="OnlineButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 1128.0
+offset_top = 36.0
+offset_right = 1248.0
+offset_bottom = 108.0
+text = "ONLINE"
+
 [node name="DocsButton" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 976.0
@@ -97,28 +105,6 @@ offset_top = 272.0
 offset_right = 272.0
 offset_bottom = 344.0
 text = "Select save"
-
-[node name="Online" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Control/Online"]
-layout_mode = 0
-offset_left = 1027.0
-offset_top = 39.0
-offset_right = 1169.0
-offset_bottom = 76.0
-text = "Online Username"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LineEdit" type="LineEdit" parent="Control/Online"]
-layout_mode = 0
-offset_left = 1030.0
-offset_top = 76.0
-offset_right = 1167.0
-offset_bottom = 107.0
 
 [node name="Audio" type="Control" parent="Control"]
 anchors_preset = 0
@@ -273,6 +259,7 @@ selection_enabled = true
 
 [connection signal="pressed" from="Control/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Control/ObjectHelpButton" to="." method="_on_object_help_button_pressed"]
+[connection signal="pressed" from="Control/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="Control/DocsButton" to="." method="_on_docs_button_pressed"]
 [connection signal="pressed" from="Control/SelsectLevelButton" to="." method="_on_selsect_level_button_pressed"]
 [connection signal="pressed" from="Control/ContinueButton" to="." method="_on_continue_button_pressed"]

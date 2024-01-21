@@ -1,2 +1,4 @@
 djangorestframework
 django
+pygments
+httpie
