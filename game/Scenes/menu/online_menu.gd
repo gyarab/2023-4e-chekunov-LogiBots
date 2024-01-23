@@ -3,11 +3,14 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-20
+	
 	$HTTPRequestCreateUpdate.request_completed.connect(_on_request_completed)
 	$HTTPRequestLeaderBoard.request_completed.connect(_on_request_completed_leader_board)
 	$HTTPRequestSelfName.request_completed.connect(_on_request_completed_self_name)
 	var headers = ["Content-Type: application/json"]
-	var url = "http://127.0.0.1:8000/players/"
+	var url = "https://logibot.svs.gyarab.cz/players/"
 	$HTTPRequestLeaderBoard.request(url, headers, HTTPClient.METHOD_GET, "")
 	$Control/Login/Username.text = get_username()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +41,7 @@ func _on_submit_button_pressed():
 	var json = JSON.stringify(data_to_send)
 	#print(json)
 	var headers = ["Content-Type: application/json"]
-	var url = "http://127.0.0.1:8000/players/"
+	var url = "https://logibot.svs.gyarab.cz/players/"
 	$HTTPRequestCreateUpdate.request(url, headers, HTTPClient.METHOD_POST, json)
 
 func save_user_name():
@@ -87,16 +90,15 @@ func _on_request_completed(result, response_code, headers, body):
 
 func update_leader_board():
 	var headers = ["Content-Type: application/json"]
-	var url = "http://127.0.0.1:8000/players/"
+	var url = "https://logibot.svs.gyarab.cz/players/"
 	$HTTPRequestLeaderBoard.request(url, headers, HTTPClient.METHOD_GET, "")
 
 func _on_request_completed_leader_board(result, response_code, headers, body):
-	print("yess!")
 	if response_code == 200:
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		var text: String
 		for i in range(len(json)):
-			text += str(i+1)+".\t\t"+json[i]["username"]+ " got "+str(json[i]["points"])+"\n"
+			text += "[left]"+str(i+1)+".\t\t[color=#ff9f1c]"+escape_bbcode(json[i]["username"])+ "[/color][/left]..........[color=#ff9f1c]"+str(json[i]["points"])+"[/color] points.\n"
 		$Control/LeaderBoard/RichTextLabel.text = text
 	else:
 		$Control/LeaderBoard/RichTextLabel.text = "Internet Error"
@@ -106,3 +108,6 @@ func _on_request_completed_self_name(result, response_code, headers, body):
 		var json = JSON.parse_string(body.get_string_from_utf8())
 		$Control/Login/Username.text =json["username"]
 	
+func escape_bbcode(bbcode_text):
+	# We only need to replace opening brackets to prevent tags from being parsed.
+	return bbcode_text.replace("[", "[lb]")

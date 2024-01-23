@@ -5,6 +5,9 @@ var level := 1
 
 var points:= 0
 
+var volume:= 69
+
+
 # object_intro
 var object_to_show := -1
 var current_screen := "menu"

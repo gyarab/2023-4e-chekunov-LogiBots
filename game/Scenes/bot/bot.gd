@@ -302,7 +302,6 @@ func code_jump(anchor:String):
 	return
 
 func _on_was_listened():
-	print("bot id:",id," Say to ")
 	Variables.map[pos.x][pos.y] = 1
 	await get_parent().get_parent().all_bots_ready
 	iterator_update()

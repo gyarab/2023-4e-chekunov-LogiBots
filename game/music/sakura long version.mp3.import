@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6g3wxngnegpg"
+path="res://.godot/imported/sakura long version.mp3-23bfb8d6a1bd106a6c221347a2487133.mp3str"
+
+[deps]
+
+source_file="res://music/sakura long version.mp3"
+dest_files=["res://.godot/imported/sakura long version.mp3-23bfb8d6a1bd106a6c221347a2487133.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

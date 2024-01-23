@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwwxnqjh3y2g2"]
+[gd_scene load_steps=6 format=3 uid="uid://dwwxnqjh3y2g2"]
 
 [ext_resource type="Texture2D" uid="uid://bnaaux7kwtar3" path="res://assets/menu/menu_bg.png" id="1_5tcg4"]
 [ext_resource type="Script" path="res://Scenes/menu/online_menu.gd" id="1_akdh8"]
 [ext_resource type="Theme" uid="uid://cvhrwgxh48p4h" path="res://Scenes/level/custom_theme.tres" id="2_wcxjb"]
 [ext_resource type="FontFile" uid="uid://ibdd8p7nexah" path="res://assets/fonts/Arkitech Bold.ttf" id="3_cjx38"]
+[ext_resource type="AudioStream" uid="uid://dskh15enrxx3p" path="res://music/blinchik.mp3" id="5_nvt13"]
 
 [node name="OnlineMenu" type="Node2D"]
 script = ExtResource("1_akdh8")
@@ -62,6 +63,7 @@ anchor_bottom = 0.295045
 grow_horizontal = 2
 placeholder_text = "Username"
 alignment = 1
+max_length = 30
 metadata/_edit_use_anchors_ = true
 
 [node name="SubmitButton" type="Button" parent="Control/Login"]
@@ -126,6 +128,7 @@ offset_top = -344.0
 offset_right = 290.5
 grow_horizontal = 2
 grow_vertical = 0
+bbcode_enabled = true
 
 [node name="Label" type="Label" parent="Control/LeaderBoard"]
 layout_mode = 1
@@ -145,6 +148,10 @@ vertical_alignment = 1
 [node name="HTTPRequestLeaderBoard" type="HTTPRequest" parent="."]
 
 [node name="HTTPRequestSelfName" type="HTTPRequest" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nvt13")
+autoplay = true
 
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Control/Login/SubmitButton" to="." method="_on_submit_button_pressed"]

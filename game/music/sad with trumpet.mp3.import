@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://lipwtxtrylbg"
+path="res://.godot/imported/sad with trumpet.mp3-3059e3ca218472143e65be07d580b7a1.mp3str"
+
+[deps]
+
+source_file="res://music/sad with trumpet.mp3"
+dest_files=["res://.godot/imported/sad with trumpet.mp3-3059e3ca218472143e65be07d580b7a1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

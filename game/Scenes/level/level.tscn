@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://coxunvt2id6yf"]
+[gd_scene load_steps=41 format=3 uid="uid://coxunvt2id6yf"]
 
 [ext_resource type="Script" path="res://Scenes/level/level.gd" id="1_33gbj"]
 [ext_resource type="Texture2D" uid="uid://b3dwryuhv2i0s" path="res://assets/objects/floor.png" id="2_3h3nl"]
@@ -20,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://csfnycnso0bog" path="res://assets/objects/floor2_B.png" id="12_cx0i8"]
 [ext_resource type="Texture2D" uid="uid://bykcay8xocl57" path="res://assets/objects/floor2_C.png" id="13_h7poa"]
 [ext_resource type="Texture2D" uid="uid://dhto6pxc5q5lh" path="res://assets/objects/floor2_D.png" id="14_r4dci"]
+[ext_resource type="AudioStream" uid="uid://10ikwgfui7m7" path="res://music/friday.mp3" id="21_33de2"]
+[ext_resource type="AudioStream" uid="uid://5ffp8dshbu3a" path="res://music/click.wav" id="22_e088g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8h3y"]
 texture = ExtResource("2_3h3nl")
@@ -572,6 +574,14 @@ position = Vector2(640, 352)
 
 [node name="HTTPRequestScoreUpdate" type="HTTPRequest" parent="."]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_33de2")
+autoplay = true
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_e088g")
+volume_db = -18.85
+
 [connection signal="item_selected" from="CanvasLayer/interface/Panel/botsSelect" to="." method="_on_bots_select_item_selected"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/interface/Panel/StepButton" to="." method="_on_step_button_pressed"]
@@ -590,3 +600,5 @@ position = Vector2(640, 352)
 [connection signal="pressed" from="WinLoseWindow/Panel/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
 [connection signal="close_requested" from="HelpWindow" to="." method="_on_help_window_close_requested"]
 [connection signal="request_completed" from="HTTPRequestScoreUpdate" to="." method="_on_http_request_score_update_request_completed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="finished" from="AudioStreamPlayerClick" to="." method="_on_audio_stream_player_click_finished"]

@@ -3,10 +3,12 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-20-10
+	
 	var dir = DirAccess.open("user://levels")
 	var levels = dir.get_files()
 	for level in range(0,len(levels)):
-		print(level)
 		var lvl_button = Button.new()
 		if level == 17:
 			lvl_button.text = "sandbox"

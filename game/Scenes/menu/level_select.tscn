@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cq8053r276o1w"]
+[gd_scene load_steps=6 format=3 uid="uid://cq8053r276o1w"]
 
 [ext_resource type="Theme" uid="uid://cvhrwgxh48p4h" path="res://Scenes/level/custom_theme.tres" id="1_0oyq5"]
 [ext_resource type="Texture2D" uid="uid://bnaaux7kwtar3" path="res://assets/menu/menu_bg.png" id="1_mgy7y"]
 [ext_resource type="Script" path="res://Scenes/menu/level_select.gd" id="1_sh24c"]
 [ext_resource type="FontFile" uid="uid://ibdd8p7nexah" path="res://assets/fonts/Arkitech Bold.ttf" id="2_rhtfg"]
+[ext_resource type="AudioStream" uid="uid://c5j7yn11s2wgm" path="res://music/360 stupnu.mp3" id="5_14tmd"]
 
 [node name="LevelSelect" type="Node2D"]
 script = ExtResource("1_sh24c")
@@ -56,5 +57,9 @@ theme_override_constants/h_separation = 35
 theme_override_constants/v_separation = 35
 columns = 8
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_14tmd")
+autoplay = true
 
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]

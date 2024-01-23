@@ -48,7 +48,6 @@ func load_points():
 	file.close()
 
 func save_points():
-	print(data)
 	var points:= 0
 	var points_per_level 
 	for i in range(data["latest_level"]):

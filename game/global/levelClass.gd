@@ -35,7 +35,6 @@ func save_level(idx,new_bots,new_boxes,new_mics,new_speakers,new_plates,new_titl
 	}
 	file.store_var(level)
 	file.close()
-	print("zapsal")
 func load_level(index:int):
 	Variables.current_code = 0
 	Variables.level = index

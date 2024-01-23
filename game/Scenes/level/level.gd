@@ -20,6 +20,24 @@ var step_mode = false
 
 func _ready():
 	
+	if Variables.level <=5:
+		if $AudioStreamPlayer.stream != load("res://music/friday.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/friday.mp3")
+			$AudioStreamPlayer.playing = true
+
+	if Variables.level >=6 and Variables.level <10:
+		if $AudioStreamPlayer.stream != load("res://music/sakura long version.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/sakura long version.mp3")
+			$AudioStreamPlayer.playing = true
+			
+	if Variables.level >=10 and Variables.level <17:
+		if $AudioStreamPlayer.stream != load("res://music/sad with trumpet.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/sad with trumpet.mp3")
+			$AudioStreamPlayer.playing = true
+	
+	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-30
+	
+	
 	Variables.current_screen = "level"
 	lights_up()
 	lvl_load(0)
@@ -49,7 +67,11 @@ func _on_run_button_pressed():
 		if Variables.running:
 			set_normal_mode()
 			test_case = 1
+			$AudioStreamPlayerClick.stream = load("res://music/click2.wav")
+			$AudioStreamPlayerClick.play()
 		else:
+			$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+			$AudioStreamPlayerClick.play()
 			test_case = 1
 			set_running_mode()
 			$CanvasLayer/interface/Panel/StepButton.disabled = true
@@ -163,6 +185,11 @@ func set_normal_mode():
 	$CanvasLayer/interface/Panel/botsSelect.disabled = false
 	$CanvasLayer/interface/Panel/StepButton.disabled = false
 func _process(_delta):
+	
+	
+	
+	$AudioStreamPlayer.stream_paused = level_end
+	
 	#Bot Debug
 	if debug_mode:
 		# Color
@@ -219,7 +246,7 @@ func _process(_delta):
 			var debug_text = "[b]Debug[/b]\n"
 			for bot in Variables.bots:
 				if len(bot.code_lines)>0:
-					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]" + "\n ln:"+str(bot.iterator)+" a:"+str(bot.active)+" m:"+str(bot.memory)+"\n"
+					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" + bot.code_lines[bot.iterator] + "[/color]" + "\n ln:"+str(bot.iterator +1)+" a:"+str(bot.active)+" m:"+str(bot.memory)+"\n"
 				else:
 					debug_text+="[b][color=#11dfdf]Bot " + str(bot.id + 1) + ": [/color][/b][color=#FF9F1C]" +"empty"+ "[/color]\n"
 			$CanvasLayer/interface/Panel/DebugRichTextLabel.visible = true
@@ -321,8 +348,6 @@ func check_level(level):
 			var spk_num3 = $Speakers.get_child(2).number
 			var spk_num4 = $Speakers.get_child(3).number
 			var mic_num = $Microphones.get_child(0).number
-			print(spk_num1+spk_num2+spk_num3+spk_num4)
-			print(mic_num)
 			show_end_window(spk_num1+spk_num2+spk_num3+spk_num4 == mic_num)
 		10:
 			var spk_num1 = $Speakers.get_child(0).number
@@ -364,9 +389,6 @@ func check_level(level):
 			var mic_num2 = $Microphones.get_child(1).number
 			var mic_num3 = $Microphones.get_child(2).number
 			var  mic_num4 = $Microphones.get_child(3).number
-			print(spk_num1," ",spk_num2," ",spk_num3)
-			print(mic_num1," ",mic_num2," ",mic_num3)
-			print("AHA!")
 			if spk_num1 == mic_num1 and spk_num2 == mic_num2 and spk_num3 == mic_num3 and spk_num4 ==mic_num4:
 				
 				if test_case == max_test_case:
@@ -472,6 +494,9 @@ func show_end_window(win):
 	$WinLoseWindow/Panel/RestartButton.set_focus_mode(0)
 	
 	if win:
+		$AudioStreamPlayerClick.stream = load("res://music/win.wav")
+		$AudioStreamPlayerClick.play()
+		$AudioStreamPlayer.stream_paused = true
 		var level_lines = count_level_lines()
 		GameFiles.data["level_code_lines"][Variables.level] = level_lines if GameFiles.data["level_code_lines"][Variables.level] > level_lines else GameFiles.data["level_code_lines"][Variables.level]
 		GameFiles.data["level_tick_count"][Variables.level] = step if GameFiles.data["level_tick_count"][Variables.level] > step else GameFiles.data["level_tick_count"][Variables.level]
@@ -480,6 +505,9 @@ func show_end_window(win):
 		GameFiles.save_points()
 		send_to_server()
 	else:
+		$AudioStreamPlayerClick.stream = load("res://music/lose.wav")
+		$AudioStreamPlayerClick.play()
+		$AudioStreamPlayer.stream_paused = true
 		$WinLoseWindow.title = ["Opsie wopsie..","Unlucky","Try more","Bad luck!"].pick_random()
 		$WinLoseWindow/Panel/InfoLabel.text = "You need to fix it!"
 	set_normal_mode() #FLAG
@@ -878,6 +906,8 @@ func _on_exit_button_pressed():
 
 
 func _on_full_screen_button_pressed():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		DisplayServer.window_set_size(Vector2(1280,704))
@@ -886,12 +916,16 @@ func _on_full_screen_button_pressed():
 
 
 func _on_restart_button_pressed():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	$WinLoseWindow.visible = false
 	level_end = false
 	set_normal_mode()
 
 
 func _on_exit_to_menu_button_pressed():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	$WinLoseWindow.visible = false
 	if Variables.current_save_file != -1:
 		GameFiles.code_save()
@@ -901,11 +935,29 @@ func _on_exit_to_menu_button_pressed():
 
 
 func _on_next_level_button_pressed():
-	
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	$WinLoseWindow.visible = false
 	level_end = false
 	level_complete = false
 	Variables.level+=1
+	
+	# music
+	if Variables.level <=5:
+		if $AudioStreamPlayer.stream != load("res://music/friday.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/friday.mp3")
+			$AudioStreamPlayer.playing = true
+
+	if Variables.level >=6 and Variables.level <10:
+		if $AudioStreamPlayer.stream != load("res://music/sakura long version.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/sakura long version.mp3")
+			$AudioStreamPlayer.playing = true
+			
+	if Variables.level >=10 and Variables.level <17:
+		if $AudioStreamPlayer.stream != load("res://music/sad with trumpet.mp3"):
+			$AudioStreamPlayer.stream = load("res://music/sad with trumpet.mp3")
+			$AudioStreamPlayer.playing = true
+	
 	Variables.first_look = true
 	if GameFiles.data["latest_level"]<Variables.level:
 		GameFiles.data["latest_level"] = Variables.level
@@ -919,17 +971,24 @@ func _on_next_level_button_pressed():
 
 
 func _on_help_window_close_requested():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	$HelpWindow.visible = false
 
 func _on_help_button_pressed():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	$HelpWindow.visible = !$HelpWindow.visible
 
 
 func _on_debug_button_pressed():
+	$AudioStreamPlayerClick.stream = load("res://music/click.wav")
+	$AudioStreamPlayerClick.play()
 	debug_mode = !debug_mode
 
 
 func _on_step_button_pressed():
+	
 	if !step_mode:
 		set_running_mode()
 		step_mode = true
@@ -971,15 +1030,14 @@ func send_to_server():
 	data_to_send["points"] = Variables.points
 	
 	var secret_key: String = get_secret_key()
-	
 	data_to_send["password"] = str(secret_key)
 	
 	var json = JSON.stringify(data_to_send)
 	#print(json)
 	var headers = ["Content-Type: application/json"]
-	var url = "http://127.0.0.1:8000/players/"
+	var url = "https://logibot.svs.gyarab.cz/players/"
 	$HTTPRequestScoreUpdate.request(url, headers, HTTPClient.METHOD_POST, json)
-
-func _on_http_request_score_update_request_completed(result, response_code, headers, body):
-	print("code: ",response_code)
 	
+
+func _on_audio_stream_player_finished():
+	$AudioStreamPlayer.play()
