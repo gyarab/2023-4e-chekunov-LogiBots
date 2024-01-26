@@ -462,8 +462,6 @@ func check_level(level):
 				sorted.append(i)
 			sorted.sort()
 			
-			print(sorted)
-			print(numbers)
 			if numbers == sorted:
 				if test_case == max_test_case:
 					show_end_window(true)
@@ -1033,7 +1031,7 @@ func send_to_server():
 	data_to_send["password"] = str(secret_key)
 	
 	var json = JSON.stringify(data_to_send)
-	#print(json)
+	
 	var headers = ["Content-Type: application/json"]
 	var url = "https://logibot.svs.gyarab.cz/players/"
 	$HTTPRequestScoreUpdate.request(url, headers, HTTPClient.METHOD_POST, json)
