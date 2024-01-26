@@ -91,13 +91,13 @@ func _process(delta):
 	if is_doing:
 		$AnimationPlayer.play(direction)
 		if direction == "left":
-			velocity = Vector2.LEFT * delta * 64 * 60 / Variables.tick_time
+			velocity = Vector2.LEFT * 64  / Variables.tick_time
 		if direction == "right":
-			velocity = Vector2.RIGHT * delta * 64 * 60 / Variables.tick_time
+			velocity = Vector2.RIGHT * 64 / Variables.tick_time
 		if direction == "up":
-			velocity = Vector2.UP * delta * 64 * 60 / Variables.tick_time
+			velocity = Vector2.UP  * 64 / Variables.tick_time
 		if direction == "down":
-			velocity = Vector2.DOWN * delta * 64 * 60 / Variables.tick_time
+			velocity = Vector2.DOWN * 64  / Variables.tick_time
 		move_and_slide()
 
 func iterator_update():

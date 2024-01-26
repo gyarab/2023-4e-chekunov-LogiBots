@@ -537,6 +537,10 @@ func bot_porcess(bot,i):
 			if len(line.rsplit(" ")) == 1:
 				if line[len(line)-1] == ":":
 					bot.iterator_update()
+					line = bot.code_lines[bot.iterator]
+			
+			if len(line.rsplit(" ")) == 1:
+				
 			# one word
 				if line == "swap" or line == "save":
 					bot.emit_signal(line)
@@ -546,7 +550,7 @@ func bot_porcess(bot,i):
 				elif bot.code_funcs.has(line):
 					bot.emit_signal("jump_to_func",line)
 				else:
-					show_error(bot.iterator,i,"wrong comand",line)
+					show_error(bot.iterator,i,"wrong comand single",line)
 					return
 			
 					
