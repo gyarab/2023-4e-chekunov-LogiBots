@@ -4,7 +4,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-20
+	$AudioStreamPlayer.volume_db = Variables.volume
 	
 	$HTTPRequestCreateUpdate.request_completed.connect(_on_request_completed)
 	$HTTPRequestLeaderBoard.request_completed.connect(_on_request_completed_leader_board)

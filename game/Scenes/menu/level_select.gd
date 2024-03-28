@@ -4,7 +4,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-20-10
+	$AudioStreamPlayer.volume_db = Variables.volume
 	
 	var dir = DirAccess.open("user://levels")
 	var levels = dir.get_files()
@@ -24,6 +24,7 @@ func _ready():
 		if level == 17:
 			lvl_button.disabled = false
 		else:
+			pass
 			lvl_button.disabled = level > GameFiles.data["latest_level"] - 1
 		# colors
 		if level <5:

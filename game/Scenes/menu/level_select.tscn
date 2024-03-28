@@ -60,6 +60,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_14tmd")
+volume_db = -6.469
 autoplay = true
 
 [connection signal="pressed" from="Control/BackButton" to="." method="_on_back_button_pressed"]

@@ -35,7 +35,7 @@ func _ready():
 			$AudioStreamPlayer.stream = load("res://music/sad with trumpet.mp3")
 			$AudioStreamPlayer.playing = true
 	
-	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-30
+	$AudioStreamPlayer.volume_db = Variables.volume
 	
 	
 	Variables.current_screen = "level"
@@ -260,10 +260,10 @@ func _process(_delta):
 				break
 			if not Variables.bots[i].available:
 				continue
-			bot_porcess(Variables.bots[i],i)
+			bot_process(Variables.bots[i],i)
 		
 		for bot in Variables.hoping_bots:
-			bot_porcess(bot,bot.id)
+			bot_process(bot,bot.id)
 			Variables.hoping_bots.erase(bot)
 		Variables.hoping_bots = []
 		emit_signal("all_bots_ready")
@@ -519,7 +519,7 @@ func count_level_lines():
 	
 	return lines_count
 
-func bot_porcess(bot,i):
+func bot_process(bot,i):
 			# line
 			var line:String = bot.code_lines[bot.iterator]
 			

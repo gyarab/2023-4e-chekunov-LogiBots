@@ -3,16 +3,15 @@ extends Node2D
 var can_send_to_level:bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	$Control/Audio/Panel/HSlider.value = Variables.volume
-	
-	if Variables.volume == 69:
+	$Control/Audio/Panel/HSlider.value = db_to_linear(Variables.volume)*100
+	print(Variables.volume)
+	if  Variables.volume== 0:
 		var tween = get_tree().create_tween()
 		$Control/Audio/Panel/HSlider.value = 0
 		tween.tween_property($Control/Audio/Panel/HSlider,"value",50,3)
 		
 		tween.play()
-	
+		
 	Variables.current_screen = "menu"
 	
 	GameFiles.last_user_load()
@@ -27,7 +26,7 @@ func play_click():
 	$AudioStreamPlayer.play()
 	
 func _process(delta):
-	$AudioStreamPlayer.volume_db = 20 * (Variables.volume/100.0)-20
+	$AudioStreamPlayer.volume_db = Variables.volume
 func _on_quit_button_pressed():
 	get_tree().quit()
 
@@ -63,5 +62,4 @@ func _on_online_button_pressed():
 
 
 func _on_h_slider_value_changed(value):
-	Variables.volume = value
-	
+	Variables.volume = linear_to_db(value/100)

@@ -5,7 +5,7 @@ var level := 1
 
 var points:= 0
 
-var volume:= 69
+var volume:float= 69
 
 
 # object_intro

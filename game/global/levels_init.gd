@@ -13,7 +13,7 @@ saves:
 func create_levels():
 	
 	#level 1
-	LevelClass.save_level(1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","move to the plate")
+	LevelClass.save_level(1,[Vector2(5,5)],[],[],[],[Vector2(10,5)],"movement","Nove to the plate.")
 	
 	# level 2
 	var boxes := []
@@ -25,10 +25,10 @@ func create_levels():
 	boxes.append(Vector2(11,5))
 	boxes.append(Vector2(11,3))
 	boxes.append(Vector2(4,3))
-	LevelClass.save_level(2,[Vector2(5,3),Vector2(10,5)],boxes,[],[],[Vector2(10,3),Vector2(5,5)],"movement 2","move every bot to plate")
+	LevelClass.save_level(2,[Vector2(5,3),Vector2(10,5)],boxes,[],[],[Vector2(10,3),Vector2(5,5)],"movement 2","Move every bot to the plate.")
 	
 	# level 3
-	LevelClass.save_level(3,[Vector2(1,1),Vector2(14,8)],[Vector2(2,0),Vector2(2,1),Vector2(2,2),Vector2(2,3),Vector2(2,4),Vector2(2,5),Vector2(2,6),Vector2(2,7),Vector2(2,8),Vector2(3,2),Vector2(3,6),Vector2(4,2),Vector2(4,8),Vector2(4,9),Vector2(4,4),Vector2(5,2),Vector2(5,4),Vector2(5,5),Vector2(5,6),Vector2(5,7),Vector2(5,8),Vector2(6,2),Vector2(6,4),Vector2(7,2),Vector2(7,3),Vector2(7,4),Vector2(9,0),Vector2(9,1),Vector2(9,2),Vector2(9,3),Vector2(9,4),Vector2(9,5),Vector2(10,0),Vector2(10,5),Vector2(11,0),Vector2(11,1),Vector2(11,2),Vector2(11,3),Vector2(11,5),Vector2(12,5),Vector2(13,1),Vector2(13,2),Vector2(13,3),Vector2(13,4),Vector2(13,5),Vector2(13,6),Vector2(13,7),Vector2(13,8),Vector2(13,9)],[],[],[Vector2(6,3),Vector2(10,1)],"movement 3","Move every bot to plate")
+	LevelClass.save_level(3,[Vector2(1,1),Vector2(14,8)],[Vector2(2,0),Vector2(2,1),Vector2(2,2),Vector2(2,3),Vector2(2,4),Vector2(2,5),Vector2(2,6),Vector2(2,7),Vector2(2,8),Vector2(3,2),Vector2(3,6),Vector2(4,2),Vector2(4,8),Vector2(4,9),Vector2(4,4),Vector2(5,2),Vector2(5,4),Vector2(5,5),Vector2(5,6),Vector2(5,7),Vector2(5,8),Vector2(6,2),Vector2(6,4),Vector2(7,2),Vector2(7,3),Vector2(7,4),Vector2(9,0),Vector2(9,1),Vector2(9,2),Vector2(9,3),Vector2(9,4),Vector2(9,5),Vector2(10,0),Vector2(10,5),Vector2(11,0),Vector2(11,1),Vector2(11,2),Vector2(11,3),Vector2(11,5),Vector2(12,5),Vector2(13,1),Vector2(13,2),Vector2(13,3),Vector2(13,4),Vector2(13,5),Vector2(13,6),Vector2(13,7),Vector2(13,8),Vector2(13,9)],[],[],[Vector2(6,3),Vector2(10,1)],"movement 3","Move every bot to the plate.")
 	
 	# level 4
 	boxes = []
@@ -46,7 +46,7 @@ func create_levels():
 	boxes.append(Vector2(13,5))
 	boxes.append(Vector2(3,5))
 	
-	LevelClass.save_level(4,[Vector2(4,5),Vector2(12,5)],boxes,[],[],[Vector2(4,5),Vector2(12,5)],"movement 3","change bot position between them")
+	LevelClass.save_level(4,[Vector2(4,5),Vector2(12,5)],boxes,[],[],[Vector2(4,5),Vector2(12,5)],"movement 3","Swap positions between two robots.")
 	
 	# level 5
 	boxes = []
@@ -71,7 +71,7 @@ func create_levels():
 	boxes.append(Vector2(13,5))
 	boxes.append(Vector2(3,5))
 	
-	LevelClass.save_level(5,[Vector2(4,5),Vector2(12,5),Vector2(8,1)],boxes,[],[],[Vector2(4,5),Vector2(8,1),Vector2(12,5)],"movement 3","change bot position between them.")
+	LevelClass.save_level(5,[Vector2(4,5),Vector2(12,5),Vector2(8,1)],boxes,[],[],[Vector2(4,5),Vector2(8,1),Vector2(12,5)],"movement 3","Swap positions between three robots.")
 	
 	# level 6
 	boxes = []
@@ -80,15 +80,15 @@ func create_levels():
 			if i == 0 or i == 15 or j == 0 or j == 9:
 				boxes.append(Vector2(i,j))
 
-	LevelClass.save_level(6,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"counting","sum two numbers from red speaker and say it to green mic.")
+	LevelClass.save_level(6,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"counting","Sum two numbers from red speaker and say it to green microphone.")
 	
 	# level 7
 	
-	LevelClass.save_level(7,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,5),-10000]],[],"If Else","Say to green mic 1 if the number is positive\nSay -1 if not.")
+	LevelClass.save_level(7,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,5),-10000]],[],"If Else","Say to green microphone 1 if the number is positive\nSay -1 if not.")
 	
 	# level 8
 	
-	LevelClass.save_level(8,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"Two numbers","Check if two numbers are the same if is, say 1. If not say -1.")
+	LevelClass.save_level(8,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10000],[Vector2(2,7),-10000]],[],"Two numbers","Check if two numbers are the same if they are, say 1. If not say -1.")
 	
 	#level 9
 	for i in range(1,5):
@@ -107,7 +107,7 @@ func create_levels():
 	boxes.append(Vector2(6,6))
 
 	
-	LevelClass.save_level(9,[Vector2(2,2),Vector2(2,4),Vector2(2,6),Vector2(2,8)],boxes,[[Vector2(12,5),0]],[[Vector2(1,2),-10000],[Vector2(1,4),-10000],[Vector2(1,6),-10000],[Vector2(1,8),-10000]],[],"Great sum","Sum all numbers from speakers. Say result to green mic.")
+	LevelClass.save_level(9,[Vector2(2,2),Vector2(2,4),Vector2(2,6),Vector2(2,8)],boxes,[[Vector2(12,5),0]],[[Vector2(1,2),-10000],[Vector2(1,4),-10000],[Vector2(1,6),-10000],[Vector2(1,8),-10000]],[],"Great sum","Sum all numbers from speakers. Say result to green microphone.")
 	
 	#level 10
 	boxes = []
@@ -132,7 +132,7 @@ func create_levels():
 			if j != 5:
 				boxes.append(Vector2(i,j))
 				
-	LevelClass.save_level(12,[Vector2(5,5),Vector2(10,5),Vector2(8,5),Vector2(9,5),Vector2(7,5),Vector2(6,5)],boxes,[[Vector2(13,1),0],[Vector2(13,5),0],[Vector2(13,3),0],[Vector2(13,7),0]],[[Vector2(2,1),-10000],[Vector2(2,5),-10000],[Vector2(2,3),-10000],[Vector2(2,7),-10000]],[],"Copy Mashine","copy numbers from left to right")
+	LevelClass.save_level(12,[Vector2(5,5),Vector2(10,5),Vector2(8,5),Vector2(9,5),Vector2(7,5),Vector2(6,5)],boxes,[[Vector2(13,1),0],[Vector2(13,5),0],[Vector2(13,3),0],[Vector2(13,7),0]],[[Vector2(2,1),-10000],[Vector2(2,5),-10000],[Vector2(2,3),-10000],[Vector2(2,7),-10000]],[],"Copy Mashine","Copy numbers from left speakers to right microphones.")
 	
 	# level 13
 	boxes = []
@@ -143,7 +143,7 @@ func create_levels():
 			if j < 4 and not [2,4,6,9,11,13].has(i):
 				boxes.append(Vector2(i,j))
 				
-	LevelClass.save_level(13,[Vector2(2,2),Vector2(4,2),Vector2(6,2),Vector2(9,2),Vector2(11,2),Vector2(13,2)],boxes,[[Vector2(8,8),0]],[[Vector2(2,1),-10000],[Vector2(4,1),-10000],[Vector2(6,1),-10000],[Vector2(9,1),-10000],[Vector2(11,1),-10000],[Vector2(13,1),-10000]],[],"Battle Royale","Every bot has a number above him. write bot INDEX with biggest number")
+	LevelClass.save_level(13,[Vector2(2,2),Vector2(4,2),Vector2(6,2),Vector2(9,2),Vector2(11,2),Vector2(13,2)],boxes,[[Vector2(8,8),0]],[[Vector2(2,1),-10000],[Vector2(4,1),-10000],[Vector2(6,1),-10000],[Vector2(9,1),-10000],[Vector2(11,1),-10000],[Vector2(13,1),-10000]],[],"Battle Royale","Every bot has a number above him. Write bot INDEX with biggest number.")
 	
 	# level 14
 	boxes = []
@@ -162,7 +162,7 @@ func create_levels():
 	LevelClass.save_level(16,[Vector2(5,6),Vector2(10,4)],boxes,[[Vector2(5,5),-10000],[Vector2(6,5),-10000],[Vector2(7,5),-10000],[Vector2(8,5),-10000],[Vector2(9,5),-10000],[Vector2(10,5),-10000]],[[Vector2(5,7),0],[Vector2(6,7),1],[Vector2(7,7),2],[Vector2(8,7),3],[Vector2(9,7),4],[Vector2(10,7),5],[Vector2(5,3),0],[Vector2(6,3),1],[Vector2(7,3),2],[Vector2(8,3),3],[Vector2(9,3),4],[Vector2(10,3),5]],[],"sorter","There is an ARRAY of numbers. Sort it :) ")
 	
 	# level 17
-	LevelClass.save_level(17,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10001],[Vector2(2,7),-10001]],[],"multiplying","multiply two numbers from red speaker and say result to green mic.")
+	LevelClass.save_level(17,[Vector2(8,5)],boxes,[[Vector2(12,5),0]],[[Vector2(2,2),-10001],[Vector2(2,7),-10001]],[],"multiplying","Multiply two numbers from red speaker and say result to green mic.")
 	
 	# level 19
 	LevelClass.save_level(18,[Vector2(8,5),Vector2(14,1),Vector2(14,2),Vector2(14,3),Vector2(14,4),Vector2(14,5)],boxes,[[Vector2(1,1),-10000],[Vector2(1,2),-10000],[Vector2(1,3),-10000],[Vector2(1,4),-10000],[Vector2(1,5),-10000],[Vector2(1,6),-10000],[Vector2(1,7),-10000],[Vector2(1,8),-10000]],[],[],"sandbox","Have fun!")
