@@ -10,7 +10,7 @@ Vašim úkolem je naprogramovat roboty a vyřešit hádanky. K dispozici mate do
 
 ![logibot gif](https://github.com/gyarab/2023-4e-chekunov-LogiBots/assets/83403425/d3b6bf9e-6f7b-4141-bba7-b18dc6744862)
 
-hru si můžete zahrát ![zde](https://github.com/gyarab/2023-4e-chekunov-LogiBots/releases/tag/v1.0.0)
+hru si můžete zahrát [zde](https://github.com/gyarab/2023-4e-chekunov-LogiBots/releases/tag/v1.0.0)
 
 ---
 EN
@@ -20,6 +20,6 @@ EN
 - Synchronization puzzles. 
 Your mission is to program the robots and solve the puzzles. There is a LogiDocs documentation to get better acquainted with the game and the robots.
 
-you can play the game ![here](https://github.com/gyarab/2023-4e-chekunov-LogiBots/releases/tag/v1.0.0)
+you can play the game [here](https://github.com/gyarab/2023-4e-chekunov-LogiBots/releases/tag/v1.0.0)
 
 ![Godot badge](https://img.shields.io/badge/Godot-v4.2-%23478cbf?logo=godot-engine&logoColor=white)
